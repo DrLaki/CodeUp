@@ -1,0 +1,104 @@
+@import "vars.css";
+
+body {
+  background: var(--custom-light-grey);
+}
+
+section#main {
+  margin: 40px 20px;
+}
+
+.window-wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+
+}
+
+.window-wrapper > div {
+  --bg-color : #e3e7ef;
+  background:var(--bg-color);
+  border-radius: 10px;
+  color: var(--custom-dark-grey-w-opacity);
+  font-weight: bold;
+  grid-column: 2/5;
+}
+
+div#log-in h2 {
+  text-align: center;
+  padding-bottom: 30px;
+}
+div#sign-up h2 {
+  text-align: center;
+  padding-bottom: 30px;
+}
+
+h2 {
+  font-size: 1.3em;
+}
+
+div#log-in form {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+div#sign-up form {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-gap: 0;
+}
+form .field-wrap {
+  width: 300px;
+  height: 30px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin: 0 auto;
+}
+form .field-wrap label {
+  flex-basis: 30%;
+  text-align: right;
+}
+form .field-wrap input {
+  flex-basis: 50%;
+}
+
+
+label {
+  font-size: 0.9em;
+  padding-right: 20px;
+}
+
+
+.forgot {
+  font-size: 0.7em;
+  flex-basis: 60%;
+  text-align: center;
+}
+
+.forgot a {
+  color: var(--custom-blue);
+
+}
+
+.button-wrap {
+  text-align: center;
+  margin: 15px 0;
+  padding: 0 10px;
+}
+
+.submit-button {
+  border-radius: 5px;
+  padding: 3px 8px;
+  background-color: var(--custom-blue);
+  color: #fff;
+  font-weight: bold;
+}
+
+.terms-of-service {
+  font-size: 0.6em;
+}
+
+.button-wrap a{
+  text-decoration: none;
+  color: var(--custom-blue);
+}

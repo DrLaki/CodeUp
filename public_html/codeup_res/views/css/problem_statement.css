@@ -1,0 +1,154 @@
+@import "vars.css";
+
+
+section#main {
+  --custom-border : 1px solid #777;
+
+  background: var(--custom-light-grey);
+  padding:10px 30px;
+
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 10%;
+}
+
+a, .attr {
+  color : var(--custom-blue);
+  font-weight: bold;
+  font-size: 0.9em;
+  display: inline;
+
+}
+
+.value {
+  color: #222;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+li {
+  display: inline;
+  font-size: 0.95em;
+}
+
+ul {
+  padding-left: 10px;
+}
+
+.main-header {
+  grid-column: 1/-1;
+  display: flex;
+  flex-flow: row;
+  border-bottom: var(--custom-border);
+}
+  .main-header .path {
+    flex-basis: 60%;
+    padding-top: 0;
+  }
+
+  .main-header .progress {
+    flex-basis: 40%;
+    text-align: right;
+    text-align: center;
+    margin: 15px 0px;
+    font-weight: bold;
+    font-size: 1em;
+  }
+
+.problem-window {
+  grid-column: 1/-1;
+  margin-left: 10px;
+}
+
+.problem-name {
+
+}
+.problem-name h2{
+  margin-top: 30px;
+  margin-bottom: 5px;
+  font-size: 2em;
+}
+
+.problem-name .attr {
+  margin-left: 10px;
+}
+
+.navigation {
+    margin-top: 30px;
+    border-top : var(--custom-border);
+    border-bottom : var(--custom-border);
+
+    display: flex;
+}
+
+.navigation li {
+    margin: 0 20px;
+}
+
+.navigation a {
+  padding: 3px 10px;
+  font-size: 1em;
+}
+
+.problem-descr {
+  margin: 50px 10px;
+}
+  .problem-descr h4 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding-bottom: 0;
+  }
+  .problem-descr p {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    padding: 8px 15px;
+  }
+
+.field {
+  --highlight-color: #8b959b;
+  background: var(--highlight-color);
+}
+
+
+@media(min-width: 1000px){
+  section#main {
+    grid-template-columns: repeat(7, 1fr);
+  }
+  .main-header {
+    grid-column: 2/7;
+  }
+
+  .problem-window {
+    grid-column: 2/7;
+  }
+
+}
+
+.editor-window {
+  margin: 60px 20px;
+}
+
+.editor-options ul {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+div#codeeditor {
+  border: 10px solid var(--custom-blue);
+  border-radius: 20px;
+}
+
+.editor-options ul li a {
+  padding: 10px 15px;
+  margin: 0 5px;
+  color: #fff;
+  background: var(--custom-blue);
+  border-radius: 10px;
+}
+
+
+
+
+
+
+/* end */
