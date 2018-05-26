@@ -1,6 +1,8 @@
 <?php
 $controller = NULL;
 
+session_start();
+unset($_SESSION['user']);
 if(!isset($_SESSION['user'])) {
     require_once("../codeup_res/controllers/guest_controller.php");
     $controller = new GuestController();
