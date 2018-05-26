@@ -6,7 +6,7 @@
               <h2 class="tab-title">Create an Account and Join Us Today</h2>
 
               <p>
-                  <?php if($message != "") echo $message ?>
+                  <?php if($error_message != "") echo $error_message ?>
               </p>
 
               <form action="signup" method="post">
