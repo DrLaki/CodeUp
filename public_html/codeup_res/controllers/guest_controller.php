@@ -49,16 +49,16 @@ class GuestController {
     public function register() {
         $error_message = "";
 
-        if (! all_fields_are_set () {
+        if (! $this->all_fields_are_set ()) {
             //user vists signup page for the first time, nothing has been
             //submitted yet
                 require_once("../codeup_res/views/signup.php");
         }
-        else if (!all_field_are_filled()){
+        else if (!$this->all_field_are_filled()){
             $error_message = "Please, fill in the form.";
             require_once("../codeup_res/views/signup.php");
         }
-        else if (!password_confirm_matches_password(){
+        else if (!$this->password_confirm_matches_password()){
             $error_message = "Passwords do not match.";
             require_once("../codeup_res/views/signup.php");
         }
