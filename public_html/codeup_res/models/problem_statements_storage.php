@@ -5,68 +5,69 @@ define("RESULTS_PER_PAGE", 4);
 
 class ProblemStatementsStorage {
 
+    //first value is used as a file name and second value is used for displaying
     private static $tracks = array(
         'algorithms' => 'Algorithms',
         'data_structures' => 'Data Structures',
         'artificial_intelligence' => 'Artificial Intelligence'
     );
+    //first value is used as a file name and second value is used for displaying
     private static $languages = array(
         'python' => 'Python',
         'java' => "Java",
         'c++' => 'C++'
     );
 
-    public static function get_tracks() {
+
+    private static $track_categories = array(
+        'algorithms' => array('warm_up' => 'WarmUp', 'strings' =>'Strings', 'sorting' =>'Sorting', 'search' => 'Search', 'graphs' => 'Graphs', 'greedy' => 'Greedy', 'dynamic_programming' => 'Dynamic Programming'),
+        'data_structures' => array('warm_up' => 'WarmUp', 'linked_lists' => 'Linked Lists', 'trees' => 'Trees'),
+        'artificial_intelligence' => array('warm_up' => 'WarmUp', 'games' => 'Games', 'bot_building' => 'Bot Building')
+    );
+
+    //the most inner array: first field is problem_id, second is problem_name, third is $problem_difficulty and fourth is problem_max_score
+    private static $category_problem_statements = array(
+        'algorithms' => array(
+            'warm_up' => array(array("0", "Hello World", "Easy", "10"), array("1", "Array Sum", "Easy", "10"), array("2", "Powers of two", "Easy", "10"), array("3", "Fibonnaci", "Medium", "20"), array("4", "Triplets", "Easy", "10")),
+            'strings' => array(),
+            'sorting' => array(),
+            'search' => array(),
+            'graphs' => array(),
+            'greedy' => array(),
+            'dynamic_programming' => array()
+        ),
+        'data_structures' => array(
+            'warm_up' => array(),
+            'linked_lists' => array(),
+            'trees' => array()
+        ),
+        'artificial_intelligence' => array(
+            'warm_up' => array(),
+            'bot_building' => array(),
+            'games' => array()
+        )
+    );
+
+    public static function tracks() {
         return self::$tracks;
     }
 
-    public static function get_languages() {
+    public static function languages() {
         return self::$languages;
     }
 
-    private static $track_categories = array(
-        'algorithms' => array('WarmUp' => 'WarmUp', 'Strings' =>'Strings', 'Sorting' =>'Sorting', 'Search' => 'Search', 'Graphs' => 'Graphs', 'Greedy' => 'Greedy', 'DynamicProgramming' => 'Dynamic Programming'),
-        'data_structures' => array('WarmUp' => 'WarmUp', 'LinkedLists' => 'Linked Lists', 'Trees' => 'Trees'),
-        'artificial_intelligence' => array('WarmUp' => 'WarmUp', 'Games' => 'Games', 'BotBuilding' => 'Bot Building')
-    );
 
-    public static function get_categories($track_name) {
+    public static function categories($track_name) {
         return self::$track_categories[$track_name];
     }
 
 
-    private static $all_problems = array();
-
-
-    private static $problems_in_categories = array(
-        'algorithms' => array(
-            'WarmUp' => array(array("0", "Hello World", "Easy", "10"), array("1", "Array Sum", "Easy", "10"), array("2", "Powers of two", "Easy", "10"), array("3", "Fibonnaci", "Medium", "20"), array("4", "Triplets", "Easy", "10")),
-            'Strings' => array(),
-            'Sorting' => array(),
-            'Search' => array(),
-            'Graphs' => array(),
-            'Greedy' => array(),
-            'DynamicProgramming' => array()
-        ),
-        'data_structures' => array(
-            'WarmUp' => array(),
-            'LinkedLists' => array(),
-            'Trees' => array()
-        ),
-        'artificial_intelligence' => array(
-            'WarmUp' => array(),
-            'BotBuilding' => array(),
-            'Games' => array()
-        )
-    );
-
-
-    public static function get_problem_count($track_name, $category_name) {
-        return (float)count(self::$problems_in_categories[$track_name][$category_name]);
+    public static function count_problem_statements_in_category($track_name, $category_name) {
+        return count(self::$category_problem_statements[$track_name][$category_name]);
     }
 
-    public static function get_problems($track_name, $category_name, $page_num) {
-        return array_slice(self::$problems_in_categories[$track_name][$category_name], ($page_num - 1) * RESULTS_PER_PAGE, RESULTS_PER_PAGE);
+    public static function problem_statements($track_name, $category_name, $page_num) {
+        return array_slice(self::$category_problem_statements[$track_name][$category_name], ($page_num - 1) * RESULTS_PER_PAGE, RESULTS_PER_PAGE);
     }
 
 

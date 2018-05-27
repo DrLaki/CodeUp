@@ -19,9 +19,4 @@ function render($file, $args = NULL) {
     require_once($PATH);
 }
 
-
-function algorithm_subcategories() {
-    return array('WarmUp', 'Strings', 'Sorting', 'Search', 'Graphs', 'Greedy', 'Dynamic Programming');
-}
-
  ?>
