@@ -47,19 +47,13 @@ class AccountManager {
 
     public static function login($username, $password) {
         foreach (self::$users as $user) {
-            if($user["username"] == $username && $user["password"] == $password)
-                return TRUE;
+            if($user["username"] == $username && $user["password"] == $password){
+                    $_SESSION['user'] = $user['type'];
+                    return TRUE;
+            }
         }
         return FALSE;
     }
-
-    public static function user_type($username) {
-        foreach (self::$users as $user) {
-            if($user["username"] == $username)
-                return $user["type"];
-        }
-    }
-
 }
 
 ?>

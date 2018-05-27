@@ -20,15 +20,6 @@ class GuestController {
         require_once("../codeup_res/views/guest_index.php");
     }
 
-    //style sheets za explore.php
-    public function explore_style_sheets() {
-        return array('style.css', 'explore.css');
-    }
-
-    public function explore() {
-        require_once("../codeup_res/views/explore.php");
-    }
-
 
     public function register_style_sheets() {
         return array('style.css', 'login.css');
@@ -116,7 +107,6 @@ class GuestController {
             $password = $_POST['password'];
 
             if(AccountManager::login($username, $password)) {
-                $_SESSION['user'] = AccountManager::user_type($username);
                 header("Location: ./");
             }
             else {
@@ -124,7 +114,6 @@ class GuestController {
                 require_once("../codeup_res/views/login.php");
             }
         }
-
     }
 }
 ?>
