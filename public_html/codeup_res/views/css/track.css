@@ -1,0 +1,122 @@
+@import "vars.css";
+
+section#main {
+  background: var(--custom-light-grey);
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  --font-color :#6c7889;
+}
+
+section#main a#path-to-problem {
+  grid-column: 1/-1;
+  padding: 15px;
+  border-bottom: 2px solid black;
+  font-size: 0.85em;
+  font-weight: bolder;
+  color: var(--font-color);
+}
+
+section#main div#categories {
+  grid-column: 1;
+}
+  section#main div#categories .category{
+    padding: 3px 5px;
+    font-size: 0.85em;
+  }
+
+  section#main div#categories .category a{
+    text-decoration: none;
+    color: var(--font-color);
+  }
+
+  section#main div#categories .curr-category {
+    border-left: 4px solid var(--custom-orange);
+  }
+
+section#main div#problem-statements {
+  grid-column: 2/5;
+  justify-content: center;
+}
+
+section#main div#problem-statement ul {
+
+}
+
+section#main div#problem-statements li {
+    border: 1px solid var(--custom-dark-grey-w-opacity);
+    border-radius: 7px;
+    margin: 20px;
+    padding: 5px 15px;
+}
+
+section#main div#problem-statements .problem-statement {
+  display: grid;
+  grid-template-areas: 'title title'
+                        'stats solve';
+}
+
+.problem-name {
+  grid-area: title;
+
+  margin-top: 10px;
+  color: var(--custom-dark-grey);
+}
+
+.stats {
+  grid-area: stats;
+  align-self: center;
+  font-size: 0.85em;
+  font-weight: bolder;
+  color: var(--custom-dark-grey-w-opacity);
+}
+  .stats .value {
+    color: #222;
+  }
+
+button {
+  width: 100px;
+  height: 27px;
+  border-radius: 3px;
+  --button-grey : #db6630;
+  background: var(--button-grey);
+  color: var(--custom-light-grey);
+}
+
+.submit-button {
+  grid-area: solve;
+  margin: 0 auto;
+  justify-content: center;
+
+
+  margin-right: 10px;
+  margin-bottom: 5px;
+
+}
+
+.page-nav {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.page-nav i {
+  color: var(--custom-dark-grey);
+  padding: 3px 6px;
+}
+
+.page-nav button {
+    min-width: 50px;
+    margin: 0 10px;
+
+}
+
+
+
+
+
+
+
+
+
+/* end */
