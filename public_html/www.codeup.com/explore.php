@@ -11,7 +11,7 @@ render('header', array(
     'navigation' => $controller->header_navigation()
 ));
 
-display_explore();
+render_explore();
 
 render('footer');
 ?>

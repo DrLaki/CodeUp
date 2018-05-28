@@ -11,7 +11,7 @@ render('header', array(
     'navigation' => $controller->header_navigation()
 ));
 
-display_track('data_structures');
+render_track('data_structures');
 
 render('footer');
 ?>

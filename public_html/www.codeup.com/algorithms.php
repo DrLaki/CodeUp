@@ -11,7 +11,7 @@ render('header', array(
     'navigation' => $controller->header_navigation()
 ));
 
-display_track('algorithms');
+render_track('algorithms');
 
 render('footer');
 ?>

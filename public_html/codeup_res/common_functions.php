@@ -4,7 +4,7 @@ function explore_style_sheets() {
     return array('style.css', 'explore.css');
 }
 
-function display_tracks() {
+function render_tracks() {
     $tracks = ProblemStatementsStorage::tracks();
     foreach ($tracks as $track => $track_name_to_display) {
         echo '<div class="category">
@@ -17,7 +17,7 @@ function display_tracks() {
     }
 }
 
-function display_languages() {
+function render_languages() {
     $languages = ProblemStatementsStorage::languages();
     foreach ($languages as $language => $language_name_to_display) {
         echo '<div class="category">
@@ -30,7 +30,7 @@ function display_languages() {
     }
 }
 
-function display_explore() {
+function render_explore() {
     require_once("../codeup_res/models/problem_statements_storage.php");
     require_once("../codeup_res/views/explore.php");
 }
@@ -46,7 +46,7 @@ function path_to_problem($track_name, $category_name) {
     echo '<a href="' . $track_name . '?category=' . $category_name . '" class="page">' . ProblemStatementsStorage::categories($track_name)[$_GET['category']] . '</a>';
 }
 
-function display_categories($track, $categories) {
+function render_categories($track, $categories) {
     foreach ($categories as $category => $category_name_to_display) {
         if($category == $_GET['category']) {
             echo '<li class="category curr-category"> <a href="' . $track . '?category=' . $category . '">' . $category_name_to_display .'</a> </li>';
@@ -57,7 +57,7 @@ function display_categories($track, $categories) {
     }
 }
 
-function display_problem_statements($track_name, $category_name) {
+function render_problem_statements($track_name, $category_name) {
     $problem_statements = ProblemStatementsStorage::problem_statements($track_name, $category_name, (int)$_GET['page']);
     foreach ($problem_statements as $problem_statement) {
         $problem_id = $problem_statement[0];
@@ -84,7 +84,7 @@ function display_problem_statements($track_name, $category_name) {
 }
 
 
-function display_navigation($track_name, $category_name) {
+function render_navigation($track_name, $category_name) {
     $problem_statements_count = ProblemStatementsStorage::count_problem_statements_in_category($track_name, $category_name);
     if($problem_statements_count == 0)
         return;
@@ -110,26 +110,34 @@ function display_navigation($track_name, $category_name) {
     }
 }
 
-function display_track($track_name) {
+function error_happened($track_name){
+    if(!isset($_GET['category'])) {
+        return TRUE;
+    }
+    else if(!array_key_exists($_GET['category'], ProblemStatementsStorage::categories($track_name))){
+        return TRUE;
+    }
+    else {
+        return FALSE;
+    }
+}
+
+function render_track($track_name) {
     require_once("../codeup_res/models/problem_statements_storage.php");
+
+    if(error_happened($track_name)){
+        require_once("../codeup_res/error404.php");
+        return;
+    }
 
     if(!isset($_GET['page'])) {
         $_GET['page'] = 1;
     }
 
-    if(!isset($_GET['category'])) {
-        require_once("../codeup_res/error404.php");
-        return;
-    }
-    else if(!array_key_exists($_GET['category'], ProblemStatementsStorage::categories($track_name))){
-        require_once("../codeup_res/error404.php");
-        return;
-    }
-    else {
-        $track_categories = ProblemStatementsStorage::categories($track_name);
-        $category_name = $_GET['category'];
-        require_once("../codeup_res/views/track.php");
-    }
+    $track_categories = ProblemStatementsStorage::categories($track_name);
+    $category_name = $_GET['category'];
+    require_once("../codeup_res/views/track.php");
+
 }
 
 ?>
