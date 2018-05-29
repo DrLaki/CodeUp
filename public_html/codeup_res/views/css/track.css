@@ -16,20 +16,20 @@ section#main a#path-to-problem {
   color: var(--font-color);
 }
 
-section#main div#subcategories {
+section#main div#categories {
   grid-column: 1;
 }
-  section#main div#subcategories .subcategory{
+  section#main div#categories .category{
     padding: 3px 5px;
     font-size: 0.85em;
   }
 
-  section#main div#subcategories .subcategory a{
+  section#main div#categories .category a{
     text-decoration: none;
     color: var(--font-color);
   }
 
-  section#main div#subcategories .curr-subcategory {
+  section#main div#categories .curr-category {
     border-left: 4px solid var(--custom-orange);
   }
 
