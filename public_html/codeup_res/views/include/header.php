@@ -10,9 +10,22 @@
 
         <title><?php echo $title; ?></title>
 
-        <?php foreach($css as $style) { ?>
-        <link rel="stylesheet" href="../codeup_res/views/css/<?= $style ?>" />
-        <?php }; ?>
+        <?php
+        foreach($css as $style) {
+            echo '<link rel="stylesheet" href="../codeup_res/views/'. $style . '" />';
+            echo "\n\t\t";
+        };
+        ?>
+
+        <?php
+        if(isset($scripts)) {
+            foreach($scripts as $script) {
+                echo '<script src="' . $script . '"></script>';
+                echo "\n\t\t";
+            }
+        };
+        ?>
+
     </head>
 
     <body>

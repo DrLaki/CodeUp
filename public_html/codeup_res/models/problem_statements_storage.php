@@ -5,13 +5,13 @@ define("RESULTS_PER_PAGE", 4);
 
 class ProblemStatementsStorage {
 
-    //first value is used as a file name and second value is used for displaying
+    //key is used as a file name and value is used for displaying
     private static $tracks = array(
         'algorithms' => 'Algorithms',
         'data_structures' => 'Data Structures',
         'artificial_intelligence' => 'Artificial Intelligence'
     );
-    //first value is used as a file name and second value is used for displaying
+    //key is used as a file name and value is used for displaying
     private static $languages = array(
         'python' => 'Python',
         'java' => "Java",
@@ -48,6 +48,82 @@ class ProblemStatementsStorage {
         )
     );
 
+    //key is problem_statement_id
+    private static $all_problems = array(
+        '0' => array(
+            'name' => 'Hello World',
+            'difficulty' => 'Easy',
+            'max_score' => '10',
+            'track' => 'algorithms',
+            'category' => 'warm_up',
+            'description' => 'Print out "Hello, World!" to the standard output.',
+            'sample_input' => 'No input',
+            'sample_output' => 'Hello, World!',
+            'explanation' => 'None.'
+        ),
+        '1' => array(
+            'name' => 'Array Sum',
+            'difficulty' => 'Easy',
+            'max_score' => '10',
+            'track' => 'algorithms',
+            'category' => 'warm_up',
+            'description' => '',
+            'sample_input' => '',
+            'sample_output' => '',
+            'explanation' => ''
+        ),
+        '2' => array(
+            'name' => 'Powers of Two',
+            'difficulty' => 'Easy',
+            'max_score' => '10',
+            'track' => 'algorithms',
+            'category' => 'warm_up',
+            'description' => '',
+            'sample_input' => '',
+            'sample_output' => '',
+            'explanation' => ''
+        ),
+        '3' => array(
+            'name' => 'Fibonnaci',
+            'difficulty' => 'Medium',
+            'max_score' => '20',
+            'track' => 'algorithms',
+            'category' => 'warm_up',
+            'description' => '',
+            'sample_input' => '',
+            'sample_output' => '',
+            'explanation' => ''
+        ),
+        '4' => array(
+            'name' => 'Triplets',
+            'difficulty' => 'Easy',
+            'max_score' => '10',
+            'track' => 'algorithms',
+            'category' => 'warm_up',
+            'description' => '',
+            'sample_input' => '',
+            'sample_output' => '',
+            'explanation' => ''
+        )
+    );
+
+
+    private static $sample_test_cases = array(
+        '0' => ''
+    );
+
+    private static $sample_outputs = array(
+        '0' => 'Hello, World!'
+    );
+
+    private static $test_cases = array(
+        '0' => array('')
+    );
+
+    private static $test_case_outputs = array(
+        '0' => array('Hello, World!')
+    );
+
     public static function tracks() {
         return self::$tracks;
     }
@@ -71,8 +147,29 @@ class ProblemStatementsStorage {
     }
 
 
+    public static function all_problems(){
+        return self::$all_problems;
+    }
 
+    public static function problem_statement($problem_id){
+        return self::$all_problems[$problem_id];
+    }
 
+    public static function test_cases($problem_id) {
+        return self::$test_cases[$problem_id];
+    }
+
+    public static function test_case_outputs($problem_id) {
+        return self::$test_case_outputs[$problem_id];
+    }
+
+    public static function sample_test_case($problem_id) {
+        return self::$sample_test_cases[$problem_id];
+    }
+
+    public static function sample_output($problem_id) {
+        return self::$sample_outputs[$problem_id];
+    }
 
 }
 

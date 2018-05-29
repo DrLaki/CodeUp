@@ -13,7 +13,7 @@ class GuestController {
 
     //style sheets za index.php
     public function index_style_sheets() {
-        return array('style.css', 'index.css');
+        return array('css/style.css', 'css/index.css');
     }
 
     public function index() {
@@ -22,7 +22,7 @@ class GuestController {
 
 
     public function register_style_sheets() {
-        return array('style.css', 'login.css');
+        return array('css/style.css', 'css/login.css');
     }
 
     private function all_fields_are_set(){
@@ -88,7 +88,7 @@ class GuestController {
     }
 
     public function login_style_sheets() {
-        return array('style.css', 'login.css');
+        return array('css/style.css', 'css/login.css');
     }
 
     public function login() {
