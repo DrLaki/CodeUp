@@ -44,13 +44,17 @@ function render_problem_statements($track_name, $category_name) {
 
 function render_navigation($track_name, $category_name) {
     $problem_statements_count = ProblemStatementsStorage::count_problem_statements_in_category($track_name, $category_name);
-    if($problem_statements_count == 0)
-        return;
     $first_page = 1;
     $last_page = ceil((float)$problem_statements_count / (float)RESULTS_PER_PAGE);
-
+    if($first_page >= $last_page)//last page has value 0 if there are 0 problem statements in that category
+        return;
+    //user delibaretly modifies page parameter of the GET request
+    else if((int)$_GET['page'] > $last_page) {
+        echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . $first_page . '" class="page">first</a></i>';
+        echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . $last_page . '" class="page">last</a></i>';
+    }
     //if on the first page show only next and last
-    if((int)$_GET['page'] == 1) {
+    else if((int)$_GET['page'] == 1) {
         echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . ((int)$_GET['page'] + 1) . '" class="page">next</a></i>';
         echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . $last_page . '" class="page">last</a></i>';
     }
