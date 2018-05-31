@@ -36,8 +36,19 @@
           </div>
           <nav class="main-nav">
             <ul>
-                <?php foreach($navigation as $nav_item) { ?>
-                <li class="custom-button button-basic"> <a href="./<?php if($nav_item == "Home") echo ""; else echo strtolower($nav_item)?>"><?php echo $nav_item?></a></li>
+                <?php foreach($navigation as $nav_item) {
+                    if ($nav_item == "Home"){
+                        $link = './';
+                    }
+                    else {
+                        $link = './' . strtolower($nav_item);
+                    }
+                ?>
+                <li class="custom-button button-basic">
+                    <a href="<?php echo $link ?>">
+                        <?= $nav_item ?>
+                    </a>
+                </li>
                 <?php }; ?>
             </ul>
           </nav>

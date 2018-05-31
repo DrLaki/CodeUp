@@ -6,12 +6,12 @@ class GuestController {
 
     }
 
-    // navigacija koju treba gost da vidi
+    // navigation for guests should consist of these links
     public function header_navigation() {
         return array('Home', 'Explore', 'Login', 'Signup');
     }
 
-    //style sheets za index.php
+    //style sheets for index.php
     public function index_style_sheets() {
         return array('css/style.css', 'css/index.css');
     }
@@ -63,12 +63,13 @@ class GuestController {
             //preko user.php dohvatamo podatke iz baze
             require_once("../codeup_res/models/account_manager.php");
 
-            //vraca prazan message ako je sve okej
-            // a u suprotnom vraca teskst greske
+            //return an empty string if no errors
+            //else, description of error message is returned
             //TODO: throw exception instead of returning string when error occurs
             $error_message = AccountManager::register_user($username, $email, $password);
             if(empty($error_message)) {
-                //TODO: korisnik je registrovan, sacekati jos confirmation mail
+                //TODO: after registration form submission, we should send
+                //a confirmation email
                 echo '<p>You are registered.<p>';
             }
             else {

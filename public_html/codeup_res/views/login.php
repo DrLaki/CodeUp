@@ -1,9 +1,6 @@
 
       <section id="main">
-          <div class="window-wrapper">
-
-            <div id="log-in">
-              <h2>Welcome Back!</h2>
+              <h2 class="form-title">Welcome Back!</h2>
 
               <p>
                   <?php if($error_message != "") echo $error_message ?>
@@ -11,29 +8,28 @@
 
               <form action="login" method="post">
 
-               <div class="field-wrap">
+               <div class="form-field">
                 <label>
                   Username
                 </label>
                 <input name="username" type="username" required autocomplete="off"/>
                </div>
 
-              <div class="field-wrap">
+              <div class="form-field">
                 <label>
                   Password
                 </label>
                 <input name="password" type="password" required autocomplete="off"/>
+                <p class="forgot-password block"><a href="#">Forgot Password?</a></p>
               </div>
 
-              <p class="forgot"><a href="#">Forgot Password?</a></p>
-              <div class="button-wrap">
-                <button class="submit-button"/>Log In</button>
+
+              <div class="button button-submit margin-center">
+                  <button type="button" class="block minw-100px margin-center"
+                  name="form-button">Submit</button>
               </div>
 
               </form>
-            </div>
-            <!-- end log-in -->
-
-          </div>
+            <!-- end log-in form -->
       </section>
       <!-- end main section -->
