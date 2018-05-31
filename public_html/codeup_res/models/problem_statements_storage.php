@@ -1,6 +1,6 @@
 <?php
 
-define("RESULTS_PER_PAGE", 4);
+define("RESULTS_PER_PAGE", 5);
 
 
 class ProblemStatementsStorage {

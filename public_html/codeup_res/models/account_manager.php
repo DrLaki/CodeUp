@@ -1,58 +1,93 @@
 <?php
 
+require_once("../codeup_res/database.php");
+
 class AccountManager {
 
-    private static $users = array(
-        array("username" => "dexa96", "password" => "12345678", "email" => "dexa96@mail.com", "type" => "user"),
-        array("username" => "deki96", "password" => "12345678", "email" => "deki96@mail.com", "type" => "admin"),
-        array("username" => "laki96", "password" => "12345678", "email" => "laki96@mail.com", "type" => "user"),
-        array("username" => "drLaki", "password" => "12345678", "email" => "drLaki@mail.com", "type" => "admin"),
-    );
-
     public static function username_exists($username) {
-
-        foreach (self::$users as $user) {
-            if($user["username"] == $username)
-                return TRUE;
-        }
-        return FALSE;
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT user_id FROM users WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+        $count = count($statement->fetchAll());
+        if($count == 1)
+            return TRUE;
+        else
+            return FALSE;
     }
 
     public static function email_exists($email) {
-        foreach (self::$users as $user) {
-            if($user["email"] == $email)
-                return TRUE;
-        }
-        return FALSE;
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT user_id FROM users WHERE email=:email";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['email' => $email]);
+        $count = count($statement->fetchAll());
+        if($count == 1)
+            return TRUE;
+        else
+            return FALSE;
     }
 
-    public static function register_user($username, $email, $password){
-        define('MIN_PASSWORD_LEN', 8);
+    public static function is_user_active($username) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT active FROM users WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+        $result = $statement->fetchAll();
+        $count = count($result);
+        if($count == 1 && $result[0]['active'] == 1)
+            return TRUE;
+        else
+            return FALSE;
+    }
 
-        if(self::username_exists($username)) {
-            return "Username already taken.";
-        }
-        else if(self::email_exists($email)) {
-            return "Email already exists.";
-        }
-        else if(strlen($password) < MIN_PASSWORD_LEN) {
-            return "Password must be at least " . MIN_PASSWORD_LEN . " characters long.";
+    public static function register_user($username, $password, $email, $country_id, $registration_token){
+        $connection = DatabaseConnection::connection();
+        $sql = "INSERT INTO users(user_id, username, password, email, country_id, account_type, points, active, registration_token)
+                VALUES(null, :username, :password, :email, :country_id, 'user', 0, 0, :registration_token)";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username, 'password' => $password, 'email' => $email, 'country_id' => $country_id, 'registration_token' => $registration_token]);
+    }
+
+    public static function get_hashed_password($username) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT password FROM users WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+        $result = $statement->fetch();
+        return $result['password'];
+    }
+
+    public static function get_user_type($username) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT user_type FROM users WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+        $result = $statement->fetch();
+        return $result['password'];
+    }
+
+    public static function email_and_registration_token_exist($email, $registration_token) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT email, registration_token, active FROM users WHERE email=:email AND registration_token=:registration_token";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['email' => $email, 'registration_token' => $registration_token]);
+        $result = $statement->fetchAll();
+        $count = count($result);
+        if($count == 1 && $result[0]['active'] == 0) {
+            return TRUE;
         }
         else {
-            //sve okej, registruj korisnika
-
-            return "";
+            return FALSE;
         }
     }
 
-    public static function login($username, $password) {
-        foreach (self::$users as $user) {
-            if($user["username"] == $username && $user["password"] == $password){
-                    $_SESSION['user'] = $user['type'];
-                    return TRUE;
-            }
-        }
-        return FALSE;
+
+    public static function update_account_status($email) {
+        $connection = DatabaseConnection::connection();
+        $sql = "UPDATE users SET active = 1 WHERE email=:email";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['email' => $email]);
     }
 }
 

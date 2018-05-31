@@ -12,12 +12,17 @@ if(all_fields_are_set()){
     $code = $_POST['code'];
     $problem_statement_id = $_POST['id'];
     $compiler = new Compiler($language);
+    $max_exec_time = "0.1";
     if($type == 'submit') {
         $test_cases = ProblemStatementsStorage::test_cases($problem_statement_id);
         $test_outputs = ProblemStatementsStorage::test_case_outputs($problem_statement_id);
         for($i = 0; $i < count($test_cases); $i++) {
-            $result = $compiler->compile_and_run($code, $test_cases[$i], $test_outputs[$i]);
+            $result = $compiler->compile_and_run($code, $test_cases[$i], $test_outputs[$i], $max_exec_time);
             if($result['error_happened'] == TRUE) {
+                if($result['output'] == "You have been timed out.") {
+                    echo "You have been timed out.";
+                    return;
+                }
                 echo "You have error in your code.\n";
                 echo "Your output: " . $result['output'];
                 return;
@@ -28,8 +33,12 @@ if(all_fields_are_set()){
     else {
         $sample_test_case = ProblemStatementsStorage::sample_test_case($problem_statement_id);
         $sample_output = ProblemStatementsStorage::sample_output($problem_statement_id);
-        $result = $compiler->compile_and_run($code, $sample_test_case, $sample_output);
+        $result = $compiler->compile_and_run($code, $sample_test_case, $sample_output, $max_exec_time);
         if($result['error_happened'] == TRUE) {
+            if($result['output'] == "You have been timed out.") {
+                echo "You have been timed out.";
+                return;
+            }
             echo "Expected output: " . $sample_output . "\n";
             echo "Your output: " . $result['output'];
         }

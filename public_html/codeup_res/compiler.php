@@ -8,14 +8,16 @@ class Compiler{
         $this->language = $language;
     }
 
-    public function compile_and_run($code, $test_case_input, $expected_output){
+    public function compile_and_run($code, $test_case_input, $expected_output, $max_exec_time){
         if($this->language == "python") {
+            $python_file = "../codeup_res/user_code/user_code.py";
             //write code to the file which will be ran later
-            file_put_contents("../codeup_res/user_code/user_code.py", $code);
+            file_put_contents("$python_file", $code);
 
             //run code
             $output = array();
-            exec("python ../codeup_res/user_code/user_code.py $test_case_input 2>&1", $output);
+            exec("../codeup_res/user_code/python.sh ./$python_file '$test_case_input' $max_exec_time", $output);
+            unlink($python_file);//delete python file
             $output = implode("\n", $output);
             if($output == $expected_output) {
                 return array('error_happened' => FALSE);
@@ -24,14 +26,7 @@ class Compiler{
                 return array('error_happened' => TRUE, 'output' => $output);
             }
         }
-
-
-
-
     }
-
-
-
 }
 
 

@@ -35,7 +35,17 @@
                   <label>
                     Confirm Password
                   </label>
-                  <input type="password" name ="password_conf" required autocomplete="off" />
+                  <input type="password" name ="confirm_password" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap">
+                    <select name="country" required autocomplete="off">
+                         <?php
+                              foreach ($countries as $country) {
+                                  echo '<option value="' . $country . '">' . $country . '</option>';
+                              }
+                          ?>
+                    </select>
                 </div>
 
                 <div class="button-wrap">
