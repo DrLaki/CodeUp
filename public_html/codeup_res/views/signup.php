@@ -1,41 +1,44 @@
 
       <section id="main">
-          <div class="window-wrapper">
 
             <div id="sign-up">
-              <h2 class="tab-title">Create an Account and Join Us Today</h2>
+              <h2 class="form-title">Create an Account and Join Us Today</h2>
 
               <p>
                   <?php if($error_message != "") echo $error_message ?>
               </p>
 
-              <form action="signup" method="post">
-                <div class="field-wrap">
-                  <label>
-                    Username
+              <form action="signup" id="registration-form" method="post">
+                <div class="form-field">
+                  <label for="username">
+                    Username:
                   </label>
-                  <input type="text" name="username" required autocomplete="off" />
+                  <input type="text" id="registration-username"
+                   name="username" required autocomplete="off" />
                 </div>
 
-                <div class="field-wrap">
-                  <label>
-                    Email
+                <div class="form-field">
+                  <label for="registration-email">
+                    Email:
                   </label>
-                  <input type="email" name="email" required autocomplete="off" />
+                  <input type="email" id="registration-email"
+                  name="email" required autocomplete="off" />
                 </div>
 
-                <div class="field-wrap">
-                  <label>
-                    Password
+                <div class="form-field">
+                  <label for="registration-password">
+                    Password:
                   </label>
-                  <input type="password" name="password" required autocomplete="off" />
+                  <input type="password" id="registration-password"
+                   name="password" required autocomplete="off" />
                 </div>
 
-                <div class="field-wrap">
-                  <label>
-                    Confirm Password
+                <div class="form-field">
+                  <label for="registration-password-confirm">
+                    Confirm Password:
                   </label>
-                  <input type="password" name ="confirm_password" required autocomplete="off" />
+                  <input type="password" id="registration-password-confirm"
+                  name ="confirm_password" required autocomplete="off" />
                 </div>
 
                 <div class="field-wrap">
@@ -48,9 +51,12 @@
                     </select>
                 </div>
 
-                <div class="button-wrap">
-                    <button type="submit" class="submit-button"/>Get Started</button>
-                    <p class="terms-of-service">By signing up you agree to our Terms of Service and Privacy Policy</p>
+                <div class="form-field">
+                    <button type="submit" class="button-button-submit
+                     margin-center"/>Get Started</button>
+                    <p class="terms-of-service margin-center">
+                        *By signing up you agree to our Terms of Service and Privacy Policy
+                    </p>
                 </div>
 
 
@@ -60,7 +66,5 @@
             </div>
             <!-- end sign-up -->
 
-          </div>
       </section>
-
       <!-- end main section -->

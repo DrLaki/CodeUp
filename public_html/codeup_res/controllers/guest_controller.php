@@ -14,7 +14,7 @@ class GuestController {
 
     }
 
-    // guest navigation
+    // navigation for guests should consist of these links
     public function header_navigation() {
         return array('Home', 'Explore', 'Login', 'Signup');
     }
