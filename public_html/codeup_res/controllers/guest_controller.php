@@ -73,6 +73,8 @@ class GuestController {
             echo "Email with confirmation details is sent to your email address.";
         }
     }
+
+
     private function register_user($username, $password, $email, $country_id) {
         require_once("../codeup_res/models/account_manager.php");
         require_once("../codeup_res/models/country_manager.php");
@@ -154,6 +156,12 @@ class GuestController {
 
     private function verify_login($username, $password) {
         require_once("../codeup_res/models/account_manager.php");
+
+        if(!AccountManager::username_exists($username)) {
+            $error_message = "You do not have an account.";
+            require_once("../codeup_res/views/login.php");
+            return;
+        }
 
         if(!AccountManager::is_user_active($username)) {
             $error_message = "Please confirm your registration.";
