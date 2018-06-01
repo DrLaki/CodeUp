@@ -21,13 +21,12 @@
                 </label>
                 <input name="password" type="password" required autocomplete="off"/>
                 <p class="forgot-password block"><a href="#">Forgot Password?</a></p>
-                <button type="submit" class="block minw-100px margin-center"
-                name="form-button">Submit</button>
               </div>
 
 
               <div class="button button-submit margin-center">
-
+                  <button type="submit" class="block minw-100px margin-center"
+                  name="form-button">Submit</button>
               </div>
 
               </form>
