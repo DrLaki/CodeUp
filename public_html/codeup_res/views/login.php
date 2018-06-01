@@ -2,7 +2,7 @@
       <section id="main">
               <h2 class="form-title">Welcome Back!</h2>
 
-              <p>
+              <p style="text-align:right">
                   <?php if($error_message != "") echo $error_message ?>
               </p>
 

@@ -1,19 +1,15 @@
 <?php
 
 require_once("../codeup_res/helpers.php");
-require_once("../codeup_res/footer_helpers.php");
 require_once("../codeup_res/choose_controller.php");
 
 render('header', array(
-    'title' => "Support",
-    'css' => array(
-        'css/style.css'
-    ),
+    'title' => "Privacy Policy",
+    'css' => array('css/style.css', 'css/privacy.css'),
     'navigation' => $controller->header_navigation()
 ));
 
-render_support();
+require_once("../codeup_res/views/privacy_policy.php");
 
 render('footer');
-
- ?>
+?>
