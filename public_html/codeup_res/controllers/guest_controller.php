@@ -22,7 +22,7 @@ class GuestController {
      * @return array
      */
     public function header_navigation() {
-        return array('Home', 'Explore', 'Login', 'Signup');
+        return array('Home' => './', 'Explore' => 'explore', 'Login' => 'login', 'Signup' => 'register');
     }
 
     /**
@@ -125,17 +125,17 @@ class GuestController {
         if(AccountManager::username_exists($username)){
             $error_message = "Username already taken.";
             $countries = CountryManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else if(AccountManager::email_exists($email)) {
             $error_message = "Account with that email already exists.";
             $countries = CountryManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else if(strlen($password) < MIN_PASSWORD_LEN) {
             $error_message = "Password must be at least " . MIN_PASSWORD_LEN . " characters long.";
             $countries = CountryManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else {
             $registration_token = hash('sha256', rand(1, 1000000000));
@@ -158,17 +158,17 @@ class GuestController {
             //user vists signup page for the first time, nothing has been
             //submitted yet
             $countries = CountryManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else if (!$this->all_field_are_filled()){
             $error_message = "Please, fill in the form.";
             $countries = AccountManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else if (!$this->password_confirm_matches_password()){
             $error_message = "Passwords do not match.";
             $countries = AccountManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else {
             //valid registration form, check if an account with the same
