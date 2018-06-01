@@ -8,7 +8,7 @@ class Compiler{
         $this->language = $language;
     }
 
-    public function compile_and_run($code, $test_case_input, $expected_output, $max_exec_time){
+    public function compile_and_run($code, $test_case_input, $test_case_output, $max_exec_time){
         if($this->language == "python") {
             $python_file = "../codeup_res/user_code/user_code.py";
             //write code to the file which will be ran later
@@ -19,7 +19,7 @@ class Compiler{
             exec("../codeup_res/user_code/python.sh ./$python_file '$test_case_input' $max_exec_time", $output);
             unlink($python_file);//delete python file
             $output = implode("\n", $output);
-            if($output == $expected_output) {
+            if($output == $test_case_output) {
                 return array('error_happened' => FALSE);
             }
             else {
