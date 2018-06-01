@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * [all_fields_are_set checks if all parameters in the POST request are set]
+ */
 function all_fields_are_set() {
     return isset($_POST['type']) && isset($_POST['language']) && isset($_POST['code']) && isset($_POST['id']);
 }

@@ -5,7 +5,7 @@
             <div id="log-in">
               <h2>Welcome Back!</h2>
 
-              <p>
+              <p style="text-align:right">
                   <?php if($error_message != "") echo $error_message ?>
               </p>
 

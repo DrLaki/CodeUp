@@ -1,9 +1,19 @@
 <?php
 
+/**
+ * [track_style_sheets function returns style sheets used by the track.php file]
+ * @return array
+ */
 function track_style_sheets() {
     return array('css/style.css', 'css/track.css');
 }
 
+/**
+ * [render_categories function renders categories of the chosen track]
+ * @param  string $track_url  [url of the chosen track]
+ * @param  array $categories [categories which belong to that track]
+ * @return boolean
+ */
 function render_categories($track_url, $categories) {
     foreach ($categories as $category_url => $category_name) {
         if($category_url == $_GET['category']) {
@@ -15,6 +25,11 @@ function render_categories($track_url, $categories) {
     }
 }
 
+/**
+ * [render_problem_statements renders part of the page which contains the list of problem_statements]
+ * @param  int $category_id [category id is used to find all problem statements that belong to that category]
+ * @return void
+ */
 function render_problem_statements($category_id) {
     $problem_statements = ProblemStatementsStorage::get_problem_statements($category_id, (int)$_GET['page']);
     foreach ($problem_statements as $problem_statement) {
@@ -41,7 +56,11 @@ function render_problem_statements($category_id) {
     }
 }
 
-
+/**
+ * [render_navigation function is used to render navigation for problem_statements]
+ * @param  int $category_id [this function uses category id to get the number of all problems in given category]
+ * @return void
+ */
 function render_navigation($category_id) {
     $problem_statements_count = ProblemStatementsStorage::count_problem_statements_in_category($category_id);
     $first_page = 1;
@@ -72,6 +91,11 @@ function render_navigation($category_id) {
     }
 }
 
+/**
+ * [error_happened checks if category parameter of the GET request exists]
+ * @param  array $track_categories [associative array with category_url key category_name value]
+ * @return boolean                 [if error happened, returns TRUE, FALSE otherwise]
+ */
 function error_happened($track_categories){
     if(!isset($_GET['category'])) {
         return TRUE;
@@ -84,6 +108,11 @@ function error_happened($track_categories){
     }
 }
 
+/**
+ * [render_track renders the track.php file located in views folder]
+ * @param  string $track_url [url of the chosen track]
+ * @return void
+ */
 function render_track($track_url) {
     require_once("../codeup_res/models/problem_statements_storage.php");
 

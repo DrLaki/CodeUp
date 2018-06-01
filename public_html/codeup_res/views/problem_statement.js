@@ -9,7 +9,11 @@ document.addEventListener('DOMContentLoaded', ()=> {
 })
 
 
-
+/**
+ * [compile is JavaScript function that uses ajax to send data to our compile.php page]
+ * @param  {[string]} type [is code submited or ran]
+ * @return {[void]}
+ */
 function compile(type){
     var url = new URL(window.location.href);
     var url_parameters = new URLSearchParams(url.search.slice(1));

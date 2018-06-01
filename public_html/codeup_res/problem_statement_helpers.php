@@ -1,15 +1,25 @@
 <?php
-
+/**
+ * [style sheets used by problem_statement.php]
+ * @return array
+ */
 function problem_statement_style_sheets() {
     return array('css/style.css', 'css/problem_statement.css', 'codemirror/lib/codemirror.css', 'codemirror/theme/neo.css');
 }
 
+/**
+ * [scripts used by problem_statement.php]
+ * @return array
+ */
 function problem_statement_scripts() {
     return array('../codeup_res/views/codemirror/lib/codemirror.js', '../codeup_res/views/codemirror/mode/javascript/javascript.js', '../codeup_res/views/codemirror/mode/css/css.js', '../codeup_res/views/codemirror/mode/javascript/css.js', '../codeup_res/views/problem_statement.js');
 }
 
-
-
+/**
+ * [error_happened function checks to see if id parameter of GET request is set
+ *  and checks if problem statement with provided id exists]
+ * @return boolean [TRUE if error happened, FALSE otherwise]
+ */
 function error_happened(){
     if(!isset($_GET['id'])){
         return TRUE;
@@ -22,6 +32,10 @@ function error_happened(){
     }
 }
 
+/**
+ * [render_problem_statement function is used to render problem_statement.php file located in views folder]
+ * @return void
+ */
 function render_problem_statement(){
     require_once("../codeup_res/models/problem_statements_storage.php");
 

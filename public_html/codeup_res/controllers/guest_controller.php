@@ -8,22 +8,35 @@ require '../codeup_res/php_mailer/src/Exception.php';
 require '../codeup_res/php_mailer/src/PHPMailer.php';
 require '../codeup_res/php_mailer/src/SMTP.php';
 
+/**
+ * GuestController class is used to render pages for guests of the platform
+ */
 class GuestController {
 
     public function __construct() {
 
     }
 
-    // guest navigation
+    /**
+     * [header_navigation function returns array of menu options user can choose from]
+     * @return array
+     */
     public function header_navigation() {
         return array('Home', 'Explore', 'Login', 'Signup');
     }
 
-    //style sheets for index.php
+    /**
+     * [index_style_sheets returns array of style sheets for index.php]
+     * @return array
+     */
     public function index_style_sheets() {
         return array('css/style.css', 'css/index.css');
     }
 
+    /**
+     * [index renders index.php located in the views folder]
+     * @return [type] [description]
+     */
     public function index() {
         require_once("../codeup_res/views/guest_index.php");
     }
@@ -32,24 +45,46 @@ class GuestController {
 
 
 
-    //register helper functions
+    /**
+     * [register_style_sheets function returns array of style sheets for signup.php]
+     * @return array
+     */
     public function register_style_sheets() {
         return array('css/style.css', 'css/login.css');
     }
 
+    /**
+     * [all_fields_are_set checks if all parameters of the POST request exist]
+     * @return boolean
+     */
     private function all_fields_are_set(){
             return isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])
                                              && isset($_POST['confirm_password']) && isset($_POST['country']);
     }
+
+    /**
+     * [all_field_are_filled checks if all parameters of the POST request are filled]
+     * @return boolean
+     */
     private function all_field_are_filled() {
             return !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])
                                               && !empty($_POST['confirm_password']) && !empty($_POST['country']);
     }
 
+    /**
+     * [password_confirm_matches_password checks if password confirm and password fields are same]
+     * @return boolean
+     */
     private function password_confirm_matches_password() {
         return $_POST['password'] == $_POST['confirm_password'];
     }
 
+    /**
+     * [send_email function is used for sending email to our users after their registration]
+     * @param  string $email              [user's email address]
+     * @param  string $registration_token [token used for account confirmation]
+     * @return void
+     */
     private function send_email($email, $registration_token) {
         $url = "localhost/www.codeup.com/account_confirmation?email=$email&registration_token=$registration_token";
 
@@ -75,6 +110,14 @@ class GuestController {
     }
 
 
+    /**
+     * [register_user helper function tries to register user]
+     * @param  string $username
+     * @param  string $password
+     * @param  string $email
+     * @param  int $country_id
+     * @return void
+     */
     private function register_user($username, $password, $email, $country_id) {
         require_once("../codeup_res/models/account_manager.php");
         require_once("../codeup_res/models/country_manager.php");
@@ -102,6 +145,10 @@ class GuestController {
         }
     }
 
+    /**
+     * [register function renders the signup page and tries to register user if all parameters in the POST request exist]
+     * @return void
+     */
     public function register() {
         require_once("../codeup_res/models/country_manager.php");
 
@@ -140,20 +187,36 @@ class GuestController {
 
 
 
-    //login helper functions
+    /**
+     * [all_login_fields_are_set checks if all parameters in the POST request exist]
+     * @return boolean
+     */
     private function all_login_fields_are_set(){
         return isset($_POST['username']) && isset($_POST['password']);
     }
 
-
+    /**
+     * [all_login_field_are_filled checks if all parameters in the POST request are filled]
+     * @return boolean
+     */
     private function all_login_field_are_filled() {
             return !empty($_POST['username']) && !empty($_POST['password']);
     }
 
+    /**
+     * [login_style_sheets function returns style sheets used by login.php]
+     * @return array
+     */
     public function login_style_sheets() {
         return array('css/style.css', 'css/login.css');
     }
 
+    /**
+     * [verify_login function tries to login user]
+     * @param  string $username
+     * @param  string $password
+     * @return void
+     */
     private function verify_login($username, $password) {
         require_once("../codeup_res/models/account_manager.php");
 
@@ -180,6 +243,10 @@ class GuestController {
         }
     }
 
+    /**
+     * [login function renders the login page and tries to log in the user if all parameters in the POST request exist]
+     * @return void
+     */
     public function login() {
         $error_message = "";
         if(! $this->all_login_fields_are_set()) {

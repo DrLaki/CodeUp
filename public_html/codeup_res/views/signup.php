@@ -5,7 +5,7 @@
             <div id="sign-up">
               <h2 class="tab-title">Create an Account and Join Us Today</h2>
 
-              <p>
+              <p style="text-align:center">
                   <?php if($error_message != "") echo $error_message ?>
               </p>
 
