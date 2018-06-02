@@ -3,12 +3,15 @@
     <div class="container container-main">
         <h2 class="form-title">User Support Page</h2>
 
+
+
         <form id="support-form" action="support" method="post">
             <!-- Treba promeniti action atribut forme da vodi ka skripti
             koja ce da handle-uje user input. -->
+            <div class="form_field"><label> <?= $error_message ?> </label></div>
             <div class="form-field">
                 <label for="cusomter-support">You want to:</label>
-                <select id="customer-support" name="">
+                <select id="customer-support" name="selection">
                     <option value="report-problem">Report a Problem</option>
                     <option value="reguest-feature">Request a Feature</option>
                 </select>

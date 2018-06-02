@@ -5,7 +5,7 @@ require_once("../codeup_res/choose_controller.php");
 
 render('header', array(
     'title' => "Explore problem statements",
-    'css' => $controller->explore_style_sheets(),
+    'css' => array('css/style.css', 'css/explore.css'),
     'navigation' => $controller->header_navigation()
 ));
 

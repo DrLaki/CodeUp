@@ -11,10 +11,7 @@ render('header', array(
     'navigation' => $controller->header_navigation()
 ));
 
-if(isset($_SESSION['user_type']))
-    $controller->serach_users();
-else
-    require_once("..codeup_res/error404.php");
+$controller->serach_users();
 
 render('footer');
 
