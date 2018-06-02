@@ -1,7 +1,6 @@
 <?php
 
 require_once("../codeup_res/helpers.php");
-require_once("../codeup_res/footer_helpers.php");
 require_once("../codeup_res/choose_controller.php");
 
 render('header', array(
@@ -12,7 +11,7 @@ render('header', array(
     'navigation' => $controller->header_navigation()
 ));
 
-render_support();
+$controller->support();
 
 render('footer');
 

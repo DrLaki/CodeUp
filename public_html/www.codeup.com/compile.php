@@ -10,6 +10,12 @@ function all_fields_are_set() {
 if(all_fields_are_set()){
     require_once("../codeup_res/models/problem_statements_storage.php");
     require_once("../codeup_res/compiler.php");
+
+    if(!isset($_SESSION['user_type'])) {
+        echo "You can solve problems after you login.";
+        return;
+    }
+
     $type = $_POST['type'];
     $language = $_POST['language'];
     $code = $_POST['code'];

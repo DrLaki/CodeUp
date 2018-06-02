@@ -8,15 +8,15 @@
         <div id="categories">
           <h4 class= "title">Categories</h4>
           <ul>
-            <?php render_categories($track_url, $track_categories); ?>
+            <?php $this->render_categories($track_url, $track_categories); ?>
           </ul>
         </div>
         <div id="problem-statements">
           <ul>
-            <?php render_problem_statements($category_id) ?>
+            <?php $this->render_problem_statements($category_id) ?>
           </ul>
           <div class="page-nav">
-            <?php render_navigation($category_id) ?>
+            <?php $this->render_navigation($category_id) ?>
               <!-- <button type="button" disabled="true" class="prev-page">Prev</button>
               <button type="button" disabled="true" class="next-page">Next</button> -->
           </div>

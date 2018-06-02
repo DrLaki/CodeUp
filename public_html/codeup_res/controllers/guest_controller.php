@@ -1,4 +1,7 @@
 <?php
+
+require_once("../codeup_res/controllers/controller.php");
+
 define('MIN_PASSWORD_LEN', 8);
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -11,7 +14,7 @@ require '../codeup_res/php_mailer/src/SMTP.php';
 /**
  * GuestController class is used to render pages for guests of the platform
  */
-class GuestController {
+class GuestController extends Controller{
 
     public function __construct() {
 
@@ -23,34 +26,6 @@ class GuestController {
      */
     public function header_navigation() {
         return array('Home' => './', 'Explore' => 'explore', 'Login' => 'login', 'Signup' => 'register');
-    }
-
-    /**
-     * [index_style_sheets returns array of style sheets for index.php]
-     * @return array
-     */
-    public function index_style_sheets() {
-        return array('css/style.css', 'css/index.css');
-    }
-
-    /**
-     * [index renders index.php located in the views folder]
-     * @return [type] [description]
-     */
-    public function index() {
-        require_once("../codeup_res/views/guest_index.php");
-    }
-
-
-
-
-
-    /**
-     * [register_style_sheets function returns array of style sheets for signup.php]
-     * @return array
-     */
-    public function register_style_sheets() {
-        return array('css/style.css', 'css/login.css');
     }
 
     /**
@@ -204,14 +179,6 @@ class GuestController {
     }
 
     /**
-     * [login_style_sheets function returns style sheets used by login.php]
-     * @return array
-     */
-    public function login_style_sheets() {
-        return array('css/style.css', 'css/login.css');
-    }
-
-    /**
      * [verify_login function tries to login user]
      * @param  string $username
      * @param  string $password
@@ -234,6 +201,7 @@ class GuestController {
 
         $hashed_password = AccountManager::get_hashed_password($username);
         if(password_verify($password, $hashed_password)) {
+            $_SESSION['username'] = $username;
             $_SESSION['user_type'] = AccountManager::get_user_type($username);
             header("Location: ./");
         }
@@ -262,6 +230,12 @@ class GuestController {
 
             $this->verify_login($username, $password);
         }
+    }
+
+    public function support() {
+        echo '<div class="container container-main">
+            <h2 class="form-title">You must login if you want to support us.</h2>
+            </div>';
     }
 }
 ?>

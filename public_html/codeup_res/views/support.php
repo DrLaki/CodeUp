@@ -3,7 +3,7 @@
     <div class="container container-main">
         <h2 class="form-title">User Support Page</h2>
 
-        <form id="support-form" action="#" method="post">
+        <form id="support-form" action="support" method="post">
             <!-- Treba promeniti action atribut forme da vodi ka skripti
             koja ce da handle-uje user input. -->
             <div class="form-field">
@@ -28,8 +28,8 @@
             </div>
 
             <div class="button button-submit margin-center">
-                <button type="button" class="block minw-100px margin-center"
-                name="form-button">Submit</button>
+                <input type="submit" class="block minw-100px margin-center"
+                name="form-button" value="Submit">
             </div>
         </form>
 
