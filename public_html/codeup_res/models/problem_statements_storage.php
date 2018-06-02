@@ -2,15 +2,13 @@
 
 define("RESULTS_PER_PAGE", 5);
 
+require_once("../codeup_res/database.php");
 
+/**
+ * ProblemStatementsStorage class is used for managing tracks, categories, problem_statements and test_cases tables in the database
+ */
 class ProblemStatementsStorage {
 
-    //key is used as a file name and value is used for displaying
-    private static $tracks = array(
-        'algorithms' => 'Algorithms',
-        'data_structures' => 'Data Structures',
-        'artificial_intelligence' => 'Artificial Intelligence'
-    );
     //key is used as a file name and value is used for displaying
     private static $languages = array(
         'python' => 'Python',
@@ -18,157 +16,204 @@ class ProblemStatementsStorage {
         'c++' => 'C++'
     );
 
-
-    private static $track_categories = array(
-        'algorithms' => array('warm_up' => 'WarmUp', 'strings' =>'Strings', 'sorting' =>'Sorting', 'search' => 'Search', 'graphs' => 'Graphs', 'greedy' => 'Greedy', 'dynamic_programming' => 'Dynamic Programming'),
-        'data_structures' => array('warm_up' => 'WarmUp', 'linked_lists' => 'Linked Lists', 'trees' => 'Trees'),
-        'artificial_intelligence' => array('warm_up' => 'WarmUp', 'games' => 'Games', 'bot_building' => 'Bot Building')
-    );
-
-    //the most inner array: first field is problem_id, second is problem_name, third is $problem_difficulty and fourth is problem_max_score
-    private static $category_problem_statements = array(
-        'algorithms' => array(
-            'warm_up' => array(array("0", "Hello World", "Easy", "10"), array("1", "Array Sum", "Easy", "10"), array("2", "Powers of two", "Easy", "10"), array("3", "Fibonnaci", "Medium", "20"), array("4", "Triplets", "Easy", "10")),
-            'strings' => array(),
-            'sorting' => array(),
-            'search' => array(),
-            'graphs' => array(),
-            'greedy' => array(),
-            'dynamic_programming' => array()
-        ),
-        'data_structures' => array(
-            'warm_up' => array(),
-            'linked_lists' => array(),
-            'trees' => array()
-        ),
-        'artificial_intelligence' => array(
-            'warm_up' => array(),
-            'bot_building' => array(),
-            'games' => array()
-        )
-    );
-
-    //key is problem_statement_id
-    private static $all_problems = array(
-        '0' => array(
-            'name' => 'Hello World',
-            'difficulty' => 'Easy',
-            'max_score' => '10',
-            'track' => 'algorithms',
-            'category' => 'warm_up',
-            'description' => 'Print out "Hello, World!" to the standard output.',
-            'sample_input' => 'No input',
-            'sample_output' => 'Hello, World!',
-            'explanation' => 'None.'
-        ),
-        '1' => array(
-            'name' => 'Array Sum',
-            'difficulty' => 'Easy',
-            'max_score' => '10',
-            'track' => 'algorithms',
-            'category' => 'warm_up',
-            'description' => '',
-            'sample_input' => '',
-            'sample_output' => '',
-            'explanation' => ''
-        ),
-        '2' => array(
-            'name' => 'Powers of Two',
-            'difficulty' => 'Easy',
-            'max_score' => '10',
-            'track' => 'algorithms',
-            'category' => 'warm_up',
-            'description' => '',
-            'sample_input' => '',
-            'sample_output' => '',
-            'explanation' => ''
-        ),
-        '3' => array(
-            'name' => 'Fibonnaci',
-            'difficulty' => 'Medium',
-            'max_score' => '20',
-            'track' => 'algorithms',
-            'category' => 'warm_up',
-            'description' => '',
-            'sample_input' => '',
-            'sample_output' => '',
-            'explanation' => ''
-        ),
-        '4' => array(
-            'name' => 'Triplets',
-            'difficulty' => 'Easy',
-            'max_score' => '10',
-            'track' => 'algorithms',
-            'category' => 'warm_up',
-            'description' => '',
-            'sample_input' => '',
-            'sample_output' => '',
-            'explanation' => ''
-        )
-    );
-
-
-    private static $sample_test_cases = array(
-        '0' => ''
-    );
-
-    private static $sample_outputs = array(
-        '0' => 'Hello, World!'
-    );
-
-    private static $test_cases = array(
-        '0' => array('')
-    );
-
-    private static $test_case_outputs = array(
-        '0' => array('Hello, World!')
-    );
-
-    public static function tracks() {
-        return self::$tracks;
-    }
-
     public static function languages() {
         return self::$languages;
     }
 
+    /**
+     * [get_tracks returns all tracks from the database]
+     * @return array [associative array with track url as key and track name as value]
+     */
+    public static function get_tracks() {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT track_url, track_name FROM tracks";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        $tracks = array();
 
-    public static function categories($track_name) {
-        return self::$track_categories[$track_name];
+        foreach ($results as $result) {
+            $tracks[$result['track_url']] = $result['track_name'];
+        }
+        return $tracks;
     }
 
-
-    public static function count_problem_statements_in_category($track_name, $category_name) {
-        return count(self::$category_problem_statements[$track_name][$category_name]);
+    /**
+     * [get_track_by_id function retrieves track from tracks table]
+     * @param  int $track_id [track id is used to find the track in the database]
+     * @return PDOStatement
+     */
+    public function get_track_by_id($track_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT track_url, track_name FROM tracks WHERE track_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['id' => $track_id]);
+        $result = $statement->fetch();
+        return $result;
     }
 
-    public static function problem_statements($track_name, $category_name, $page_num) {
-        return array_slice(self::$category_problem_statements[$track_name][$category_name], ($page_num - 1) * RESULTS_PER_PAGE, RESULTS_PER_PAGE);
+    /**
+     * [get_track_by_url function retrieves track from tracks table]
+     * @param  string $track_url [track url is used to find the track in the database]
+     * @return PDOStatement
+     */
+    public function get_track_by_url($track_url) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT track_id, track_name FROM tracks WHERE track_url=:track_url";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['track_url' => $track_url]);
+        $result = $statement->fetch();
+        return $result;
     }
 
-
-    public static function all_problems(){
-        return self::$all_problems;
+    /**
+     * [get_track_categories function is used to find all categories that belong to the given track]
+     * @param  int $track_id [track id is used to find all categories that belong to the it]
+     * @return array         [associative array with key as category url and value as category name]
+     */
+    public static function get_track_categories($track_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT category_url, category_name FROM categories WHERE track_id=:track_id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['track_id' => $track_id]);
+        $results = $statement->fetchAll();
+        foreach ($results as $result) {
+            $categories[$result['category_url']] = $result['category_name'];
+        }
+        return $categories;
     }
 
-    public static function problem_statement($problem_id){
-        return self::$all_problems[$problem_id];
+    /**
+     * [get_category function retrieves category from the database with the given category id]
+     * @param  int $category_id [category is used to find category name, url and track that this category belongs to]
+     * @return array            [return associative array]
+     */
+    public static function get_category($category_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT category_name, category_url, track_id FROM categories WHERE category_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['id' => $category_id]);
+        $result = $statement->fetch();
+        return $result;
     }
 
-    public static function test_cases($problem_id) {
-        return self::$test_cases[$problem_id];
+    /**
+     * [get_category_id function retrieves category id]
+     * @param  int $track_id        [used to find the category id]
+     * @param  string $category_url [used to find the category id]
+     * @return int                  [id of the found category]
+     */
+    public static function get_category_id($track_id, $category_url) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT category_id FROM categories WHERE track_id=:track_id AND category_url=:category_url";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['track_id' => $track_id ,'category_url' => $category_url]);
+        $result = $statement->fetch();
+        return $result['category_id'];
     }
 
-    public static function test_case_outputs($problem_id) {
-        return self::$test_case_outputs[$problem_id];
+    /**
+     * [count_problem_statements_in_category returns the number of problem statements in the given category]
+     * @param  int $category_id [used to find all problem statements that belong to the category]
+     * @return int
+     */
+    public static function count_problem_statements_in_category($category_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT problem_statement_id FROM problem_statements WHERE category_id=:category_id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['category_id' => $category_id]);
+        $result = $statement->fetchAll();
+        return count($result);
     }
 
-    public static function sample_test_case($problem_id) {
-        return self::$sample_test_cases[$problem_id];
+    /**
+     * [get_problem_statements description]
+     * @param  int $category_id [find problem statements that belong to this category]
+     * @param  int $page_num    [page number used for navigation]
+     * @return int              [number of problem statements to be displayed to the user]
+     */
+    public function get_problem_statements($category_id, $page_num) {
+        $num_of_problems_in_category = self::count_problem_statements_in_category($category_id);
+
+        if($num_of_problems_in_category == 0)
+            return array();
+        else if($page_num > ceil((float)$num_of_problems_in_category / RESULTS_PER_PAGE)) {
+            return array();
+        }
+        else {
+            $connection = DatabaseConnection::connection();
+            $sql = "SELECT problem_statement_id, problem_statement_name, difficulty, points FROM problem_statements WHERE category_id=:category_id ORDER BY problem_statement_id ASC LIMIT :skip, :results_per_page";
+            $statement = $connection->prepare($sql);
+            $skip = (int)($page_num - 1) * RESULTS_PER_PAGE;
+            $results_per_page = (int)RESULTS_PER_PAGE;
+            $statement->bindParam(':results_per_page', $results_per_page, PDO::PARAM_INT);
+            $statement->bindParam(':skip', $skip,  PDO::PARAM_INT);
+            $statement->bindParam(':category_id', $category_id,  PDO::PARAM_INT);
+            $statement->execute();
+
+            $results = $statement->fetchAll();
+            return $results;
+        }
     }
 
-    public static function sample_output($problem_id) {
-        return self::$sample_outputs[$problem_id];
+    /**
+     * [problem_statement_exist checks if problem statement with the given id exists]
+     * @param  int $problem_id
+     * @return boolean
+     */
+    public static function problem_statement_exist($problem_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT problem_statement_id FROM problem_statements WHERE problem_statement_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['id' => $problem_id]);
+        $result = count($statement->fetchAll());
+        if($result == 1)
+            return TRUE;
+        else {
+            return FALSE;
+        }
+    }
+
+    /**
+     * [get_problem_statement function retrieves problem_statement based on the problem_statement_id]
+     * @param  int $problem_id
+     * @return array [associative array]
+     */
+    public static function get_problem_statement($problem_id){
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT problem_statement_name, problem_statement_description, sample_input, sample_output, difficulty, points, category_id FROM problem_statements WHERE problem_statement_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['id' => $problem_id]);
+        $result = $statement->fetch();
+        return $result;
+    }
+
+    /**
+     * [get_sample_test_case returns sample input and sample output of the problem statement that is found with problem_id]
+     * @param  int $problem_id
+     * @return array [associative array]
+     */
+    public static function get_sample_test_case($problem_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT sample_input, sample_output FROM problem_statements WHERE problem_statement_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['id' => $problem_id]);
+        $result = $statement->fetch();
+        return $result;
+    }
+
+    /**
+     * [get_test_cases returns all test cases that are used by the ptoblem statement with id as problem_id]
+     * @param  int $problem_id
+     * @return array             [associative array]
+     */
+    public static function get_test_cases($problem_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT input, output FROM test_cases WHERE problem_statement_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['id' => $problem_id]);
+        $result = $statement->fetchAll();
+        return $result;
     }
 
 }

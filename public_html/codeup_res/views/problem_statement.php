@@ -3,7 +3,7 @@
       <section id="main">
         <div class="main-header">
             <ul class="path">
-                <?php path_to_problem($track_name, $category_name, $problem_name, $problem_id) ?>
+                <?php path_to_problem($track_url, $track_name, $category_url, $category_name, $problem_name, $problem_id) ?>
             </ul>
             <!-- end path -->
 
@@ -47,13 +47,11 @@
                   <p class="description"><?php echo $problem_description ?></p>
 
                   <h4 class="sample-input">Sample Input</h4>
-                  <p id="sample-input" class="field"><?php echo $problem_sample_input ?></p>
+                  <p id="sample-input" class="field"><?php if(!empty($problem_sample_input)) echo $problem_sample_input; else echo "None." ?></p>
 
                   <h4 class="sample-output">Sample Output</h4>
                   <p id="sample-output" class="field"><?php echo $problem_sample_output ?></p>
 
-                  <h4 class="explanation">Explanation</h4>
-                  <p id="explanation"><?php echo $problem_explanation ?></p>
               </div>
           </div>
 

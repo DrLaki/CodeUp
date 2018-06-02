@@ -4,11 +4,11 @@
             <div id="sign-up">
               <h2 class="form-title">Create an Account and Join Us Today</h2>
 
-              <p>
+              <p style="text-align:center">
                   <?php if($error_message != "") echo $error_message ?>
               </p>
 
-              <form action="signup" id="registration-form" method="post">
+              <form action="register" id="registration-form" method="post">
                 <div class="form-field">
                   <label for="username">
                     Username:

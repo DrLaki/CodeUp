@@ -1,4 +1,7 @@
 <?php
+
+require_once("../codeup_res/controllers/controller.php");
+
 define('MIN_PASSWORD_LEN', 8);
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -8,48 +11,55 @@ require '../codeup_res/php_mailer/src/Exception.php';
 require '../codeup_res/php_mailer/src/PHPMailer.php';
 require '../codeup_res/php_mailer/src/SMTP.php';
 
-class GuestController {
+/**
+ * GuestController class is used to render pages for guests of the platform
+ */
+class GuestController extends Controller{
 
     public function __construct() {
 
     }
 
-    // navigation for guests should consist of these links
+    /**
+     * [header_navigation function returns array of menu options user can choose from]
+     * @return array
+     */
     public function header_navigation() {
-        return array('Home', 'Explore', 'Login', 'Signup');
+        return array('Home' => './', 'Explore' => 'explore', 'Login' => 'login', 'Signup' => 'register');
     }
 
-    //style sheets for index.php
-    public function index_style_sheets() {
-        return array('css/style.css', 'css/index.css');
-    }
-
-    public function index() {
-        require_once("../codeup_res/views/guest_index.php");
-    }
-
-
-
-
-
-    //register helper functions
-    public function register_style_sheets() {
-        return array('css/style.css', 'css/login.css');
-    }
-
+    /**
+     * [all_fields_are_set checks if all parameters of the POST request exist]
+     * @return boolean
+     */
     private function all_fields_are_set(){
             return isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])
                                              && isset($_POST['confirm_password']) && isset($_POST['country']);
     }
+
+    /**
+     * [all_field_are_filled checks if all parameters of the POST request are filled]
+     * @return boolean
+     */
     private function all_field_are_filled() {
             return !empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])
                                               && !empty($_POST['confirm_password']) && !empty($_POST['country']);
     }
 
+    /**
+     * [password_confirm_matches_password checks if password confirm and password fields are same]
+     * @return boolean
+     */
     private function password_confirm_matches_password() {
         return $_POST['password'] == $_POST['confirm_password'];
     }
 
+    /**
+     * [send_email function is used for sending email to our users after their registration]
+     * @param  string $email              [user's email address]
+     * @param  string $registration_token [token used for account confirmation]
+     * @return void
+     */
     private function send_email($email, $registration_token) {
         $url = "localhost/www.codeup.com/account_confirmation?email=$email&registration_token=$registration_token";
 
@@ -75,6 +85,14 @@ class GuestController {
     }
 
 
+    /**
+     * [register_user helper function tries to register user]
+     * @param  string $username
+     * @param  string $password
+     * @param  string $email
+     * @param  int $country_id
+     * @return void
+     */
     private function register_user($username, $password, $email, $country_id) {
         require_once("../codeup_res/models/account_manager.php");
         require_once("../codeup_res/models/country_manager.php");
@@ -82,17 +100,17 @@ class GuestController {
         if(AccountManager::username_exists($username)){
             $error_message = "Username already taken.";
             $countries = CountryManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else if(AccountManager::email_exists($email)) {
             $error_message = "Account with that email already exists.";
             $countries = CountryManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else if(strlen($password) < MIN_PASSWORD_LEN) {
             $error_message = "Password must be at least " . MIN_PASSWORD_LEN . " characters long.";
             $countries = CountryManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else {
             $registration_token = hash('sha256', rand(1, 1000000000));
@@ -102,6 +120,10 @@ class GuestController {
         }
     }
 
+    /**
+     * [register function renders the signup page and tries to register user if all parameters in the POST request exist]
+     * @return void
+     */
     public function register() {
         require_once("../codeup_res/models/country_manager.php");
 
@@ -111,17 +133,17 @@ class GuestController {
             //user vists signup page for the first time, nothing has been
             //submitted yet
             $countries = CountryManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else if (!$this->all_field_are_filled()){
             $error_message = "Please, fill in the form.";
             $countries = AccountManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else if (!$this->password_confirm_matches_password()){
             $error_message = "Passwords do not match.";
             $countries = AccountManager::get_countries();
-            require_once("../codeup_res/views/signup.php");
+            require_once("../codeup_res/views/register.php");
         }
         else {
             //valid registration form, check if an account with the same
@@ -140,20 +162,28 @@ class GuestController {
 
 
 
-    //login helper functions
+    /**
+     * [all_login_fields_are_set checks if all parameters in the POST request exist]
+     * @return boolean
+     */
     private function all_login_fields_are_set(){
         return isset($_POST['username']) && isset($_POST['password']);
     }
 
-
+    /**
+     * [all_login_field_are_filled checks if all parameters in the POST request are filled]
+     * @return boolean
+     */
     private function all_login_field_are_filled() {
             return !empty($_POST['username']) && !empty($_POST['password']);
     }
 
-    public function login_style_sheets() {
-        return array('css/style.css', 'css/login.css');
-    }
-
+    /**
+     * [verify_login function tries to login user]
+     * @param  string $username
+     * @param  string $password
+     * @return void
+     */
     private function verify_login($username, $password) {
         require_once("../codeup_res/models/account_manager.php");
 
@@ -171,6 +201,7 @@ class GuestController {
 
         $hashed_password = AccountManager::get_hashed_password($username);
         if(password_verify($password, $hashed_password)) {
+            $_SESSION['username'] = $username;
             $_SESSION['user_type'] = AccountManager::get_user_type($username);
             header("Location: ./");
         }
@@ -180,6 +211,10 @@ class GuestController {
         }
     }
 
+    /**
+     * [login function renders the login page and tries to log in the user if all parameters in the POST request exist]
+     * @return void
+     */
     public function login() {
         $error_message = "";
         if(! $this->all_login_fields_are_set()) {
@@ -195,6 +230,12 @@ class GuestController {
 
             $this->verify_login($username, $password);
         }
+    }
+
+    public function support() {
+        echo '<div class="container container-main">
+            <h2 class="form-title">You must login if you want to support us.</h2>
+            </div>';
     }
 }
 ?>

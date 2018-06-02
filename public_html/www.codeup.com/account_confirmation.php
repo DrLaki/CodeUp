@@ -1,21 +1,29 @@
 <?php
 
-function all_fields_are_set(){
-    return isset($_GET['email']) && isset($_GET['registration_token']);
-}
-
-function all_field_are_filled() {
-    return !empty($_GET['email']) && !empty($_GET['registration_token']);
-}
-
 require_once("../codeup_res/helpers.php");
 require_once("../codeup_res/choose_controller.php");
 
 render('header', array(
     'title' => "Account Confirmation",
-    'css' => array('..codeup_res/views/css/style.css', '..codeup_res/views/css/index.css'),
+    'css' => array('css/style.css', 'css/login.css'),
     'navigation' => $controller->header_navigation()
 ));
+
+
+/**
+ * [all_fields_are_set function checks if all parameters of the GET request exist]
+ */
+function all_fields_are_set(){
+    return isset($_GET['email']) && isset($_GET['registration_token']);
+}
+
+/**
+ * [all_fields_are_filled function checks if all parameters of the GET request are filled]
+ */
+function all_field_are_filled() {
+    return !empty($_GET['email']) && !empty($_GET['registration_token']);
+}
+
 
 if(!all_fields_are_set()) {
     echo '<section id="main"><h2>Fuck off.</h2></section>';

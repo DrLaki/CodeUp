@@ -4,12 +4,18 @@ require_once("../codeup_res/helpers.php");
 require_once("../codeup_res/choose_controller.php");
 
 render('header', array(
-    'title' => "Artificial Intelligence",
-    'css' => $controller->track_style_sheets(),
+    'title' => "Support",
+    'css' => array(
+        'css/style.css'
+    ),
     'navigation' => $controller->header_navigation()
 ));
 
-$controller->track('artificial_intelligence');
+if(isset($_SESSION['user_type']))
+    $controller->serach_users();
+else
+    require_once("..codeup_res/error404.php");
 
 render('footer');
-?>
+
+ ?>
