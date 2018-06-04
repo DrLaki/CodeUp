@@ -98,11 +98,11 @@ class AccountManager {
      */
     public static function get_user_type($username) {
         $connection = DatabaseConnection::connection();
-        $sql = "SELECT user_type FROM users WHERE username=:username";
+        $sql = "SELECT account_type FROM users WHERE username=:username";
         $statement = $connection->prepare($sql);
         $statement->execute(['username' => $username]);
         $result = $statement->fetch();
-        return $result['user_type'];
+        return $result['account_type'];
     }
 
     /**

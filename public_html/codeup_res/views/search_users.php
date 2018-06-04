@@ -3,7 +3,7 @@
     <div class="container container-main">
         <h2 class="form-title">User Support Page</h2>
 
-        <form id="support-form" action="#" method="post">
+        <form id="support-form" action="search_users" method="post">
             <!-- Treba promeniti action atribut forme da vodi ka skripti
             koja ce da handle-uje user input. -->
 

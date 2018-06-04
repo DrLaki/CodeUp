@@ -6,14 +6,6 @@ abstract class Controller {
     //functions common for all user types
 
     /**
-     * [explore_style_sheets returns style sheets which are used by explore.php]
-     * @return array
-     */
-    public function explore_style_sheets() {
-        return array('css/style.css', 'css/explore.css');
-    }
-
-    /**
      * [render_tracks function is used for rendering tracks]
      * @return void
      */
@@ -53,10 +45,6 @@ abstract class Controller {
     }
 
 
-    public function index_style_sheets() {
-        return array('css/style.css', 'css/index.css');
-    }
-
     /**
      * [index renders index.php located in the views folder]
      * @return [type] [description]
@@ -66,45 +54,6 @@ abstract class Controller {
     }
 
 
-    /**
-     * [register_style_sheets function returns array of style sheets for signup.php]
-     * @return array
-     */
-    public function register_style_sheets() {
-        return array('css/style.css', 'css/login.css');
-    }
-
-    public function register() {
-        require_once("../codeup_res/views/error404.php");
-    }
-
-    /**
-     * [login_style_sheets function returns style sheets used by login.php]
-     * @return array
-     */
-    public function login_style_sheets() {
-        return array('css/style.css', 'css/login.css');
-    }
-
-    public function login() {
-        require_once("../codeup_res/views/error404.php");
-    }
-
-    /**
-     * [style sheets used by problem_statement.php]
-     * @return array
-     */
-    public function problem_statement_style_sheets() {
-        return array('css/style.css', 'css/problem_statement.css', 'codemirror/lib/codemirror.css', 'codemirror/theme/neo.css');
-    }
-
-    /**
-     * [scripts used by problem_statement.php]
-     * @return array
-     */
-    public function problem_statement_scripts() {
-        return array('../codeup_res/views/codemirror/lib/codemirror.js', '../codeup_res/views/codemirror/mode/javascript/javascript.js', '../codeup_res/views/codemirror/mode/css/css.js', '../codeup_res/views/codemirror/mode/javascript/css.js', '../codeup_res/views/problem_statement.js');
-    }
 
     /**
      * [error_happened function checks to see if id parameter of GET request is set
@@ -158,14 +107,6 @@ abstract class Controller {
 
     }
 
-
-    /**
-     * [track_style_sheets function returns style sheets used by the track.php file]
-     * @return array
-     */
-    public function track_style_sheets() {
-        return array('css/style.css', 'css/track.css');
-    }
 
     /**
      * [render_categories function renders categories of the chosen track]
@@ -300,6 +241,19 @@ abstract class Controller {
 
     }
 
+    protected abstract function support();//done
+
+    protected abstract function register();//done
+
+    protected abstract function login();//done
+
+    protected abstract function account_confirmation();//done
+
+    protected abstract function user_profile();
+
+    protected abstract function search_users();
+
+    protected abstract function review_user_suggestions();
 
 }
 
