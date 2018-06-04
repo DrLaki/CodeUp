@@ -137,6 +137,32 @@ class AccountManager {
         $statement = $connection->prepare($sql);
         $statement->execute(['email' => $email]);
     }
+
+    public static function get_all_users() {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT user_id, username FROM users";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        $users = array();
+        foreach ($results as $result) {
+            $users[$result['user_id']] = $result['username'];
+        }
+        return $users;
+    }
+
+    public static function get_users_by_username($username) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT user_id, username FROM users WHERE username LIKE :username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => '%' . $username . '%']);
+        $results = $statement->fetchAll();
+        $users = array();
+        foreach ($results as $result) {
+            $users[$result['user_id']] = $result['username'];
+        }
+        return $users;
+    }
 }
 
 ?>

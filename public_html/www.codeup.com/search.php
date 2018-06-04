@@ -13,4 +13,6 @@ render('header', array(
 
 $controller->search_users();
 
+render('footer');
+
  ?>

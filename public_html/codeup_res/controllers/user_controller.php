@@ -10,7 +10,7 @@ class UserController extends Controller {
 
     public function header_navigation() {
         return array(
-            'Home' => '',
+            'Home' => './',
             'MyProfile' => 'user_profile',
             'Explore' => 'explore',
             'Search' => 'search',
@@ -19,13 +19,6 @@ class UserController extends Controller {
     }
 
 
-    public function user_profile() {
-
-    }
-
-    public function search_users() {
-
-    }
 
 
 
@@ -62,6 +55,31 @@ class UserController extends Controller {
             header("Location: support");
             exit();
         }
+    }
+    private function search_field_is_set() {
+        return isset($_GET['username']);
+    }
+
+    private function search_field_is_filled() {
+        return !empty($_GET['username']);
+    }
+
+    public function search_users() {
+        require_once("../codeup_res/models/account_manager.php");
+        if(!$this->search_field_is_set() || !$this->search_field_is_filled()) {
+            $users = AccountManager::get_all_users();
+            require_once("../codeup_res/views/search_users.php");
+        }
+        else {
+            $username = $_GET['username'];
+            $users = AccountManager::get_users_by_username($username);
+            require_once("../codeup_res/views/search_users.php");
+        }
+    }
+
+
+    public function user_profile() {
+
     }
 
 

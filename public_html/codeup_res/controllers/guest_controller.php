@@ -26,8 +26,7 @@ class GuestController extends Controller{
      */
     public function header_navigation() {
         return array('Home' => './', 'Explore' => 'explore',
-                    'Login' => 'login', 'Signup' => 'register',
-                    'Search' => 'search'); //'Search' shouldnt be in guest's navigation,
+                    'Login' => 'login', 'Signup' => 'register'); //'Search' shouldnt be in guest's navigation,
                     //but it is easier to see if my search button works this way,
                     //I dont want to have to register a user to check if it works
     }
