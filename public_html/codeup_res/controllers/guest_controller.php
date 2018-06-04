@@ -25,7 +25,11 @@ class GuestController extends Controller{
      * @return array
      */
     public function header_navigation() {
-        return array('Home' => './', 'Explore' => 'explore', 'Login' => 'login', 'Signup' => 'register');
+        return array('Home' => './', 'Explore' => 'explore',
+                    'Login' => 'login', 'Signup' => 'register',
+                    'Search' => 'search'); //'Search' shouldnt be in guest's navigation,
+                    //but it is easier to see if my search button works this way,
+                    //I dont want to have to register a user to check if it works
     }
 
     /**
@@ -53,6 +57,8 @@ class GuestController extends Controller{
     private function password_confirm_matches_password() {
         return $_POST['password'] == $_POST['confirm_password'];
     }
+
+
 
     /**
      * [send_email function is used for sending email to our users after their registration]

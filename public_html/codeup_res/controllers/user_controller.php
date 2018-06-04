@@ -13,7 +13,7 @@ class UserController extends Controller {
             'Home' => '',
             'MyProfile' => 'user_profile',
             'Explore' => 'explore',
-            'Search users' => 'search_users',
+            'Search' => 'search',
             'Logout' => 'logout'
         );
     }

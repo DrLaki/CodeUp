@@ -55,14 +55,14 @@ section#main div#problem-statements .problem-statement {
                         'stats solve';
 }
 
-.problem-name {
+section#main .problem-name {
   grid-area: title;
 
   margin-top: 10px;
   color: var(--custom-dark-grey);
 }
 
-.stats {
+section#main .stats {
   grid-area: stats;
   align-self: center;
   font-size: 0.85em;
@@ -73,7 +73,7 @@ section#main div#problem-statements .problem-statement {
     color: #222;
   }
 
-button {
+section#main button {
   width: 100px;
   height: 27px;
   border-radius: 3px;
@@ -82,7 +82,7 @@ button {
   color: var(--custom-light-grey);
 }
 
-.submit-button {
+section#main .submit-button {
   grid-area: solve;
   margin: 0 auto;
   justify-content: center;
@@ -93,30 +93,23 @@ button {
 
 }
 
-.page-nav {
+section#main .page-nav {
   display: flex;
   justify-content: center;
   padding-bottom: 10px;
   margin-bottom: 20px;
 }
 
-.page-nav i {
+section#main .page-nav i {
   color: var(--custom-dark-grey);
   padding: 3px 6px;
 }
 
-.page-nav button {
+section#main .page-nav button {
     min-width: 50px;
     margin: 0 10px;
 
 }
-
-
-
-
-
-
-
 
 
 /* end */

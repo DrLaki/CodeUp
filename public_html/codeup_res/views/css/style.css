@@ -51,6 +51,15 @@ section#main {
 .minw-400px{
     min-width: 400px;
 }
+.maxw-100px {
+    max-width: 100px;
+}
+.maxw-200px {
+    max-width: 200px;
+}
+.maxw-400px {
+    max-width: 400px;
+}
 .maxw-800px {
     max-width: 800px;
 }
@@ -127,9 +136,25 @@ textarea#form-textarea, input#form-title{
   text-align: center;
   max-width: 150px;
   padding-top:10px;
+  margin-right: 0px;
+  font-size: 1.2em;
 }
 
 /*  */
+
+
+.search_bar {
+    background-color: #959faf;
+    border-radius: 3px;
+    min-height: 17px;
+    max-width: 200px;
+    padding: 5px 5px;
+}
+
+.search_button {
+    background: blue;
+    margin-left: 0px;
+}
 
 
 

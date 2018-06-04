@@ -2,7 +2,7 @@
 
 /**
  * [DatabaseConnection class extends PDO and is used for object oriented aproach of querying the database]
- * [This class is Signleton design pattern]
+ * [This class uses Singleton design pattern]
  */
 class DatabaseConnection extends PDO {
 
