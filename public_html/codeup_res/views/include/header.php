@@ -44,7 +44,7 @@
                     if ($nav_item == "Search"){
                         echo
                         '
-                        <form action="/action_page.php">
+                        <form action="search.php">
                           <input type="text" class="search-bar" placeholder="Search.." name="search"><button type="submit search-button"><i class="fa fa-search"></i></button>
                         </form>
                         ';
