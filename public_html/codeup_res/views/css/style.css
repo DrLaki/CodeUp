@@ -34,6 +34,29 @@ section#main {
     margin: 0px auto;
     justify-content: center;
 }
+.flex {
+    display: flex;
+}
+.flex-row-wrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.flex-row-nowrap {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.flex-col-wrap {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.flex-col-nowrap {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
 /* end display classes */
 
 
@@ -82,50 +105,6 @@ section#main {
     width: 100%;
 }
 /* end width-properties */
-
-
-/*
-
-form#support-form > div, form#support-form > input {
-    width: 80%;
-}
-.form-title{
-    margin-top: 0px;
-    margin-bottom: 30px;
-    padding: 50px 10px 10px 10px;
-    border-bottom: 2px solid black;
-}
-.form-field {
-    margin: 1.0em auto;
-    width: 70%;
-    display: block;
-    justify-content: center;
-}
-.form-field > label {
-    display: inline-block;
-    text-align: right;
-    padding-left: 100px;
-}
-.form-field > input {
-    width: 70%;
-    max-width: 200px;
-    margin: 0px auto;
-
-}
-.form-field > input, .form-field > button {
-    display: block;
-    vertical-align: top;
-}
-
-
-input:focus, input:hover, textarea:focus, textarea:hover {
-    border: 2px solid rgb(150, 150, 250);
-}
-
-textarea#form-textarea, input#form-title{
-    border-radius: 4px;
-    font: 1em sans-serif;
-} */
 
 
 /* login and sign-up form styling */
@@ -234,11 +213,98 @@ textarea#form-textarea, input#form-title{
 /* end */
 
 
+/* profile page styling */
+.profile-page {
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-gap: 20px;
+    margin: 0px auto;
+    padding: 30px 10px;
+    background: var(--custom-light-grey);
+}
+
+.profile-info {
+    grid-column: 1 / span 1;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    padding: 30px 20px;
+}
+
+.profile-info > * {
+    margin: 3px 10px;
+}
+.profile-info > h3 {
+    font-size: 1.2em;
+}
+
+.profile-pic {
+    width: 80%;
+    max-width: 200px;
+    margin-bottom: 30px;
+}
+
+.achievements {
+    grid-column: 2/ span 3;
+    display: flex;
+    flex-flow: column;
+    flex-wrap: nowrap;
+}
+
+.achievements > .section {
+    margin: 20px 0px;
+    padding: 20px 10px;
+    border-radius: 15px;
+
+}
+
+.section-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    margin: 5px 5px;
+}
+
+.section-content {
+    /* border: 1px dashed grey; */
+    padding: 15px 10px;
+}
+
+.badge {
+    width: 64px;
+}
+
+.ratings .rating {
+    margin: 2px 5px;
+}
+.section-content p {
+    margin: 3px 5px;
+    padding: 3px 5px;
+}
+.profile-page .field-name {
+    font-size: 1.05em;
+    color: #75a3a3;
+}
+.profile-page .field-value {
+    padding-left: 10px;
+    font-size: 1.05em;
+    
+}
+
+.ratings .points-scored {
+    padding-left: 10px;
+    font-weight: bold;
+    color: #009933;
+}
+
+.personal-info .country-flag {
+    width: 24px;
+}
 
 
-
-
-
+/* end */
 
 a {
   text-decoration: none; }
