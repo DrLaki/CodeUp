@@ -140,26 +140,26 @@ class AccountManager {
 
     public static function get_all_users() {
         $connection = DatabaseConnection::connection();
-        $sql = "SELECT user_id, username FROM users";
+        $sql = "SELECT user_id, username, points FROM users";
         $statement = $connection->prepare($sql);
         $statement->execute();
         $results = $statement->fetchAll();
         $users = array();
         foreach ($results as $result) {
-            $users[$result['user_id']] = $result['username'];
+            $users[$result['user_id']] = array($result['username'], $result['points']);
         }
         return $users;
     }
 
     public static function get_users_by_username($username) {
         $connection = DatabaseConnection::connection();
-        $sql = "SELECT user_id, username FROM users WHERE username LIKE :username";
+        $sql = "SELECT user_id, username, points FROM users WHERE username LIKE :username";
         $statement = $connection->prepare($sql);
         $statement->execute(['username' => '%' . $username . '%']);
         $results = $statement->fetchAll();
         $users = array();
         foreach ($results as $result) {
-            $users[$result['user_id']] = $result['username'];
+            $users[$result['user_id']] = array($result['username'], $result['points']);
         }
         return $users;
     }

@@ -19,16 +19,21 @@
             </div>
         </form>
 
-        <?php
-            if(!empty($users)) {
-                foreach ($users as $user_id => $username) {
-                    echo '<p><a href="user_profile?id=' . $user_id . '">' . $username .'</a></p>';
+        <div class="results-border">
+            <hr/>
+            <?php
+                if(!empty($users)) {
+                    foreach ($users as $user_id => $user_information) {
+                        $username = $user_information[0];
+                        $points = $user_information[1];
+                        echo '<p>Username: <a href="user_profile?id=' . $user_id . '">' . $username .'</a>&nbsp;&nbsp;&nbsp; Points: ' . $points . '</p><hr/>';
+                    }
                 }
-            }
-            else {
-                echo "<p>Sorry, we could not find what you are searching for.</p>";
-            }
-        ?>
+                else {
+                    echo "<p>Sorry, we could not find what you are searching for.</p>";
+                }
+            ?>
+        </div>
 
     </div>
 
