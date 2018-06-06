@@ -27,20 +27,6 @@ define("MINS_IN_HOUR", 60);
  ));
 ?>
 
-<section id="main">
-    <div class="login-form">
-
-        <form action="index.html" method="post">
-            <legend>Log-In Info</legend>
-            <fieldset>
-                <input name="username" type="username" required autocomplete="off" placeholder="Username"/>
-                <input name="password" type="password" required autocomplete="off" placeholder="Password"/>
-                <p class="forgot-password"><a href="#">Forgot Password?</a></p>
-                <input type="submit" class="login-button" value="Log-in" />
-            </fieldset>
-        </form>
-    </div>
-</section>
 
 
 <?php
