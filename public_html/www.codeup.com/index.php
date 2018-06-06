@@ -6,7 +6,7 @@ require_once("../codeup_res/choose_controller.php");
 
 render('header', array(
     'title' => "Welcome to CodeUp",
-    'css' => $controller->index_style_sheets(),
+    'css' => array('css/style.css', 'css/index.css'),
     'navigation' => $controller->header_navigation()
 ));
 

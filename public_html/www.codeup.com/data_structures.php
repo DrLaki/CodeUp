@@ -5,7 +5,7 @@ require_once("../codeup_res/choose_controller.php");
 
 render('header', array(
     'title' => "Data Structures",
-    'css' => $controller->track_style_sheets(),
+    'css' => array('css/style.css', 'css/track.css'),
     'navigation' => $controller->header_navigation()
 ));
 

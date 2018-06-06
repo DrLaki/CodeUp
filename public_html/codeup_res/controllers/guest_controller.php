@@ -26,8 +26,7 @@ class GuestController extends Controller{
      */
     public function header_navigation() {
         return array('Home' => './', 'Explore' => 'explore',
-                    'Login' => 'login', 'Signup' => 'register',
-                    'Search' => 'search'); //'Search' shouldnt be in guest's navigation,
+                    'Login' => 'login', 'Signup' => 'register'); //'Search' shouldnt be in guest's navigation,
                     //but it is easier to see if my search button works this way,
                     //I dont want to have to register a user to check if it works
     }
@@ -210,6 +209,7 @@ class GuestController extends Controller{
             $_SESSION['username'] = $username;
             $_SESSION['user_type'] = AccountManager::get_user_type($username);
             header("Location: ./");
+            exit();
         }
         else {
             $error_message = "Incorrect username or password.";
@@ -243,5 +243,66 @@ class GuestController extends Controller{
             <h2 class="form-title">You must login if you want to support us.</h2>
             </div>';
     }
+
+
+    /**
+     * [all_fields_are_set function checks if all parameters of the GET request exist]
+     */
+    private function all_account_confirmation_fields_are_set(){
+        return isset($_GET['email']) && isset($_GET['registration_token']);
+    }
+
+    /**
+     * [all_fields_are_filled function checks if all parameters of the GET request are filled]
+     */
+    function all_account_confirmation_field_are_filled() {
+        return !empty($_GET['email']) && !empty($_GET['registration_token']);
+    }
+
+
+    public function account_confirmation() {
+        if(!$this->all_account_confirmation_fields_are_set()) {
+            echo '<div class="container container-main">
+                <h2 class="form-title">Email or registration token does not exist.</h2>
+                </div>';
+        }
+        else if(!$this->all_account_confirmation_field_are_filled()){
+            echo '<div class="container container-main">
+                <h2 class="form-title">Email or registration token does not exist.</h2>
+                </div>';
+        }
+        else {
+            require_once("../codeup_res/models/account_manager.php");
+            $email = $_GET['email'];
+            $registration_token = $_GET['registration_token'];
+            echo $email." ".$registration_token;
+            if(AccountManager::email_and_registration_token_exist($email, $registration_token)) {
+                AccountManager::update_account_status($email);
+                echo '<div class="container container-main">
+                    <h2 class="form-title">You have completed your registration.</h2>
+                    </div>';
+            }
+            else {
+                echo '<div class="container container-main">
+                    <h2 class="form-title">Email or registration token does not exist.</h2>
+                    </div>';
+            }
+        }
+    }
+
+
+    //these are function that User or Admin implement
+    public function user_profile() {
+        require_once("../codeup_res/views/error404.php");
+    }
+
+    public function search_users() {
+        require_once("../codeup_res/views/error404.php");
+    }
+
+    public function review_user_suggestions() {
+        require_once("../codeup_res/views/error404.php");
+    }
+
 }
 ?>
