@@ -48,27 +48,3 @@ section#main {
 .category h5 {
   font-size: 1.1em;
 }
-
-
-/* .topics {
-  grid-area: sidebar;
-  border: none;
-  max-width: 100px;
-}
-
-.topics nav ul {
-  padding: 5px;
-}
-
-.topics nav ul li {
-  padding: 3px 4px;
-}
-.topics nav ul li a {
-    color: #ffffff;
-    font-weight: bold;
-    display: block;
-}
-
-.topics nav ul li a:hover {
-    background: var(--custom-dark-grey);
-} */
