@@ -98,11 +98,11 @@ class AccountManager {
      */
     public static function get_user_type($username) {
         $connection = DatabaseConnection::connection();
-        $sql = "SELECT user_type FROM users WHERE username=:username";
+        $sql = "SELECT account_type FROM users WHERE username=:username";
         $statement = $connection->prepare($sql);
         $statement->execute(['username' => $username]);
         $result = $statement->fetch();
-        return $result['user_type'];
+        return $result['account_type'];
     }
 
     /**
@@ -136,6 +136,32 @@ class AccountManager {
         $sql = "UPDATE users SET active = 1 WHERE email=:email";
         $statement = $connection->prepare($sql);
         $statement->execute(['email' => $email]);
+    }
+
+    public static function get_all_users() {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT user_id, username, points FROM users";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        $users = array();
+        foreach ($results as $result) {
+            $users[$result['user_id']] = array($result['username'], $result['points']);
+        }
+        return $users;
+    }
+
+    public static function get_users_by_username($username) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT user_id, username, points FROM users WHERE username LIKE :username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => '%' . $username . '%']);
+        $results = $statement->fetchAll();
+        $users = array();
+        foreach ($results as $result) {
+            $users[$result['user_id']] = array($result['username'], $result['points']);
+        }
+        return $users;
     }
 }
 

@@ -43,7 +43,7 @@ render('header', array(
                    </p>
                    <p>
                        <span class="field-name">Profession:</span>
-                       <span class="field-value">Teaching Assistant</span></span>
+                       <span class="field-value">Teaching Assistant</span>
                    </p>
 
                </div>

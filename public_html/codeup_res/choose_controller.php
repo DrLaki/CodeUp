@@ -4,10 +4,6 @@ $controller = NULL;
 
 session_start();
 
-//UserController is not implemented yet, therefore we must unset $_SESSION['user']
-unset($_SESSION['user_type']);
-//$SESSION['user_type'] = 'user';
-
 if(!isset($_SESSION['user_type'])) {
     require_once("../codeup_res/controllers/guest_controller.php");
     $controller = new GuestController();

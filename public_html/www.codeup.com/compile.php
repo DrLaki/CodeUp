@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 /**
  * [all_fields_are_set checks if all parameters in the POST request are set]
  */
