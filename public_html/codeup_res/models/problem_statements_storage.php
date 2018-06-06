@@ -97,6 +97,25 @@ class ProblemStatementsStorage {
         return $result;
     }
 
+
+    public static function get_category_id_by_problem_statement_id($problem_statement_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT category_id FROM problem_statements WHERE problem_statement_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['id' => $problem_statement_id]);
+        $result = $statement->fetch();
+        return $result['category_id'];
+    }
+
+    public static function get_track_id_by_category_id($category_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT track_id FROM categories WHERE category_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['id' => $category_id]);
+        $result = $statement->fetch();
+        return $result['track_id'];
+    }
+
     /**
      * [get_category_id function retrieves category id]
      * @param  int $track_id        [used to find the category id]
@@ -195,7 +214,7 @@ class ProblemStatementsStorage {
      */
     public static function get_sample_test_case($problem_id) {
         $connection = DatabaseConnection::connection();
-        $sql = "SELECT sample_input, sample_output FROM problem_statements WHERE problem_statement_id=:id";
+        $sql = "SELECT sample_input, sample_output, sample_case_exec_time FROM problem_statements WHERE problem_statement_id=:id";
         $statement = $connection->prepare($sql);
         $statement->execute(['id' => $problem_id]);
         $result = $statement->fetch();
@@ -209,11 +228,67 @@ class ProblemStatementsStorage {
      */
     public static function get_test_cases($problem_id) {
         $connection = DatabaseConnection::connection();
-        $sql = "SELECT input, output FROM test_cases WHERE problem_statement_id=:id";
+        $sql = "SELECT input, output, test_case_exec_time FROM test_cases WHERE problem_statement_id=:id";
         $statement = $connection->prepare($sql);
         $statement->execute(['id' => $problem_id]);
         $result = $statement->fetchAll();
         return $result;
+    }
+
+
+    public static function mark_as_solved($username, $problem_statement_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT 1 FROM solved_problem_statements WHERE username=:username AND problem_statement_id=:problem_statement_id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username, 'problem_statement_id' => $problem_statement_id]);
+        $row = $statement->fetch();
+        if($row != FALSE) {
+            return FALSE;
+        }
+        $sql = "INSERT INTO solved_problem_statements(username, problem_statement_id)
+                        VALUES(:username, :problem_statement_id)";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username, 'problem_statement_id' => $problem_statement_id]);
+        return TRUE;
+    }
+
+    public static function add_points_to_users_track_points($username, $track_name, $points) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT 1 FROM users_track_points WHERE username=:username AND track_name=:track_name";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username, 'track_name' => $track_name]);
+        $row = $statement->fetch();
+        if($row != FALSE) {
+            $sql = "UPDATE users_track_points SET points=points+:points WHERE username=:username AND track_name=:track_name";
+                    $statement->execute(['points' => $points,'username' => $username, 'track_name' => $track_name]);
+                    return;
+        }
+        $sql = "INSERT INTO users_track_points(username, track_name, points)
+                        VALUES(:username, :track_name, :points)";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username, 'track_name' => $track_name, 'points' => $points]);
+    }
+
+    public static function get_points($problem_statement_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT points FROM problem_statements WHERE problem_statement_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['id' => $problem_statement_id]);
+        $result = $statement->fetch();
+        return $result['points'];
+    }
+
+    public static function get_users_track_points($username) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT track_name, points FROM users_track_points WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+        $results = $statement->fetchAll();
+        $track_points = array();
+        foreach ($results as $result) {
+            $track_points[$result['track_name']] = $result['points'];
+        }
+        return $track_points;
     }
 
 }
