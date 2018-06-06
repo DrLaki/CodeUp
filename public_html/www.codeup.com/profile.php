@@ -9,12 +9,12 @@ require_once("../codeup_res/choose_controller.php");
 //da se uradi provera da li korisnik sme da gleda progile drugih ljudi.
 render('header', array(
     'title' => "Privacy Policy",
-    'css' => array('css/style.css', 'css/privacy.css'),
+    'css' => array('css/style.css'),
     'navigation' => $controller->header_navigation()
 ));
 ?>
 
-<!-- <section id="main"> -->
+<section id="main">
    <div class="profile-page">
        <div class="profile-info">
            <!-- ako korisnik nema sliku, renderujemo default-nu sliku, sto cu ovde da hardcode-ujem -->
@@ -43,7 +43,7 @@ render('header', array(
                    </p>
                    <p>
                        <span class="field-name">Profession:</span>
-                       <span class="field-value">Teaching Assistant</span></span>
+                       <span class="field-value">Teaching Assistant</span>
                    </p>
 
                </div>
@@ -73,7 +73,7 @@ render('header', array(
        </div>
    </div>
 
-<!-- </section> -->
+</section>
 
 
 <?php
