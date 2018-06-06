@@ -13,8 +13,22 @@ define("DAYS", 10);
 define("HOURS_IN_DAY", 24);
 define("MINS_IN_HOUR", 60);
 
-echo DAYS . ' days, or ' .
-DAYS*HOURS_IN_DAY . ' hours, or ' .
- DAYS * HOURS_IN_DAY * MINS_IN_HOUR .' minutes';
+ ?>
 
+ <?php
+
+ require_once("../codeup_res/helpers.php");
+ require_once("../codeup_res/choose_controller.php");
+
+ render('header', array(
+     'title' => "Privacy Policy",
+     'css' => array('css/style.css', 'css/privacy.css'),
+     'navigation' => $controller->header_navigation()
+ ));
+?>
+
+
+
+<?php
+ render('footer');
  ?>
