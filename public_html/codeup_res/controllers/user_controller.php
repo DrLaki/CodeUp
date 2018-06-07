@@ -11,7 +11,7 @@ class UserController extends Controller {
     public function header_navigation() {
         return array(
             'Home' => './',
-            'MyProfile' => 'user_profile',
+            'MyProfile' => 'profile',
             'Explore' => 'explore',
             'Search' => 'search',
             'Logout' => 'logout'
