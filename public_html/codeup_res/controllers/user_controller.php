@@ -8,6 +8,7 @@ require_once("../codeup_res/controllers/controller.php");
  */
 class UserController extends Controller {
 
+
     public function header_navigation() {
         return array(
             'Home' => './',
@@ -19,16 +20,6 @@ class UserController extends Controller {
     }
 
 
-
-
-
-    private function all_support_fields_are_set() {
-        return isset($_POST['selection']) && isset($_POST['form-title']) && isset($_POST['form-textarea']);
-    }
-
-    private function all_support_fields_are_filled() {
-        return !empty($_POST['selection']) && !empty($_POST['form-title']) && !empty($_POST['form-textarea']);
-    }
 
     public function support() {
         $error_message = "";
@@ -42,9 +33,10 @@ class UserController extends Controller {
         else {
             $title = $_POST['form-title'];
             $form_content = $_POST['form-textarea'];
-            $selection = $_POST['selection'];
             //$POST['selection'] determines if user sent bug report or feature request
+            $selection = $_POST['selection'];
             $sent_by_user = $_SESSION['username'];
+            
             if($selection == "report-problem") {
                 UserSuggestionsPool::add_bug_report($title, $form_content, $sent_by_user);
             }
@@ -56,13 +48,16 @@ class UserController extends Controller {
             exit();
         }
     }
-    private function search_field_is_set() {
-        return isset($_GET['username']);
+
+    private function all_support_fields_are_set() {
+        return isset($_POST['selection']) && isset($_POST['form-title']) && isset($_POST['form-textarea']);
     }
 
-    private function search_field_is_filled() {
-        return !empty($_GET['username']);
+    private function all_support_fields_are_filled() {
+        return !empty($_POST['selection']) && !empty($_POST['form-title']) && !empty($_POST['form-textarea']);
     }
+
+
 
     public function search_users() {
         require_once("../codeup_res/models/account_manager.php");
@@ -76,6 +71,15 @@ class UserController extends Controller {
             require_once("../codeup_res/views/search_users.php");
         }
     }
+
+    private function search_field_is_set() {
+        return isset($_GET['username']);
+    }
+
+    private function search_field_is_filled() {
+        return !empty($_GET['username']);
+    }
+
 
 
     public function user_profile() {
@@ -105,13 +109,16 @@ class UserController extends Controller {
         require_once("../codeup_res/views/error404.php");
     }
 
+
     public function register() {
         require_once("../codeup_res/views/error404.php");
     }
 
+
     public function login() {
         require_once("../codeup_res/views/error404.php");
     }
+
 
     public function review_user_suggestions() {
         require_once("../codeup_res/views/error404.php");

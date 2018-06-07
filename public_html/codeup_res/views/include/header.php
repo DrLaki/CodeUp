@@ -35,35 +35,35 @@
     <body>
       <div class="site">
         <header class="full-width">
-          <div id="logo">
-            <h1><span class="highlight">Code</span>Up</h1>
-          </div>
-          <nav class="main-nav">
-            <ul>
-                <?php foreach($navigation as $nav_item => $navigation_url) {
-                    if ($nav_item == "Search"){
-                        echo
-                        '
-                        <form action="search">
-                          <input type="text" class="search-bar" placeholder="Search.." name="search">
-                            <button type="search-button">
-                                <i class="fa fa-search"></i>
-                            </button>
-                        </form>
-                        ';
-                    }
-                    else {
-                        echo "
-                        <li class='custom-button button-basic'>
-                            <a href='$navigation_url'>$nav_item</a>
-                        </li>
-                        ";
-                    }
 
-                }
+            <div id="logo">
+                <h1><span class="highlight">Code</span>Up</h1>
+            </div>
+
+            <nav class="main-nav">
+                <ul>
+                    <?php foreach($navigation as $nav_item => $navigation_url) {
+                        if ($nav_item == "Search"){
+                            echo
+                            '<form class="search-form" action="search">
+                              <input type="search" class="search-bar" placeholder="Search.." name="search">
+                                <button class="search-button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </form>' ;
+                    }
+                        else {
+                            echo "
+                            <li class='custom-button button-basic'>
+                                <a href='$navigation_url'>$nav_item</a>
+                            </li>
+                            ";
+                        }
+
+                    }
                 ?>
-            </ul>
-          </nav>
+                </ul>
+              </nav>
 
         </header>
-                <!-- end header -->
+        <!-- end header -->

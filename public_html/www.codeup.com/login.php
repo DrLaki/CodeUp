@@ -7,6 +7,7 @@ require_once("../codeup_res/choose_controller.php");
 render('header', array(
     'title' => "Login",
     'css' => array('css/style.css', 'css/login.css'),
+    'scripts' => array('../codeup_res/js/validate.js'),
     'navigation' => $controller->header_navigation()
 ));
 

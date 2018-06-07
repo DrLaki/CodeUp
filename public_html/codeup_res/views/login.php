@@ -5,7 +5,7 @@
   <p style="text-align:center;color:red">
       <?php if($error_message != "") echo $error_message ?>
   </p>
-  <form action="login" method="post" class="form login-form">
+  <form action="login" method="post" onsubmit="return validate_login_form();" class="form login-form">
       <legend>Log-In Info</legend>
       <fieldset>
           <input name="username" type="username" required autocomplete="off" placeholder="Username"/>
