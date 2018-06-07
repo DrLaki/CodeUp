@@ -1,4 +1,4 @@
-<!-- <section id="main"> -->
+<section id="main">
 
    <div class="profile-page">
        <div class="profile-info">
@@ -8,7 +8,8 @@
            <!-- vrednosti sledecih stavki bi trebalo dinamicki da se generisu -->
            <h3 class="username"><?php echo $username ?></h3>
            <!-- <p class="profession">Asistent</p> -->
-           <p class="points"><span class="field-name">Total Points:</span><span class="field-value"><?php echo $points ?></span></p>
+           <p class="points"><span class="field-name">Total Points:</span>
+               <span class="field-value"><?php echo $points ?></span></p>
        </div>
 
        <div class="achievements">
@@ -22,7 +23,8 @@
                    <p>
                        <span class="field-name">Country:</span>
                        <span class="field-value">
-                           <?php echo '<img src="../codeup_res/flags/' . $country . '.png" class="country-flag" alt="country">' ?>
+                           <?php echo '<img src="../codeup_res/flags/' . $country .
+                            '.png" class="country-flag" alt="">' ?>
                            <?php echo $country ?>
                        </span>
                    </p>
@@ -52,7 +54,9 @@
             <div class="section-content flex-col-nowrap">
                 <?php
                     foreach ($track_points as $track_name => $points) {
-                        echo '<p class="rating"> <span class="field-name">' . $track_name . ':</span> <span class="field-value">' . $points . '</span> </p>';
+                        echo '<p class="rating"> <span class="field-name">' .
+                         $track_name . ':</span> <span class="field-value">' .
+                         $points . '</span> </p>';
                     }
                 ?>
             </div>
@@ -60,4 +64,4 @@
        </div>
    </div>
 
-<!-- </section> -->
+</section>
