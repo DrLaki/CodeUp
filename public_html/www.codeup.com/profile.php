@@ -8,6 +8,7 @@ require_once("../codeup_res/choose_controller.php");
 //Dakle, ovaj deo php koda ispod komentara ne sme da se izvrsava, tj.    pre ovog komentara treba
 //da se uradi provera da li korisnik sme da gleda progile drugih ljudi.
 render('header', array(
+
     'title' => "My Profile",
     'css' => array('css/style.css'),
     'navigation' => $controller->header_navigation()
