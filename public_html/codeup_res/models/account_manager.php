@@ -189,6 +189,18 @@ class AccountManager {
         $statement = $connection->prepare($sql);
         $statement->execute(['points' => $points, 'username' => $username]);
     }
+
+    public static function get_username_by_user_id($user_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT username FROM users WHERE user_id=:user_id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['user_id' => $user_id]);
+        $row = $statement->fetch();
+        if($row == FALSE) {
+            return FALSE;
+        }
+        return $row['username'];
+    }
 }
 
 ?>
