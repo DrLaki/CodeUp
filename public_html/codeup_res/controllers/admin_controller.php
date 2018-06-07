@@ -11,7 +11,7 @@ class AdminController extends Controller{
     public function header_navigation() {
         return array(
             'Home' => '',
-            'MyProfile' => 'user_profile',
+            'MyProfile' => 'profile',
             'Explore' => 'explore',
             'Search users' => 'search_users',
             'Review user suggestions' => 'review_suggestions'
@@ -51,16 +51,40 @@ class AdminController extends Controller{
         }
     }
 
-    public function search_users() {
+    private function search_field_is_set() {
+        return isset($_GET['username']);
+    }
 
+    private function search_field_is_filled() {
+        return !empty($_GET['username']);
+    }
+
+    public function search_users() {
+        require_once("../codeup_res/models/account_manager.php");
+        if(!$this->search_field_is_set() || !$this->search_field_is_filled()) {
+            $users = AccountManager::get_all_users();
+            require_once("../codeup_res/views/search_users.php");
+        }
+        else {
+            $username = $_GET['username'];
+            $users = AccountManager::get_users_by_username($username);
+            require_once("../codeup_res/views/search_users.php");
+        }
     }
 
     public function user_profile() {
-
+        require_once("../codeup_res/models/account_manager.php");
+        require_once("../codeup_res/models/problem_statements_storage.php");
+        $username = $_SESSION['username'];
+        $country_and_points = AccountManager::get_country_and_points($username);
+        $country = $country_and_points['country'];
+        $points = $country_and_points['points'];
+        $track_points = ProblemStatementsStorage::get_users_track_points($username);
+        require_once("../codeup_res/views/profile.php");
     }
 
     public function review_user_suggestions() {
-        
+
     }
 
     //these are functions that Guest implements

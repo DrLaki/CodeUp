@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 02, 2018 at 07:17 PM
+-- Generation Time: Jun 07, 2018 at 02:01 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -371,6 +371,24 @@ INSERT INTO `problem_statements` (`problem_statement_id`, `problem_statement_nam
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `solved_problem_statements`
+--
+
+CREATE TABLE `solved_problem_statements` (
+  `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `problem_statement_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `solved_problem_statements`
+--
+
+INSERT INTO `solved_problem_statements` (`username`, `problem_statement_id`) VALUES
+('dexa96', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `test_cases`
 --
 
@@ -378,15 +396,16 @@ CREATE TABLE `test_cases` (
   `test_case_id` int(11) NOT NULL,
   `input` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `output` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `problem_statement_id` int(11) NOT NULL
+  `problem_statement_id` int(11) NOT NULL,
+  `test_case_exec_time` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `test_cases`
 --
 
-INSERT INTO `test_cases` (`test_case_id`, `input`, `output`, `problem_statement_id`) VALUES
-(1, '', 'Hello, World!', 1);
+INSERT INTO `test_cases` (`test_case_id`, `input`, `output`, `problem_statement_id`, `test_case_exec_time`) VALUES
+(1, '', 'Hello, World!', 1, 0.1);
 
 -- --------------------------------------------------------
 
@@ -433,7 +452,26 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `country_id`, `account_type`, `points`, `active`, `registration_token`) VALUES
 (9, 'neli', '$2y$10$c0BTon1mdLgjcplhtdqYauZZtq0SD3nEllowelcCtsQl/LBnt0jWO', 'nlozanic@yahoo.com', 1, 'user', 0, 1, '8513fbb16235f689a81d9fea775166c55288a06dda51f57e509a98051450ba7a'),
-(10, 'dexa96', '$2y$10$nW0ZOynUpgmJjc0HuW6ZZeGAHavExIxvVElW//7AmBhoEkNTm9Io.', 'dexa96@gmail.com', 192, 'user', 0, 1, 'ea458ba79e086d79bac68716960388377b4a1dafc359b3fff4cac7112fbf8b20');
+(10, 'dexa96', '$2y$10$nW0ZOynUpgmJjc0HuW6ZZeGAHavExIxvVElW//7AmBhoEkNTm9Io.', 'dexa96@gmail.com', 192, 'user', 10, 1, 'ea458ba79e086d79bac68716960388377b4a1dafc359b3fff4cac7112fbf8b20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users_track_points`
+--
+
+CREATE TABLE `users_track_points` (
+  `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `track_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `points` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `users_track_points`
+--
+
+INSERT INTO `users_track_points` (`username`, `track_name`, `points`) VALUES
+('dexa96', 'Algorithms', 10);
 
 --
 -- Indexes for dumped tables
@@ -472,6 +510,12 @@ ALTER TABLE `problem_statements`
   ADD KEY `problem_statement_id` (`problem_statement_id`,`category_id`);
 
 --
+-- Indexes for table `solved_problem_statements`
+--
+ALTER TABLE `solved_problem_statements`
+  ADD PRIMARY KEY (`username`,`problem_statement_id`);
+
+--
 -- Indexes for table `test_cases`
 --
 ALTER TABLE `test_cases`
@@ -490,6 +534,12 @@ ALTER TABLE `tracks`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
   ADD KEY `country_id` (`country_id`);
+
+--
+-- Indexes for table `users_track_points`
+--
+ALTER TABLE `users_track_points`
+  ADD PRIMARY KEY (`username`,`track_name`);
 
 --
 -- AUTO_INCREMENT for dumped tables
