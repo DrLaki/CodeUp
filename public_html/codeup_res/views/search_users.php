@@ -26,7 +26,7 @@
                     foreach ($users as $user_id => $user_information) {
                         $username = $user_information[0];
                         $points = $user_information[1];
-                        echo '<p>Username: <a href="user_profile?id=' . $user_id . '">' . $username .'</a>&nbsp;&nbsp;&nbsp; Points: ' . $points . '</p><hr/>';
+                        echo '<p>Username: <a href="profile?id=' . $user_id . '">' . $username .'</a>&nbsp;&nbsp;&nbsp; Points: ' . $points . '</p><hr/>';
                     }
                 }
                 else {

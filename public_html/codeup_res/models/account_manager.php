@@ -163,6 +163,44 @@ class AccountManager {
         }
         return $users;
     }
+
+    public static function get_country_and_points($username) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT country_id, points FROM users WHERE username LIKE :username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+        $result = $statement->fetch();
+        $country_and_points = array();
+        $country_and_points['points'] = $result['points'];
+        $country_id = $result['country_id'];
+
+        $sql = "SELECT country_name FROM apps_countries WHERE country_id=:country_id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['country_id' => $country_id]);
+        $result = $statement->fetch();
+
+        $country_and_points['country'] = $result['country_name'];
+        return $country_and_points;
+    }
+
+    public static function add_points_to_user($username, $points) {
+        $connection = DatabaseConnection::connection();
+        $sql = "UPDATE users SET points=points+:points WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['points' => $points, 'username' => $username]);
+    }
+
+    public static function get_username_by_user_id($user_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT username FROM users WHERE user_id=:user_id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['user_id' => $user_id]);
+        $row = $statement->fetch();
+        if($row == FALSE) {
+            return FALSE;
+        }
+        return $row['username'];
+    }
 }
 
 ?>
