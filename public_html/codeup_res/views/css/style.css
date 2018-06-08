@@ -437,28 +437,32 @@ body {
   margin: 0;
 }
 
-
+.search-form {
+    display: flex;
+    overflow: inherit;
+    border-radius: 5px;
+}
+header .search-form {
+    max-width: 250px;
+    border: 3px solid #282e39;
+}
 .search-bar {
-    background-color: #282e39;
-    min-height: 17px;
-    max-width: 150px;
     padding: 5px 5px;
     border: none;
     color: white;
 }
-.search-form {
-    display: flex;
-    max-width: 250px;
-    overflow: inherit;
-    background: #7171ab;
-    border-radius: 5px;
-    border: 3px solid #282e39;
+header .search-bar {
+    background-color: #282e39;
+    min-height: 20px;
+    max-width: 150px;
 }
-
 .search-button {
     border: none;
+}
+header .search-button{
     background-color: #25292f;
 }
+
 
 /* CSS Grid properties */
 
@@ -472,11 +476,12 @@ header {
   }
   header nav {
     grid-column: 3 / span 1;
+    display: flex;
+    justify-content: flex-end;
      }
     header nav ul {
         display: flex;
         align-items: flex-end;
-        justify-content: flex-end;
       }
 
 footer {

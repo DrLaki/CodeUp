@@ -1,40 +1,32 @@
 <section id="main">
 
-    <div class="container container-main">
-        <h2 class="form-title">Search Users</h2>
-
-        <form id="support-form" action="search" method="get">
+    <div class="form-container">
+        <h2 class="form-title">Search Results</h2>
+        <form id="support-form" class="search-form" action="search" method="get">
             <!-- Treba promeniti action atribut forme da vodi ka skripti
             koja ce da handle-uje user input. -->
-
-            <div class="form-field">
-                <input type="text" class="block margin-center minw-400px"
-                id="search"
-                name="username" value="" placeholder="search">
-            </div>
-
-            <div class="button button-submit margin-center">
-                <input type="submit" class="block minw-100px margin-center"
-                name="" value="Submit">
-            </div>
+            <input type="search" class="search-bar" placeholder="Search.." name="username">
+              <button class="search-button">
+                  <i class="fa fa-search"></i>
+              </button>
         </form>
-
-        <div class="results-border">
-            <hr/>
-            <?php
-                if(!empty($users)) {
-                    foreach ($users as $user_id => $user_information) {
-                        $username = $user_information[0];
-                        $points = $user_information[1];
-                        echo '<p>Username: <a href="profile?id=' . $user_id . '">' . $username .'</a>&nbsp;&nbsp;&nbsp; Points: ' . $points . '</p><hr/>';
-                    }
-                }
-                else {
-                    echo "<p>Sorry, we could not find what you are searching for.</p>";
-                }
-            ?>
-        </div>
-
     </div>
 
+    <div class="search-results">
+        <?php
+            if(!empty($users)) {
+                foreach ($users as $user_id => $user_information) {
+                    $username = $user_information[0];
+                    $points = $user_information[1];
+                    echo '<p class="result">
+                        Username: <a href="profile?id=' . $user_id . '">'
+                            . $username .'</a>&nbsp;&nbsp;&nbsp; Points: ' . $points .
+                        '</p><hr/>';
+                }
+            }
+            else {
+                echo "<p>Sorry, we could not find the user you are searching for.</p>";
+            }
+        ?>
+    </div>
 </section>
