@@ -46,7 +46,7 @@
                         if ($nav_item == "Search"){
                             echo
                             '<form class="search-form" action="search">
-                              <input type="search" class="search-bar" placeholder="Search.." name="search">
+                              <input type="search" class="search-bar" placeholder="Search.." name="username">
                                 <button class="search-button">
                                     <i class="fa fa-search"></i>
                                 </button>
