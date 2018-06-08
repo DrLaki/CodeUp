@@ -36,7 +36,7 @@ class UserController extends Controller {
             //$POST['selection'] determines if user sent bug report or feature request
             $selection = $_POST['selection'];
             $sent_by_user = $_SESSION['username'];
-            
+
             if($selection == "report-problem") {
                 UserSuggestionsPool::add_bug_report($title, $form_content, $sent_by_user);
             }
@@ -121,6 +121,10 @@ class UserController extends Controller {
 
 
     public function review_user_suggestions() {
+        require_once("../codeup_res/views/error404.php");
+    }
+
+    public function add_content() {
         require_once("../codeup_res/views/error404.php");
     }
 

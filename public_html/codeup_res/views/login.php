@@ -2,7 +2,7 @@
 <section id="main">
 
   <h2 class="form-title">Welcome Back!</h2>
-  <p style="text-align:right">
+  <p style="text-align:center;color:red">
       <?php if($error_message != "") echo $error_message ?>
   </p>
   <form action="login" method="post" onsubmit="return validate_login_form();" class="form login-form">

@@ -304,5 +304,9 @@ class GuestController extends Controller{
         require_once("../codeup_res/views/error404.php");
     }
 
+    public function add_content() {
+        require_once("../codeup_res/views/error404.php");
+    }
+
 }
 ?>

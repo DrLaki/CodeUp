@@ -4,16 +4,12 @@ require_once("../codeup_res/helpers.php");
 require_once("../codeup_res/choose_controller.php");
 
 render('header', array(
-    'title' => "Support",
-    'css' => array(
-        'css/style.css',
-        'css/support.css'
-    ),
+    'title' => "Adding New Content",
+    'css' => array('css/style.css', 'css/add_content.css'),
     'navigation' => $controller->header_navigation()
 ));
 
-$controller->support();
+$controller->add_content();
 
 render('footer');
-
- ?>
+?>

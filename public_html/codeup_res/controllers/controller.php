@@ -13,8 +13,8 @@ abstract class Controller {
         $tracks = ProblemStatementsStorage::get_tracks();
         foreach ($tracks as $track_url => $track_name) {
             echo '<div class="category">
-                      <a href="' . $track_url . '?category=warm_up">
-                        <img src="../codeup_res/views/img/' . $track_url . '.png" alt="' . $track_name . ' icon">
+                      <a href="' . $track_url . '?category=warmup">
+                        <img src="../codeup_res/views/img/' . $track_url . '.png" alt="' . $track_name . '">
                       </a>
 
                       <h5>' . $track_name . '</h5>
@@ -254,6 +254,8 @@ abstract class Controller {
     protected abstract function search_users();
 
     protected abstract function review_user_suggestions();
+
+    protected abstract function add_content();
 
 }
 
