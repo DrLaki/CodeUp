@@ -2,7 +2,7 @@
 
           <h2 class="form-title">Create an Account and Join Us Today</h2>
 
-          <p style="text-align:center">
+          <p style="text-align:center;color:red">
               <?php if($error_message != "") echo $error_message ?>
           </p>
 

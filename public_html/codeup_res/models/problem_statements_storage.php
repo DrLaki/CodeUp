@@ -38,12 +38,26 @@ class ProblemStatementsStorage {
         return $tracks;
     }
 
+    public static function get_track_ids_and_names() {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT track_id, track_name FROM tracks";
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        $tracks = array();
+
+        foreach ($results as $result) {
+            $tracks[$result['track_id']] = $result['track_name'];
+        }
+        return $tracks;
+    }
+
     /**
      * [get_track_by_id function retrieves track from tracks table]
      * @param  int $track_id [track id is used to find the track in the database]
      * @return PDOStatement
      */
-    public function get_track_by_id($track_id) {
+    public static function get_track_by_id($track_id) {
         $connection = DatabaseConnection::connection();
         $sql = "SELECT track_url, track_name FROM tracks WHERE track_id=:id";
         $statement = $connection->prepare($sql);
@@ -57,7 +71,7 @@ class ProblemStatementsStorage {
      * @param  string $track_url [track url is used to find the track in the database]
      * @return PDOStatement
      */
-    public function get_track_by_url($track_url) {
+    public static function get_track_by_url($track_url) {
         $connection = DatabaseConnection::connection();
         $sql = "SELECT track_id, track_name FROM tracks WHERE track_url=:track_url";
         $statement = $connection->prepare($sql);
@@ -67,8 +81,49 @@ class ProblemStatementsStorage {
     }
 
     /**
+     * [get_track_by_name function retrieves track from tracks table]
+     * @param  string $track_url [track name is used to find the track in the database]
+     * @return PDOStatement
+     */
+    public static function get_track_by_name($track_name) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT track_id FROM tracks WHERE track_name=:track_name";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['track_name' => $track_name]);
+        $result = $statement->fetch();
+        return $result['track_id'];
+    }
+
+
+    public static function track_exists($track_name) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT 1 FROM tracks WHERE track_name=:name";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['name' => $track_name]);
+        $result = count($statement->fetchAll());
+        if($result == 1)
+            return TRUE;
+        else {
+            return FALSE;
+        }
+    }
+
+    public static function category_exists($category_name, $track_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT 1 FROM categories WHERE category_name=:name AND track_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['name' => $category_name, 'id' => $track_id]);
+        $result = count($statement->fetchAll());
+        if($result == 1)
+            return TRUE;
+        else {
+            return FALSE;
+        }
+    }
+
+    /**
      * [get_track_categories function is used to find all categories that belong to the given track]
-     * @param  int $track_id [track id is used to find all categories that belong to the it]
+     * @param  int $track_id [track id is used to find all categories that belong to it]
      * @return array         [associative array with key as category url and value as category name]
      */
     public static function get_track_categories($track_id) {
@@ -77,8 +132,41 @@ class ProblemStatementsStorage {
         $statement = $connection->prepare($sql);
         $statement->execute(['track_id' => $track_id]);
         $results = $statement->fetchAll();
+        $categories = array();
         foreach ($results as $result) {
             $categories[$result['category_url']] = $result['category_name'];
+        }
+        return $categories;
+    }
+
+    public static function get_track_category_ids_and_names($track_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT category_id, category_name FROM categories WHERE track_id=:track_id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['track_id' => $track_id]);
+        $results = $statement->fetchAll();
+        $categories = array();
+        foreach ($results as $result) {
+            $categories[$result['category_id']] = $result['category_name'];
+        }
+        return $categories;
+    }
+
+
+    /**
+     * [get_track_categories function is used to find all categories that belong to the given track]
+     * @param  int $track_name [track name is used to find all categories that belong to it]
+     * @return array         [associative array with key as category url and value as category name]
+     */
+    public static function get_track_categories_by_track_name($track_name) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT category_name FROM categories WHERE track_name=:track_name";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['track_name' => $track_name]);
+        $results = $statement->fetchAll();
+        $categories = array();
+        foreach ($results as $result) {
+            $categories[] = $result['category_name'];
         }
         return $categories;
     }
@@ -95,6 +183,21 @@ class ProblemStatementsStorage {
         $statement->execute(['id' => $category_id]);
         $result = $statement->fetch();
         return $result;
+    }
+
+    /**
+     * [get_category_id_by_track_id function retrieves category from the database with the given category id]
+     * @param  int $track_id
+     * @param string $category_name
+     * @return int
+     */
+    public static function get_category_id_by_track_id($track_id, $category_name) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT category_id FROM categories WHERE track_id=:id AND track_name=:name";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['id' => $track_id, 'name' => $category_name]);
+        $result = $statement->fetch();
+        return $result['category_id'];
     }
 
 
@@ -151,7 +254,7 @@ class ProblemStatementsStorage {
      * @param  int $page_num    [page number used for navigation]
      * @return int              [number of problem statements to be displayed to the user]
      */
-    public function get_problem_statements($category_id, $page_num) {
+    public static function get_problem_statements($category_id, $page_num) {
         $num_of_problems_in_category = self::count_problem_statements_in_category($category_id);
 
         if($num_of_problems_in_category == 0)
@@ -185,6 +288,19 @@ class ProblemStatementsStorage {
         $sql = "SELECT problem_statement_id FROM problem_statements WHERE problem_statement_id=:id";
         $statement = $connection->prepare($sql);
         $statement->execute(['id' => $problem_id]);
+        $result = count($statement->fetchAll());
+        if($result == 1)
+            return TRUE;
+        else {
+            return FALSE;
+        }
+    }
+
+    public static function problem_statement_exists($problem_name, $category_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT problem_statement_id FROM problem_statements WHERE problem_statement_name=:name AND category_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['name' => $problem_name,'id' => $category_id]);
         $result = count($statement->fetchAll());
         if($result == 1)
             return TRUE;
@@ -289,6 +405,52 @@ class ProblemStatementsStorage {
             $track_points[$result['track_name']] = $result['points'];
         }
         return $track_points;
+    }
+
+    public static function get_all_problem_statements($category_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT problem_statement_id, problem_statement_name FROM problem_statements WHERE category_id=:category_id ORDER BY problem_statement_id ASC";
+        $statement = $connection->prepare($sql);
+        $statement->bindParam(':category_id', $category_id,  PDO::PARAM_INT);
+        $statement->execute();
+        $problems = array();
+        $results = $statement->fetchAll();
+        foreach ($results as $result) {
+            $problems[$result['problem_statement_id']] = $result['problem_statement_name'];
+        }
+        return $problems;
+    }
+
+    public static function add_new_track($track_name, $track_url) {
+        $connection = DatabaseConnection::connection();
+        $sql = "INSERT INTO tracks(track_id, track_name, track_url)
+                VALUES(null, :name, :url)";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['name' => $track_name, 'url' => $track_url]);
+    }
+
+    public static function add_new_category($category_name, $category_url, $track_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "INSERT INTO categories(category_id, category_name, category_url, track_id)
+                VALUES(null, :name, :url, :id)";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['name' => $category_name, 'url' => $category_url, 'id' => $track_id]);
+    }
+
+    public static function add_new_problem_statement($name, $description, $points, $difficulty, $input, $output, $exec_time, $category_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "INSERT INTO problem_statements(problem_statement_id, problem_statement_name, problem_statement_description, difficulty, points, sample_input, sample_output, category_id, sample_case_exec_time)
+                VALUES(null, :name, :description, :difficulty, :points, :input, :output, :id, :exec_time)";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['name' => $name, 'description' => $description, 'difficulty' => $difficulty, 'points' => $points, 'input' => $input, 'output' => $output, 'id' => $category_id, 'exec_time' => $exec_time]);
+    }
+
+    public static function add_new_test_case($input, $output, $exec_time, $problem_statement_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "INSERT INTO test_cases(test_case_id, input, output, problem_statement_id, test_case_exec_time)
+                VALUES(null, :input, :output, :id, :exec_time)";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['input' => $input, 'output' => $output, 'id' => $problem_statement_id, 'exec_time' => $exec_time]);
     }
 
 }
