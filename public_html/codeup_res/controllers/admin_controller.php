@@ -13,7 +13,7 @@ class AdminController extends Controller{
             'Home' => './',
             'MyProfile' => 'profile',
             'Explore' => 'explore',
-            'Review suggestions' => 'review_suggestions',
+            'Review suggestions' => 'review',
             'Add Content' => 'add_content',
             'Search' => 'search',
             'Logout' => 'logout'
@@ -31,14 +31,13 @@ class AdminController extends Controller{
             require_once("../codeup_res/views/support.php");
         }
         else {
-            require_once("../codeup_res/models/user_suggestions_pool.php");
             $title = $_POST['form-title'];
             $form_content = $_POST['form-textarea'];
             //$POST['selection'] determines if user sent bug report or feature request
             $selection = $_POST['selection'];
             $sent_by_user = $_SESSION['username'];
-
-            if($selection == "report-problem") {
+            require_once("../codeup_res/models/user_suggestions_pool.php");
+            if($selection == "Report a problem") {
                 UserSuggestionsPool::add_bug_report($title, $form_content, $sent_by_user);
             }
             else {
