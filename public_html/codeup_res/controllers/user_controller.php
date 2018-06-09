@@ -43,7 +43,8 @@ class UserController extends Controller {
             else {
                 UserSuggestionsPool::add_feature_request($title, $form_content, $sent_by_user);
             }
-            sleep(2);
+            echo '<p style="text-align:center">You have successfully submited the form. You will be redirected in 5 seconds.</p>';
+            sleep(5);
             header("Location: support");
             exit();
         }

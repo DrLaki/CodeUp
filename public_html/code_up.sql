@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 07, 2018 at 02:01 AM
+-- Generation Time: Jun 09, 2018 at 03:32 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -316,17 +316,17 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`category_id`, `category_name`, `track_id`, `category_url`) VALUES
-(1, 'WarmUp', 1, 'warm_up'),
+(1, 'WarmUp', 1, 'warmup'),
 (2, 'Strings', 1, 'strings'),
 (3, 'Sorting', 1, 'sorting'),
 (4, 'Search', 1, 'search'),
 (5, 'Graphs', 1, 'graphs'),
 (6, 'Greedy', 1, 'greedy'),
 (7, 'Dynamic Programming', 1, 'dynamic_programming'),
-(8, 'WarmUp', 2, 'warm_up'),
+(8, 'WarmUp', 2, 'warmup'),
 (9, 'Linked Lists', 2, 'linked_lists'),
 (10, 'Trees', 2, 'trees'),
-(11, 'WarmUp', 3, 'warm_up'),
+(11, 'WarmUp', 3, 'warmup'),
 (12, 'Bot Building', 3, 'bot_building'),
 (13, 'Games', 3, 'games');
 
@@ -384,7 +384,8 @@ CREATE TABLE `solved_problem_statements` (
 --
 
 INSERT INTO `solved_problem_statements` (`username`, `problem_statement_id`) VALUES
-('dexa96', 1);
+('dexa96', 1),
+('neli', 1);
 
 -- --------------------------------------------------------
 
@@ -451,7 +452,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `country_id`, `account_type`, `points`, `active`, `registration_token`) VALUES
-(9, 'neli', '$2y$10$c0BTon1mdLgjcplhtdqYauZZtq0SD3nEllowelcCtsQl/LBnt0jWO', 'nlozanic@yahoo.com', 1, 'user', 0, 1, '8513fbb16235f689a81d9fea775166c55288a06dda51f57e509a98051450ba7a'),
+(9, 'neli', '$2y$10$c0BTon1mdLgjcplhtdqYauZZtq0SD3nEllowelcCtsQl/LBnt0jWO', 'nlozanic@yahoo.com', 1, 'admin', 10, 1, '8513fbb16235f689a81d9fea775166c55288a06dda51f57e509a98051450ba7a'),
 (10, 'dexa96', '$2y$10$nW0ZOynUpgmJjc0HuW6ZZeGAHavExIxvVElW//7AmBhoEkNTm9Io.', 'dexa96@gmail.com', 192, 'user', 10, 1, 'ea458ba79e086d79bac68716960388377b4a1dafc359b3fff4cac7112fbf8b20');
 
 -- --------------------------------------------------------
@@ -471,7 +472,8 @@ CREATE TABLE `users_track_points` (
 --
 
 INSERT INTO `users_track_points` (`username`, `track_name`, `points`) VALUES
-('dexa96', 'Algorithms', 10);
+('dexa96', 'Algorithms', 10),
+('neli', 'Algorithms', 10);
 
 --
 -- Indexes for dumped tables
@@ -555,37 +557,37 @@ ALTER TABLE `apps_countries`
 -- AUTO_INCREMENT for table `bug_reports`
 --
 ALTER TABLE `bug_reports`
-  MODIFY `bug_report_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `bug_report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `feature_requests`
 --
 ALTER TABLE `feature_requests`
-  MODIFY `feature_request_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `feature_request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `problem_statements`
 --
 ALTER TABLE `problem_statements`
-  MODIFY `problem_statement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `problem_statement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `test_cases`
 --
 ALTER TABLE `test_cases`
-  MODIFY `test_case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `test_case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tracks`
 --
 ALTER TABLE `tracks`
-  MODIFY `track_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `track_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`

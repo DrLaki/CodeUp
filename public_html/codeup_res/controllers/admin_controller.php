@@ -20,15 +20,8 @@ class AdminController extends Controller{
         );
     }
 
-    private function all_support_fields_are_set() {
-        return isset($_POST['selection']) && isset($_POST['form-title']) && isset($_POST['form-textarea']);
-    }
-
-    private function all_support_fields_are_filled() {
-        return !empty($_POST['selection']) && !empty($_POST['form-title']) && !empty($_POST['form-textarea']);
-    }
-
     public function support() {
+
         $error_message = "";
         if(!$this->all_support_fields_are_set()) {
             require_once("../codeup_res/views/support.php");
@@ -40,8 +33,8 @@ class AdminController extends Controller{
         else {
             $title = $_POST['form-title'];
             $form_content = $_POST['form-textarea'];
-            $selection = $_POST['selection'];
             //$POST['selection'] determines if user sent bug report or feature request
+            $selection = $_POST['selection'];
             $sent_by_user = $_SESSION['username'];
             require_once("../codeup_res/models/user_suggestions_pool.php");
             if($selection == "Report a problem") {
@@ -50,7 +43,19 @@ class AdminController extends Controller{
             else {
                 UserSuggestionsPool::add_feature_request($title, $form_content, $sent_by_user);
             }
+            echo '<p style="text-align:center">You have successfully submited the form. You will be redirected in 5 seconds.</p>';
+            sleep(5);
+            header("Location: support");
+            exit();
         }
+    }
+
+    private function all_support_fields_are_set() {
+        return isset($_POST['selection']) && isset($_POST['form-title']) && isset($_POST['form-textarea']);
+    }
+
+    private function all_support_fields_are_filled() {
+        return !empty($_POST['selection']) && !empty($_POST['form-title']) && !empty($_POST['form-textarea']);
     }
 
     private function search_field_is_set() {
