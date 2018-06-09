@@ -16,7 +16,6 @@ abstract class Controller {
                       <a href="' . $track_url . '?category=warmup">
                         <img src="../codeup_res/views/img/' . $track_url . '.png" alt="' . $track_name . '">
                       </a>
-
                       <h5>' . $track_name . '</h5>
                   </div>';
         }
@@ -33,7 +32,6 @@ abstract class Controller {
                       <a href="' . $language . '?category=warm_up">
                         <img src="../codeup_res/views/img/' . $language . '.png" alt="' . $language_name_to_display . ' icon">
                       </a>
-
                       <h5>' . $language_name_to_display . '</h5>
                   </div>';
         }
@@ -226,7 +224,7 @@ abstract class Controller {
         if($this->track_error_happened($track_categories)){
             print_r($track_categories);
             echo $_GET['category'];
-            require_once("../codeup_res/error404.php");
+            require_once("../codeup_res/views/error404.php");
             return;
         }
 
@@ -239,6 +237,12 @@ abstract class Controller {
 
         require_once("../codeup_res/views/track.php");
 
+    }
+
+    public function fetch_bug_reports() {
+        require_once("../codeup_res/models/user_suggestions_pool.php");
+        $bug_reports = UserSuggestionsPool::fetch_all_bug_reports();
+        print_r($bug_reports);
     }
 
     protected abstract function support();//done

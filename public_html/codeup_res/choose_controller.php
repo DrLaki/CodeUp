@@ -1,7 +1,6 @@
 <?php
 
 $controller = NULL;
-
 session_start();
 
 if(!isset($_SESSION['user_type'])) {

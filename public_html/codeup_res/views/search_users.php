@@ -21,7 +21,7 @@
                     echo '<p class="result">
                         Username: <a href="profile?id=' . $user_id . '">'
                             . $username .'</a>&nbsp;&nbsp;&nbsp; Points: ' . $points .
-                        '</p><hr/>';
+                        '</p>';
                 }
             }
             else {

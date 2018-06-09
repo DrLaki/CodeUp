@@ -437,11 +437,25 @@ body {
   margin: 0;
 }
 
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .search-form {
     display: flex;
     overflow: inherit;
     border-radius: 5px;
 }
+.form-container .search-form {
+    margin-top: 10px;
+}
+.form-container .search-bar {
+    height: 30px;
+    width: 300px;
+}
+
 header .search-form {
     max-width: 250px;
     border: 3px solid #282e39;
@@ -463,6 +477,72 @@ header .search-button{
     background-color: #25292f;
 }
 
+
+.search-results {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.search-results .result {
+    margin: 20px auto;
+    max-width: 1000px;
+    width: 60%;
+    min-width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #edededcc;
+}
+
+/* styling user submissions */
+
+.submissions-container {
+    padding: 50px 0px 50px;
+}
+.submission {
+    width: 80%;
+    margin: 0px auto 10px;
+    padding: 10px 20px;
+    min-width: 500px;
+    font-size: 1.2em;
+}
+.submission .title {
+    font-size: 1.25em;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+.submission .author {
+    margin-top: 5px;
+    margin-left: 20px;
+}
+.submission .text {
+    width: 80%;
+    margin: 20px auto 30px;
+}
+.control-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.control-buttons > button {
+    height: 20px;
+    width: 80px;
+    padding: 5px 7px;
+    margin: 5px 3px;
+    box-sizing: content-box;
+    color:white;
+    border: 2px solid;
+    border-radius: 8px;
+}
+.control-buttons button[name="decline"]{
+    background-color: red;
+}
+.control-buttons button[name="pass"]{
+    background-color: grey;
+}
+.control-buttons button[name="accept"]{
+    background-color: green;
+}
+
+/* end user sumbission styling */
 
 /* CSS Grid properties */
 
