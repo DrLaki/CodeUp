@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 09, 2018 at 03:32 PM
+-- Generation Time: Jun 22, 2018 at 12:11 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -343,6 +343,13 @@ CREATE TABLE `feature_requests` (
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `feature_requests`
+--
+
+INSERT INTO `feature_requests` (`feature_request_id`, `feature_request_title`, `feature_request_message`, `username`) VALUES
+(1, 'Feature', 'Feature', 'dexa96');
+
 -- --------------------------------------------------------
 
 --
@@ -366,7 +373,11 @@ CREATE TABLE `problem_statements` (
 --
 
 INSERT INTO `problem_statements` (`problem_statement_id`, `problem_statement_name`, `problem_statement_description`, `difficulty`, `points`, `sample_input`, `sample_output`, `category_id`, `sample_case_exec_time`) VALUES
-(1, 'Hello World', 'Print out \"Hello, World!\" to the standard output', 'Easy', 10, '', 'Hello, World!', 1, 0.1);
+(1, 'Hello World', 'Print out \"Hello, World!\" to the standard output', 'Easy', 10, '', 'Hello, World!', 1, 0.1),
+(3, 'Array Sum', 'Given an array of integers, find the sum of its elements.', 'Easy', 15, '6\r\n1 2 3 4 10 11', '31', 1, 0.2),
+(4, 'Fibonacci', 'Given a number n, print n-th Fibonacci Number.', 'Easy', 15, '7', '13', 1, 0.1),
+(5, 'Simple Maximum', 'Print out greater of two given values.', 'Easy', 5, '1 2', '2', 1, 0.1),
+(6, 'Array Minimum', 'Find the minimum of the given array.', 'Easy', 15, '0 1 2 3 4 5 6 7 -1', '-1', 1, 0.1);
 
 -- --------------------------------------------------------
 
@@ -384,8 +395,11 @@ CREATE TABLE `solved_problem_statements` (
 --
 
 INSERT INTO `solved_problem_statements` (`username`, `problem_statement_id`) VALUES
-('dexa96', 1),
-('neli', 1);
+('dexa', 1),
+('dexa', 4),
+('dexa', 5),
+('dexa', 6),
+('dexa96', 3);
 
 -- --------------------------------------------------------
 
@@ -406,7 +420,18 @@ CREATE TABLE `test_cases` (
 --
 
 INSERT INTO `test_cases` (`test_case_id`, `input`, `output`, `problem_statement_id`, `test_case_exec_time`) VALUES
-(1, '', 'Hello, World!', 1, 0.1);
+(1, '', 'Hello, World!', 1, 0.1),
+(2, '6\r\n1 2 3 4 10 11', '31', 3, 0.2),
+(3, '12\r\n1 2 3 4 5 6 7 8 9 10 11 12', '78', 3, 0.2),
+(4, '6\r\n1231027 123 12123 5545688832 348275 12345678', '5559626058', 3, 0.5),
+(5, '7', '13', 4, 0.1),
+(6, '0', '0', 4, 0.1),
+(7, '23', '28657', 4, 0.2),
+(8, '1 2', '2', 5, 0.1),
+(9, '9 9', '9', 5, 0.1),
+(10, '123987 2144349', '2144349', 5, 0.1),
+(11, '0 1 2 3 4 5 6 7 -1', '-1', 6, 0.1),
+(12, '12 21 32 0 9 -1 -14 8 123455', '-14', 6, 0.1);
 
 -- --------------------------------------------------------
 
@@ -452,8 +477,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `country_id`, `account_type`, `points`, `active`, `registration_token`) VALUES
-(9, 'neli', '$2y$10$c0BTon1mdLgjcplhtdqYauZZtq0SD3nEllowelcCtsQl/LBnt0jWO', 'nlozanic@yahoo.com', 1, 'admin', 10, 1, '8513fbb16235f689a81d9fea775166c55288a06dda51f57e509a98051450ba7a'),
-(10, 'dexa96', '$2y$10$nW0ZOynUpgmJjc0HuW6ZZeGAHavExIxvVElW//7AmBhoEkNTm9Io.', 'dexa96@gmail.com', 192, 'user', 10, 1, 'ea458ba79e086d79bac68716960388377b4a1dafc359b3fff4cac7112fbf8b20');
+(12, 'dexa', '$2y$10$PVMeYDFlIra/dEUg1jIe0eol7MBVb3uj8iAj9OfHT5gPWaTcm8FP.', 'dexa96@gmail.com', 230, 'admin', 60, 1, '58e524779ea0d1a31b734010b8e6cad2a91ae8abdf341963aadcd28e6b36b815');
 
 -- --------------------------------------------------------
 
@@ -472,8 +496,7 @@ CREATE TABLE `users_track_points` (
 --
 
 INSERT INTO `users_track_points` (`username`, `track_name`, `points`) VALUES
-('dexa96', 'Algorithms', 10),
-('neli', 'Algorithms', 10);
+('dexa', 'Algorithms', 60);
 
 --
 -- Indexes for dumped tables
@@ -557,43 +580,43 @@ ALTER TABLE `apps_countries`
 -- AUTO_INCREMENT for table `bug_reports`
 --
 ALTER TABLE `bug_reports`
-  MODIFY `bug_report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `bug_report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `feature_requests`
 --
 ALTER TABLE `feature_requests`
-  MODIFY `feature_request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `feature_request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `problem_statements`
 --
 ALTER TABLE `problem_statements`
-  MODIFY `problem_statement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `problem_statement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `test_cases`
 --
 ALTER TABLE `test_cases`
-  MODIFY `test_case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `test_case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tracks`
 --
 ALTER TABLE `tracks`
-  MODIFY `track_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `track_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
