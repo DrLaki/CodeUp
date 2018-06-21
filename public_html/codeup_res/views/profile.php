@@ -63,5 +63,22 @@
            </div>
        </div>
    </div>
-
+   <?php
+        if($_SESSION['user_type'] == 'admin' && $account_type != 'admin'){
+            echo '
+            <form style="text-align:center" method="post" action="profile.php?id='.$_GET['id'].'">
+                <input type="submit" name="promote" value="Promote to Admin"/>
+                <input type="hidden" name="username" value="'.$username.'"/>
+            </form>
+            </hr>
+                ';
+        }
+        if($_SESSION['username'] == $username){
+            echo '
+            <form style="text-align:center" method="post" action="profile.php">
+                <input type="submit" name="delete" value="Delete Account"/>
+            </form>
+                ';
+        }
+    ?>
 </section>

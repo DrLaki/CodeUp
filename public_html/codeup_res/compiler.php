@@ -30,11 +30,11 @@ class Compiler{
         if($this->language == "python") {
             $python_file = "../codeup_res/user_code/user_code.py";
             //write code to the file which will be ran later
-            file_put_contents("$python_file", $code);
+            file_put_contents($python_file, $code);
 
             //run code
             $output = array();
-            exec("../codeup_res/user_code/python.sh ./$python_file '$test_case_input' $max_exec_time", $output);
+            exec("../codeup_res/user_code/python.sh $python_file '$test_case_input' $max_exec_time", $output);
             unlink($python_file);//delete python file
             $output = implode("\n", $output);
             if($output == $test_case_output) {

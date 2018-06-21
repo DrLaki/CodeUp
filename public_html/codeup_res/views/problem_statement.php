@@ -47,10 +47,10 @@
                   <p class="description"><?php echo $problem_description ?></p>
 
                   <h4 class="sample-input">Sample Input</h4>
-                  <p id="sample-input" class="field"><?php if(!empty($problem_sample_input)) echo $problem_sample_input; else echo "None." ?></p>
+                  <pre id="sample-input" class="field"><?php if(!empty($problem_sample_input)) echo $problem_sample_input; else echo "None." ?></pre>
 
                   <h4 class="sample-output">Sample Output</h4>
-                  <p id="sample-output" class="field"><?php echo $problem_sample_output ?></p>
+                  <pre id="sample-output" class="field"><?php echo $problem_sample_output ?></pre>
 
               </div>
           </div>

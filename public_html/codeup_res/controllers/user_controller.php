@@ -86,7 +86,14 @@ class UserController extends Controller {
     public function user_profile() {
         require_once("../codeup_res/models/account_manager.php");
         require_once("../codeup_res/models/problem_statements_storage.php");
+        if(isset($_POST['delete'])){
+            $username = $_SESSION['username'];
+            AccountManager::delete_user($username);
+            session_destroy();
+            header("Location: ./");
+        }
         $username = "";
+        $account_type = "";
         if(isset($_GET['id'])) {
             $username = AccountManager::get_username_by_user_id($_GET['id']);
             if($username == FALSE) {
@@ -97,6 +104,7 @@ class UserController extends Controller {
         else {
             $username = $_SESSION['username'];
         }
+        $account_type = AccountManager::get_user_type($username);
         $country_and_points = AccountManager::get_country_and_points($username);
         $country = $country_and_points['country'];
         $points = $country_and_points['points'];

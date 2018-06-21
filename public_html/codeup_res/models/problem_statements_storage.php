@@ -1,6 +1,6 @@
 <?php
 
-define("RESULTS_PER_PAGE", 5);
+define("RESULTS_PER_PAGE", 2);
 
 require_once("../codeup_res/database.php");
 
@@ -267,7 +267,7 @@ class ProblemStatementsStorage {
             $sql = "SELECT problem_statement_id, problem_statement_name, difficulty, points
                     FROM problem_statements WHERE category_id=:category_id ORDER BY
                     problem_statement_id ASC LIMIT :skip, :results_per_page";
-            $statement = $connection->prepare($sql);    
+            $statement = $connection->prepare($sql);
             $skip = (int)($page_num - 1) * RESULTS_PER_PAGE;
             $results_per_page = (int)RESULTS_PER_PAGE;
             $statement->bindParam(':results_per_page', $results_per_page, PDO::PARAM_INT);
@@ -325,6 +325,15 @@ class ProblemStatementsStorage {
         return $result;
     }
 
+    public static function get_problem_statement_id($problem_name, $category_id) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT problem_statement_id FROM problem_statements WHERE problem_statement_name=:name AND category_id=:id";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['name' => $problem_name,'id' => $category_id]);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result['problem_statement_id'];
+    }
+
     /**
      * [get_sample_test_case returns sample input and sample output of the problem statement that is found with problem_id]
      * @param  int $problem_id
@@ -378,8 +387,9 @@ class ProblemStatementsStorage {
         $row = $statement->fetch();
         if($row != FALSE) {
             $sql = "UPDATE users_track_points SET points=points+:points WHERE username=:username AND track_name=:track_name";
-                    $statement->execute(['points' => $points,'username' => $username, 'track_name' => $track_name]);
-                    return;
+            $statement = $connection->prepare($sql);
+            $statement->execute(['username' => $username, 'track_name' => $track_name, 'points' => $points]);
+            return;
         }
         $sql = "INSERT INTO users_track_points(username, track_name, points)
                         VALUES(:username, :track_name, :points)";
