@@ -128,7 +128,7 @@ abstract class Controller {
      * @param  int $category_id [category id is used to find all problem statements that belong to that category]
      * @return void
      */
-    private function render_problem_statements($category_id) {
+    private function render_problem_statements($category_id, $solved) {
         $problem_statements = ProblemStatementsStorage::get_problem_statements($category_id, (int)$_GET['page']);
         foreach ($problem_statements as $problem_statement) {
             $problem_id = $problem_statement['problem_statement_id'];
@@ -146,8 +146,15 @@ abstract class Controller {
                           <span class="value">' . $problem_max_score . '</span>
                         </span>
                       </span>
-                      <a href="problem_statement?id=' . $problem_id . '" class="submit-button">
-                        <button type="submit">Solve</button>
+                      <a href="problem_statement?id=' . $problem_id . '" class="submit-button">';
+
+            if(in_array($problem_id, $solved))
+                echo '  <button type="submit">Solved</button>
+                      </a>
+                    </div>
+                  </li>';
+            else
+                echo '  <button type="submit">Solve</button>
                       </a>
                     </div>
                   </li>';
@@ -234,7 +241,9 @@ abstract class Controller {
 
         $category_url = $_GET['category'];
         $category_id = ProblemStatementsStorage::get_category_id($track_id, $category_url);
-
+        $solved_problem_statements = array();
+        if(isset($_SESSION['username']))
+            $solved_problem_statements = ProblemStatementsStorage::solved_problem_statements($_SESSION['username']);
         require_once("../codeup_res/views/track.php");
 
     }
