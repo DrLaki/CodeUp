@@ -142,12 +142,12 @@ class GuestController extends Controller{
         }
         else if (!$this->all_field_are_filled()){
             $error_message = "Please, fill in the form.";
-            $countries = AccountManager::get_countries();
+            $countries = CountryManager::get_countries();
             require_once("../codeup_res/views/register.php");
         }
         else if (!$this->password_confirm_matches_password()){
             $error_message = "Passwords do not match.";
-            $countries = AccountManager::get_countries();
+            $countries = CountryManager::get_countries();
             require_once("../codeup_res/views/register.php");
         }
         else {
@@ -274,7 +274,6 @@ class GuestController extends Controller{
             require_once("../codeup_res/models/account_manager.php");
             $email = $_GET['email'];
             $registration_token = $_GET['registration_token'];
-            echo $email." ".$registration_token;
             if(AccountManager::email_and_registration_token_exist($email, $registration_token)) {
                 AccountManager::update_account_status($email);
                 echo '<div class="container container-main">

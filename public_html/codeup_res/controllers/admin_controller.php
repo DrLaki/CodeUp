@@ -82,7 +82,28 @@ class AdminController extends Controller{
     public function user_profile() {
         require_once("../codeup_res/models/account_manager.php");
         require_once("../codeup_res/models/problem_statements_storage.php");
-        $username = $_SESSION['username'];
+        if(isset($_POST['delete'])){
+            $username = $_SESSION['username'];
+            AccountManager::delete_user($username);
+            session_destroy();
+            header("Location: ./");
+        }
+        $username = "";
+        $account_type = "";
+        if(isset($_POST['promote'])) {
+            AccountManager::promote_user($_POST['username']);
+        }
+        if(isset($_GET['id'])) {
+            $username = AccountManager::get_username_by_user_id($_GET['id']);
+            if($username == FALSE) {
+                require_once("../codeup_res/views/error404.php");
+                return;
+            }
+        }
+        else {
+            $username = $_SESSION['username'];
+        }
+        $account_type = AccountManager::get_user_type($username);
         $country_and_points = AccountManager::get_country_and_points($username);
         $country = $country_and_points['country'];
         $points = $country_and_points['points'];
@@ -185,6 +206,8 @@ class AdminController extends Controller{
 
     private function new_form_problem_statement() {
         if(isset($_POST['category'])) {
+            if($_POST['category'] == 'default')
+                header("Location: add_content");
             $_SESSION['category'] = $_POST['category'];
             echo
             '<h2 class="form-title">New Problem Statement</h2>
@@ -202,6 +225,8 @@ class AdminController extends Controller{
             </form>';
         }
         else if(isset($_POST['track'])) {
+            if($_POST['track'] == 'default')
+                header("Location: add_content");
             $this->choose_category("add-problem-statement");
         }
         else {
@@ -211,6 +236,8 @@ class AdminController extends Controller{
 
     private function new_form_test_case() {
         if(isset($_POST['problem'])) {
+            if($_POST['problem'] == 'default')
+                header("Location: add_content");
             $_SESSION['problem'] = $_POST['problem'];
             echo
                 '
@@ -227,9 +254,13 @@ class AdminController extends Controller{
                 ';
         }
         else if(isset($_POST['category'])) {
+            if($_POST['category'] == 'default')
+                header("Location: add_content");
             $this->choose_problem_statement();
         }
         else if(isset($_POST['track'])) {
+            if($_POST['track'] == 'default')
+                header("Location: add_content");
             $this->choose_category("add-test-case");
         }
         else {
@@ -263,18 +294,20 @@ class AdminController extends Controller{
         $track_url = str_replace(" ", "_",strtolower($track_name));
         if(!ProblemStatementsStorage::track_exists($track_name)){
             ProblemStatementsStorage::add_new_track($track_name, $track_url);
+            $track = ProblemStatementsStorage::get_track_by_url($track_url);
+            $track_id = $track['track_id'];
+            ProblemStatementsStorage::add_new_category('WarmUp', 'warmup', $track_id);
             $php_code ='<?php
-                require_once("../codeup_res/helpers.php");
-                require_once("../codeup_res/choose_controller.php");
-                render("header", array(
-                    "title" => "' . $track_name . '",
-                    "css" => array("css/style.css", "css/track.css"),
-                    "navigation" => $controller->header_navigation()
-                ));
-                $controller->track("' . $track_url . '");
-                render("footer");
-                ?>
-                ';
+require_once("../codeup_res/helpers.php");
+require_once("../codeup_res/choose_controller.php");
+render("header", array(
+    "title" => "' . $track_name . '",
+    "css" => array("css/style.css", "css/track.css"),
+    "navigation" => $controller->header_navigation()
+));
+$controller->track("' . $track_url . '");
+render("footer");
+?>';
             file_put_contents("./$track_url.php", $php_code);
         }
         else {
@@ -309,6 +342,8 @@ class AdminController extends Controller{
         $category_id = $_SESSION['category'];
         if(!ProblemStatementsStorage::problem_statement_exists($problem_name, $category_id)) {
             ProblemStatementsStorage::add_new_problem_statement($problem_name, $description, $points, $difficulty, $sample_input, $sample_output, $exec_time, $category_id);
+            $problem_statement_id = ProblemStatementsStorage::get_problem_statement_id($problem_name, $category_id);
+            ProblemStatementsStorage::add_new_test_case($sample_input, $sample_output, $exec_time, $problem_statement_id);
         }
         else {
             require_once("../codeup_res/templates.php");

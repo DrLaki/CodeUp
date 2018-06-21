@@ -211,6 +211,28 @@ class AccountManager {
         return $row['username'];
     }
 
+    public static function promote_user($username) {
+        $connection = DatabaseConnection::connection();
+        $sql = "UPDATE users SET account_type='admin' WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+    }
+
+    public static function delete_user($username) {
+        $connection = DatabaseConnection::connection();
+        $sql = "DELETE FROM users WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+
+        $sql = "DELETE FROM users_track_points WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+
+        $sql = "DELETE FROM solved_problem_statements WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+    }
+
 }
 
 ?>

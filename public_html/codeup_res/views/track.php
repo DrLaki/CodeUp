@@ -16,7 +16,7 @@
             <?php $this->render_problem_statements($category_id) ?>
           </ul>
           <div class="page-nav">
-            <?php $this->render_navigation($category_id) ?>
+            <?php $this->render_navigation($category_id, $track_url, $category_url) ?>
               <!-- <button type="button" disabled="true" class="prev-page">Prev</button>
               <button type="button" disabled="true" class="next-page">Next</button> -->
           </div>

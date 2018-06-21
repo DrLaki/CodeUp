@@ -159,7 +159,7 @@ abstract class Controller {
      * @param  int $category_id [this function uses category id to get the number of all problems in given category]
      * @return void
      */
-    private function render_navigation($category_id) {
+    private function render_navigation($category_id, $track_url, $category_url) {
         $problem_statements_count = ProblemStatementsStorage::count_problem_statements_in_category($category_id);
         $first_page = 1;
         $last_page = ceil((float)$problem_statements_count / (float)RESULTS_PER_PAGE);
@@ -167,25 +167,25 @@ abstract class Controller {
             return;
         //user delibaretly modifies page parameter of the GET request
         else if((int)$_GET['page'] > $last_page) {
-            echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . $first_page . '" class="page">first</a></i>';
-            echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . $last_page . '" class="page">last</a></i>';
+            echo '<i class="material-icons"><a href="' . $track_url . '?category=' . $category_url . '&page=' . $first_page . '" class="page">first</a></i>';
+            echo '<i class="material-icons"><a href="' . $track_url . '?category=' . $category_url . '&page=' . $last_page . '" class="page">last</a></i>';
         }
         //if on the first page show only next and last
         else if((int)$_GET['page'] == 1) {
-            echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . ((int)$_GET['page'] + 1) . '" class="page">next</a></i>';
-            echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . $last_page . '" class="page">last</a></i>';
+            echo '<i class="material-icons"><a href="' . $track_url . '?category=' . $category_url . '&page=' . ((int)$_GET['page'] + 1) . '" class="page">next</a></i>';
+            echo '<i class="material-icons"><a href="' . $track_url . '?category=' . $category_url . '&page=' . $last_page . '" class="page">last</a></i>';
         }
         //if on the last page show only first and previous
         else if((int)$_GET['page'] == (int)$last_page) {
-            echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . $first_page . '" class="page">first</a></i>';
-            echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . ($last_page - 1) . '" class="page">previous</a></i>';
+            echo '<i class="material-icons"><a href="' . $track_url . '?category=' . $category_url . '&page=' . $first_page . '" class="page">first</a></i>';
+            echo '<i class="material-icons"><a href="' . $track_url . '?category=' . $category_url . '&page=' . ($last_page - 1) . '" class="page">previous</a></i>';
         }
         //show whole navigation panel
         else {
-            echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . $first_page . '" class="page">first</a></i>';
-            echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . ((int)$_GET['page'] + 1) . '" class="page">next</a></i>';
-            echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . ((int)$_GET['page'] - 1) . '" class="page">previous</a></i>';
-            echo '<i class="material-icons"><a href="' . $track_name . '?category=' . $category_name . '&page=' . $last_page . '" class="page">last</a></i>';
+            echo '<i class="material-icons"><a href="' . $track_url . '?category=' . $category_url . '&page=' . $first_page . '" class="page">first</a></i>';
+            echo '<i class="material-icons"><a href="' . $track_url . '?category=' . $category_url . '&page=' . ((int)$_GET['page'] - 1) . '" class="page">previous</a></i>';
+            echo '<i class="material-icons"><a href="' . $track_url . '?category=' . $category_url . '&page=' . ((int)$_GET['page'] + 1) . '" class="page">next</a></i>';
+            echo '<i class="material-icons"><a href="' . $track_url . '?category=' . $category_url . '&page=' . $last_page . '" class="page">last</a></i>';
         }
     }
 

@@ -1,8 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', ()=> {
     editor = CodeMirror(document.getElementById("codeeditor"), {
-        value : "/*\nMode - CSS.\nType your code below\n*/",
-        mode: "css",
+        value : "# Mode:Python\n# Type your code bellow.",
+        mode: {name: "python", version: 3},
         theme: "neo",
         lineNumbers: true
     });
@@ -18,7 +18,8 @@ function compile(type){
     var url = new URL(window.location.href);
     var url_parameters = new URLSearchParams(url.search.slice(1));
     var id = url_parameters.get("id");
-    var code = editor.getValue();
+    var code = encodeURI(editor.getValue());
+    code = code.split("+").join("%2B");
     var language = "python";
     var xml_http_request = new XMLHttpRequest();
     xml_http_request.onreadystatechange = function() {
