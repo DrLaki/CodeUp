@@ -105,6 +105,15 @@ class AccountManager {
         return $result['account_type'];
     }
 
+    public static function get_user_info($username){
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT * from users where username=:username";
+        $query = $connection->prepare($sql);
+        $query->execute(['username' => $username]);
+        $user_info = $query->fetch();
+        return $user_info;
+    }
+
     /**
      * [email_and_registration_token_exist checks if registration token is in user table row which is found by the user's email address]
      * @param  string $email              [user's email addres]
@@ -201,6 +210,7 @@ class AccountManager {
         }
         return $row['username'];
     }
+
 }
 
 ?>

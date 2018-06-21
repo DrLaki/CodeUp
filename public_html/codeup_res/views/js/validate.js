@@ -1,7 +1,9 @@
 
 function validate_login_form() {
-    var username = document.getElementsByClassName('login-form').username.value;
-    console.log(username);
+    alert("Uspesno pozvan js kod za validaciju login forme!");
+    var form = document.getElementsByClassName('login-form');
+    console.log(form);
+    // console.log(username);
     if (username.length <= 4){
         alert('Username too short!!!!!');
         return false;

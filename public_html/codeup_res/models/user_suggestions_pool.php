@@ -22,22 +22,56 @@ class UserSuggestionsPool {
 
     public static function fetch_all_bug_reports(){
         $connection = DatabaseConnection::connection();
-        $query_text = "SELECT bug_report_id, bug_report_title, bug_report_message, username FROM bug reports";
+        // bug_report_id 	bug_report_title 	bug_report_message 	username
+        $query_text = "SELECT bug_report_id, bug_report_title, bug_report_message, username FROM bug_reports";
         $query = $connection->prepare($query_text);
         $query->execute();
         $bug_reports = array();
         $query_result = $query->fetchAll();
         foreach ($query_result as $row) {
-            $bug_reports[$row['bug_report_id']] =
-                array($row['bug_report_title'], $row['bug_report_message'], $row['username']);
+            array_push($bug_reports,
+                array('title' => $row['bug_report_title'],
+                'body' => $row['bug_report_message'],
+                'author' => $row['username'],
+                'bug_id' => $row['bug_report_id']));
         }
         return $bug_reports;
     }
 
 
-    private static function fetch_all ($table_name, $fields){
-
+    public static function accept_bug_report($bug_id){
+        //TODO: notify developers
+        UserSuggestionsPool::delete_bug_report($bug_id);
     }
+
+    public static function reject_bug_report($bug_id){
+        UserSuggestionsPool::delete_bug_report($bug_id);
+    }
+
+    private static function delete_bug_report($id){
+        $connection = DatabaseConnection::connection();
+        $sql = "DELETE FROM bug_reports WHERE bug_report_id = :id";
+        $query = $connection->prepare($sql);
+        $query->execute(['id' => $id]);
+    }
+
+    public static function accept_feature_req($feature_req_id){
+        //TODO: notify developers
+        UserSuggestionsPool::delete_feature_req($feature_req_id);
+    }
+
+    public static function reject_feature_req($feature_req_id){
+        UserSuggestionsPool::delete_feature_req($feature_req_id);
+    }
+
+
+    private static function delete_feature_req($id){
+        $connection = DatabaseConnection::connection();
+        $sql = "DELETE FROM feature_requests WHERE feature_request_id = :id";
+        $query = $connection->prepare($sql);
+        $query->execute(['id' => $id]);
+    }
+
 }
 
 ?>

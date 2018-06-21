@@ -233,7 +233,6 @@ class GuestController extends Controller{
         else {
             $username = $_POST['username'];
             $password = $_POST['password'];
-
             $this->verify_login($username, $password);
         }
     }
@@ -292,21 +291,20 @@ class GuestController extends Controller{
 
 
     //these are function that User or Admin implement
+    public function show_bug_reports(){
+        require_once("../codeup_res/views/error404.php");
+    }
     public function user_profile() {
         require_once("../codeup_res/views/error404.php");
     }
-
     public function search_users() {
         require_once("../codeup_res/views/error404.php");
     }
-
     public function review_user_suggestions() {
         require_once("../codeup_res/views/error404.php");
     }
-
     public function add_content() {
         require_once("../codeup_res/views/error404.php");
     }
-
 }
 ?>

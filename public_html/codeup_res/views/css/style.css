@@ -47,6 +47,29 @@ section#main {
     padding-bottom: 50px;
 }
 
+.error-msg {
+    margin: 50px auto;
+    text-align: center;
+    padding: 25px;
+    width:100%;
+    background-color: #cc4444b3;
+    color: white;
+    box-sizing: border-box;
+    border-radius: 15px;
+    font-size: 1.3em;
+}
+.success-msg {
+    margin: 50px auto;
+    text-align: center;
+    padding: 25px;
+    width: 100%;
+    background-color: #2d8c2de6;
+    color: white;
+    box-sizing: border-box;
+    border-radius: 15px;
+    font-size: 1.3em;
+}
+
 
 /* various classe used for changing position/display of elements */
 .block {
@@ -499,7 +522,7 @@ header .search-button{
 }
 .submission {
     width: 80%;
-    margin: 0px auto 10px;
+    margin: 0px auto 60px;
     padding: 10px 20px;
     min-width: 500px;
     font-size: 1.2em;
@@ -533,13 +556,10 @@ header .search-button{
     border-radius: 8px;
 }
 .control-buttons button[name="decline"]{
-    background-color: red;
-}
-.control-buttons button[name="pass"]{
-    background-color: grey;
+    background-color: #cc4444;
 }
 .control-buttons button[name="accept"]{
-    background-color: green;
+    background-color: #2d8c2d;
 }
 
 /* end user sumbission styling */

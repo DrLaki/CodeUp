@@ -264,8 +264,10 @@ class ProblemStatementsStorage {
         }
         else {
             $connection = DatabaseConnection::connection();
-            $sql = "SELECT problem_statement_id, problem_statement_name, difficulty, points FROM problem_statements WHERE category_id=:category_id ORDER BY problem_statement_id ASC LIMIT :skip, :results_per_page";
-            $statement = $connection->prepare($sql);
+            $sql = "SELECT problem_statement_id, problem_statement_name, difficulty, points
+                    FROM problem_statements WHERE category_id=:category_id ORDER BY
+                    problem_statement_id ASC LIMIT :skip, :results_per_page";
+            $statement = $connection->prepare($sql);    
             $skip = (int)($page_num - 1) * RESULTS_PER_PAGE;
             $results_per_page = (int)RESULTS_PER_PAGE;
             $statement->bindParam(':results_per_page', $results_per_page, PDO::PARAM_INT);

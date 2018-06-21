@@ -37,7 +37,7 @@ class AdminController extends Controller{
             $selection = $_POST['selection'];
             $sent_by_user = $_SESSION['username'];
             require_once("../codeup_res/models/user_suggestions_pool.php");
-            if($selection == "Report a problem") {
+            if($selection == "report-problem") {
                 UserSuggestionsPool::add_bug_report($title, $form_content, $sent_by_user);
             }
             else {
@@ -90,7 +90,26 @@ class AdminController extends Controller{
         require_once("../codeup_res/views/profile.php");
     }
 
-    public function review_user_suggestions() {
+    public function show_bug_reports() {
+        require_once("../codeup_res/models/user_suggestions_pool.php");
+        require_once("../codeup_res/models/account_manager.php");
+        $bug_reports = UserSuggestionsPool::fetch_all_bug_reports();
+        require_once("../codeup_res/templates.php");
+        echo "
+        <section id='main'>
+            <div class='submissions-container'> " ;
+        foreach ($bug_reports as $bug){
+            $username = $bug['author'];
+            $bug_id = $bug['bug_id'];
+            $user_info = AccountManager::get_user_info($username);
+            $title = $bug['title'];
+            $body = $bug['body'];
+            echo template_bugReport($title, $user_info, $body, $bug_id);
+        }
+        echo "
+        </div>
+            <!-- all submissions end -->
+        </section>" ;
 
     }
 
@@ -178,7 +197,6 @@ class AdminController extends Controller{
                     <textarea name="input" type="text" required autocomplete="off">Sample Test Case Input ...</textarea>
                     <textarea name="output" required autocomplete="off">Sample Test Case Output ...</textarea>
                     <input name="time" type="text" required autocomplete="off" placeholder="ExecutionTime"/>
-
                     <input type="submit" class="login-button" name="add-new-problem" value="Add" />
                 </fieldset>
             </form>';
@@ -246,31 +264,22 @@ class AdminController extends Controller{
         if(!ProblemStatementsStorage::track_exists($track_name)){
             ProblemStatementsStorage::add_new_track($track_name, $track_url);
             $php_code ='<?php
-
-require_once("../codeup_res/helpers.php");
-require_once("../codeup_res/choose_controller.php");
-
-render("header", array(
-    "title" => "' . $track_name . '",
-    "css" => array("css/style.css", "css/track.css"),
-    "navigation" => $controller->header_navigation()
-));
-
-$controller->track("' . $track_url . '");
-
-render("footer");
-?>
-';
-
+                require_once("../codeup_res/helpers.php");
+                require_once("../codeup_res/choose_controller.php");
+                render("header", array(
+                    "title" => "' . $track_name . '",
+                    "css" => array("css/style.css", "css/track.css"),
+                    "navigation" => $controller->header_navigation()
+                ));
+                $controller->track("' . $track_url . '");
+                render("footer");
+                ?>
+                ';
             file_put_contents("./$track_url.php", $php_code);
         }
         else {
-            echo
-            '
-            <p style="text-align:center;color:red">
-                Track with that name already exists.
-            </p>
-            ';
+            require_once("../codeup_res/templates.php");
+            echo template_ErrorMsg("Track with that name already exists.");
             exit;
         }
     }
@@ -283,12 +292,8 @@ render("footer");
             ProblemStatementsStorage::add_new_category($category_name, $category_url, $track_id);
         }
         else {
-            echo
-            '
-            <p style="text-align:center;color:red">
-                Category with that name already exists.
-            </p>
-            ';
+            require_once("../codeup_res/templates.php");
+            echo template_ErrorMsg("Category with that name already exists.");
             exit;
         }
     }
@@ -306,12 +311,8 @@ render("footer");
             ProblemStatementsStorage::add_new_problem_statement($problem_name, $description, $points, $difficulty, $sample_input, $sample_output, $exec_time, $category_id);
         }
         else {
-            echo
-            '
-            <p style="text-align:center;color:red">
-                Problem with that name already exists.
-            </p>
-            ';
+            require_once("../codeup_res/templates.php");
+            echo template_ErrorMsg("Problem with that name already exists.");
             exit;
         }
     }

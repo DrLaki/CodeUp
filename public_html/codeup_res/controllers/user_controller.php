@@ -106,25 +106,21 @@ class UserController extends Controller {
 
 
     //these are the functions that Admin or Guest implement
+    public function show_bug_reports(){
+        require_once("../codeup_res/views/error404.php");
+    }
     public function account_confirmation() {
         require_once("../codeup_res/views/error404.php");
     }
-
-
     public function register() {
         require_once("../codeup_res/views/error404.php");
     }
-
-
     public function login() {
         require_once("../codeup_res/views/error404.php");
     }
-
-
     public function review_user_suggestions() {
         require_once("../codeup_res/views/error404.php");
     }
-
     public function add_content() {
         require_once("../codeup_res/views/error404.php");
     }

@@ -239,28 +239,14 @@ abstract class Controller {
 
     }
 
-    public function fetch_bug_reports() {
-        require_once("../codeup_res/models/user_suggestions_pool.php");
-        $bug_reports = UserSuggestionsPool::fetch_all_bug_reports();
-        print_r($bug_reports);
-    }
-
+    protected abstract function show_bug_reports();
     protected abstract function support();//done
-
     protected abstract function register();//done
-
     protected abstract function login();//done
-
     protected abstract function account_confirmation();//done
-
     protected abstract function user_profile();
-
     protected abstract function search_users();
-
-    protected abstract function review_user_suggestions();
-
     protected abstract function add_content();
-
 }
 
  ?>

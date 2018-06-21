@@ -3,8 +3,6 @@
     <div class="form-container">
         <h2 class="form-title">Search Results</h2>
         <form id="support-form" class="search-form" action="search" method="get">
-            <!-- Treba promeniti action atribut forme da vodi ka skripti
-            koja ce da handle-uje user input. -->
             <input type="search" class="search-bar" placeholder="Search.." name="username">
               <button class="search-button">
                   <i class="fa fa-search"></i>
