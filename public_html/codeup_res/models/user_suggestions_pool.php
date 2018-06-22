@@ -38,6 +38,23 @@ class UserSuggestionsPool {
         return $bug_reports;
     }
 
+    public static function fetch_all_feature_requests() {
+        $connection = DatabaseConnection::connection();
+        // feature_request_id 	feature_request_title 	feature_request_message 	username
+        $query_text = "SELECT feature_request_id, feature_request_title, feature_request_message, username FROM feature_requests";
+        $query = $connection->prepare($query_text);
+        $query->execute();
+        $feature_requests = array();
+        $query_result = $query->fetchAll();
+        foreach ($query_result as $row) {
+            array_push($feature_requests,
+                array('title' => $row['feature_request_title'],
+                'body' => $row['feature_request_message'],
+                'author' => $row['username'],
+                'feature_id' => $row['feature_request_id']));
+        }
+        return $feature_requests;
+    }
 
     public static function accept_bug_report($bug_id){
         //TODO: notify developers

@@ -2,6 +2,14 @@
 
 require_once("../codeup_res/controllers/controller.php");
 
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../codeup_res/php_mailer/src/Exception.php';
+require '../codeup_res/php_mailer/src/PHPMailer.php';
+require '../codeup_res/php_mailer/src/SMTP.php';
+
 /**
  * AdminController class is used to render pages for admins of the platform
  */
@@ -43,8 +51,7 @@ class AdminController extends Controller{
             else {
                 UserSuggestionsPool::add_feature_request($title, $form_content, $sent_by_user);
             }
-            echo '<p style="text-align:center">You have successfully submited the form. You will be redirected in 5 seconds.</p>';
-            sleep(5);
+            sleep(2);
             header("Location: support");
             exit();
         }
@@ -132,6 +139,28 @@ class AdminController extends Controller{
             <!-- all submissions end -->
         </section>" ;
 
+    }
+
+    public function show_feature_requests() {
+        require_once("../codeup_res/models/user_suggestions_pool.php");
+        require_once("../codeup_res/models/account_manager.php");
+        $feature_requests = UserSuggestionsPool::fetch_all_feature_requests();
+        require_once("../codeup_res/templates.php");
+        echo "
+        <section id='main'>
+            <div class='submissions-container'> " ;
+        foreach ($feature_requests as $feature){
+            $username = $feature['author'];
+            $feature_id = $feature['feature_id'];
+            $user_info = AccountManager::get_user_info($username);
+            $title = $feature['title'];
+            $body = $feature['body'];
+            echo template_featureRequest($title, $user_info, $body, $feature_id);
+        }
+        echo "
+        </div>
+            <!-- all submissions end -->
+        </section>" ;
     }
 
     private function new_form_track() {
@@ -448,6 +477,75 @@ render("footer");
             }
         }
     }
+
+
+    private function send_email_to_developer($subject, $body, $email) {
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure= 'ssl';
+        $mail->Host = 'smtp.gmail.com';
+        $mail->Port = 465;
+        $mail->Username = 'pied.piper.codeup@gmail.com';
+        $mail->Password = 'pp_codeup';
+        $mail->SetFrom('no-reply@codeup.com');
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+        $mail->AddAddress($email);
+        if(!$mail->Send()) {
+            echo "Mailer error: " . $mail->ErrorInfo();
+        }
+    }
+
+    public function handle_suggestions() {
+        if (isset($_POST['submission-type'])){
+            $title = $_POST['title'];
+            $body = $_POST['body'];
+            $submission_type = $_POST['submission-type'];
+            if ($submission_type == 'bug-report'){
+                require_once("../codeup_res/models/user_suggestions_pool.php");
+                require_once("../codeup_res/models/developers.php");
+                $bug_id = $_POST['submission-id'];
+                if(isset($_POST['accept'])) {
+                    UserSuggestionsPool::accept_bug_report($bug_id);
+                    $emails = Developers::get_all_developer_emails();
+                    foreach ($emails as $email) {
+                        $this->send_email_to_developer("Bug Report - $title", $body, $email);
+                    }
+                }
+                else {
+                    UserSuggestionsPool::reject_bug_report($bug_id);
+                }
+            }
+            else if ($submission_type == 'feature-request'){
+                require_once("../codeup_res/models/user_suggestions_pool.php");
+                require_once("../codeup_res/models/developers.php");
+                $feature_req_id = $_POST['submission-id'];
+                if(isset($_POST['accept'])) {
+                    UserSuggestionsPool::accept_feature_req($feature_req_id);
+                    $emails = Developers::get_all_developer_emails();
+                    foreach ($emails as $email) {
+                        $this->send_email_to_developer("Feature Request - $title", $body, $email);
+                    }
+                }
+                else {
+                    UserSuggestionsPool::reject_feature_req($feature_req_id);
+                }
+
+            }
+            else {
+                echo template_ErrorMsg("Submission type is neither bug-report nor feature-request.");
+            }
+            //Tehnici nisam proverio da li je doslo do neke greske sa bazom, to svakako treba uraditi
+            echo template_SuccessMsg("Success!!");
+        }
+        else {
+            echo "Some kind of error occured!!!!";
+            require_once("../codeup_res/templates.php");
+            echo templatePage_ErrorMsg("Access denied");
+        }
+    }
+
 
 
     //these are functions that Guest implements

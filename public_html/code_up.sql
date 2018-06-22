@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 22, 2018 at 02:57 AM
+-- Generation Time: Jun 22, 2018 at 05:15 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -333,6 +333,24 @@ INSERT INTO `categories` (`category_id`, `category_name`, `track_id`, `category_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `developers`
+--
+
+CREATE TABLE `developers` (
+  `email` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `developers`
+--
+
+INSERT INTO `developers` (`email`) VALUES
+('dexa96@gmail.com'),
+('ivanlausevic96@gmail.com');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `feature_requests`
 --
 
@@ -342,13 +360,6 @@ CREATE TABLE `feature_requests` (
   `feature_request_message` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `feature_requests`
---
-
-INSERT INTO `feature_requests` (`feature_request_id`, `feature_request_title`, `feature_request_message`, `username`) VALUES
-(1, 'Feature', 'Feature', 'dexa96');
 
 -- --------------------------------------------------------
 
@@ -498,7 +509,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `country_id`, `account_type`, `points`, `active`, `registration_token`) VALUES
-(12, 'dexa', '$2y$10$PVMeYDFlIra/dEUg1jIe0eol7MBVb3uj8iAj9OfHT5gPWaTcm8FP.', 'dexa96@gmail.com', 230, 'admin', 145, 1, '58e524779ea0d1a31b734010b8e6cad2a91ae8abdf341963aadcd28e6b36b815');
+(12, 'dexa', '$2y$10$dC50bhnMO1Q/fCMqVfnnpe6Qg2w6NQe9NcrTN/xmtm6Y6IfUiFtZi', 'dexa96@gmail.com', 230, 'admin', 145, 1, '58e524779ea0d1a31b734010b8e6cad2a91ae8abdf341963aadcd28e6b36b815'),
+(13, 'dejan', '$2y$10$6duLm0HCWhG/OTlFodtViOX.YImyWHP7dA3JMvM90Naa3sde9A4hG', 'kosanovic.dejan96@gmail.com', 230, 'user', 0, 1, '116696767284b054d6bd68f2bc3f569c0a2ded883b156b635de4b108bd9c148c');
 
 -- --------------------------------------------------------
 
@@ -602,7 +614,7 @@ ALTER TABLE `apps_countries`
 -- AUTO_INCREMENT for table `bug_reports`
 --
 ALTER TABLE `bug_reports`
-  MODIFY `bug_report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `bug_report_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -614,7 +626,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `feature_requests`
 --
 ALTER TABLE `feature_requests`
-  MODIFY `feature_request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `feature_request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `problem_statements`
@@ -638,7 +650,7 @@ ALTER TABLE `tracks`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

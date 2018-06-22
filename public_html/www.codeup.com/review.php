@@ -9,5 +9,6 @@ render('header', array(
     'navigation' => $controller->header_navigation()
 ));
 $controller->show_bug_reports();
+$controller->show_feature_requests();
 render('footer');
 ?>

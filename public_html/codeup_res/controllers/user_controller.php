@@ -43,8 +43,7 @@ class UserController extends Controller {
             else {
                 UserSuggestionsPool::add_feature_request($title, $form_content, $sent_by_user);
             }
-            echo '<p style="text-align:center">You have successfully submited the form. You will be redirected in 5 seconds.</p>';
-            sleep(5);
+            sleep(2);
             header("Location: support");
             exit();
         }
@@ -152,6 +151,12 @@ class UserController extends Controller {
     }
 
     //these are the functions that Admin or Guest implement
+    public function handle_suggestions() {
+        require_once("../codeup_res/views/error404.php");
+    }
+    public function show_feature_requests(){
+        require_once("../codeup_res/views/error404.php");
+    }
     public function show_bug_reports(){
         require_once("../codeup_res/views/error404.php");
     }

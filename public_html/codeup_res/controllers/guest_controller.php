@@ -288,6 +288,12 @@ class GuestController extends Controller{
 
 
     //these are function that User or Admin implement
+    public function handle_suggestions() {
+        require_once("../codeup_res/views/error404.php");
+    }
+    public function show_feature_requests(){
+        require_once("../codeup_res/views/error404.php");
+    }
     public function show_bug_reports(){
         require_once("../codeup_res/views/error404.php");
     }

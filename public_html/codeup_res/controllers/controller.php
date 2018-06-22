@@ -248,7 +248,8 @@ abstract class Controller {
         require_once("../codeup_res/views/track.php");
 
     }
-
+    protected abstract function handle_suggestions();
+    protected abstract function show_feature_requests();
     protected abstract function show_bug_reports();
     protected abstract function support();//done
     protected abstract function register();//done

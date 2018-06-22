@@ -42,7 +42,7 @@ function template_userSubmission($title, $user_info, $body, $submission_id, $sub
         $user_id = $user_info['user_id'];
         $link_to_profile = "profile?id=" . $user_id;
         return "
-        <form class='form submission' method='post' action='test'>
+        <form class='form submission' method='post' action='suggestions'>
             <h4 class='title'> $title </h4>
             <h5 class='author'> By: <a href=$link_to_profile class='profile-link'>$username</a></h5>
             <p class='text'>
@@ -56,6 +56,8 @@ function template_userSubmission($title, $user_info, $body, $submission_id, $sub
                     Accept
                 </button>
             </div>
+            <input type='hidden' name='title' value='" . $title . "'/>
+            <input type='hidden' name='body' value='" . $body . "'/>
             <input type='hidden' name='submission-type' value='" . $submission_type .  "' />
             <input type='hidden' name='submission-id' value='" . $submission_id . "' />
         </form> "

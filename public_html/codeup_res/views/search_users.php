@@ -23,7 +23,7 @@
                 }
             }
             else {
-                echo "<p>Sorry, we could not find the user you are searching for.</p>";
+                echo "<p style='text-align:center'>Sorry, we could not find the user you are searching for.</p>";
             }
         ?>
     </div>
