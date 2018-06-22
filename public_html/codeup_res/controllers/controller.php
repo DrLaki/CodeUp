@@ -1,5 +1,6 @@
 <?php
 
+define('MIN_PASSWORD_LEN', 8);
 
 abstract class Controller {
 
@@ -256,6 +257,7 @@ abstract class Controller {
     protected abstract function user_profile();
     protected abstract function search_users();
     protected abstract function add_content();
+    protected abstract function change_password();
 }
 
  ?>

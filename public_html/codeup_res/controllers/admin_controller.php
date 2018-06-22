@@ -410,6 +410,46 @@ render("footer");
         require_once("../codeup_res/views/add_content.php");
     }
 
+
+    public function change_password() {
+        require_once("../codeup_res/models/account_manager.php");
+        if(!isset($_POST['submit'])){
+            $error_message = "";
+            require_once("../codeup_res/views/change_password.php");
+            exit;
+        }
+        if(empty($_POST['old_password']) || empty($_POST['new_password']) || empty($_POST['new_confirm_password'])){
+            $error_message = "Please, fill out all of the fields.";
+            require_once("../codeup_res/views/change_password.php");
+        }
+        else{
+            $username = $_SESSION['username'];
+            $old_password = $_POST['old_password'];
+            $new_password = $_POST['new_password'];
+            $confirm_password = $_POST['new_confirm_password'];
+            $hashed_password = AccountManager::get_hashed_password($username);
+            if(!password_verify($old_password, $hashed_password)){
+                $error_message = "Incorrect old password.";
+                require_once("../codeup_res/views/change_password.php");
+            }
+            else if($new_password != $confirm_password) {
+                $error_message = "New password and confirmation password do not match.";
+                require_once("../codeup_res/views/change_password.php");
+            }
+            else if(strlen($new_password) < MIN_PASSWORD_LEN) {
+                $error_message = "Password needs to be at least ".MIN_PASSWORD_LEN." characters long.";
+                require_once("../codeup_res/views/change_password.php");
+            }
+            else {
+                $new_password = password_hash($new_password, PASSWORD_DEFAULT);
+                AccountManager::update_password($username, $new_password);
+                $error_message = "You have successfully changed your password";
+                require_once("../codeup_res/views/change_password.php");
+            }
+        }
+    }
+
+
     //these are functions that Guest implements
     public function account_confirmation() {
         require_once("../codeup_res/views/error404.php");

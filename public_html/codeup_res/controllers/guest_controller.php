@@ -2,8 +2,6 @@
 
 require_once("../codeup_res/controllers/controller.php");
 
-define('MIN_PASSWORD_LEN', 8);
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -303,6 +301,9 @@ class GuestController extends Controller{
         require_once("../codeup_res/views/error404.php");
     }
     public function add_content() {
+        require_once("../codeup_res/views/error404.php");
+    }
+    public function change_password() {
         require_once("../codeup_res/views/error404.php");
     }
 }
