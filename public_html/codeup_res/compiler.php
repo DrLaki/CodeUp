@@ -34,7 +34,7 @@ class Compiler{
 
             //run code
             $output = array();
-            exec("../codeup_res/user_code/python.sh $python_file '$test_case_input' $max_exec_time", $output);
+            exec("../codeup_res/user_code/python.sh '$python_file' '$test_case_input' $max_exec_time", $output);
             unlink($python_file);//delete python file
             $output = implode("\n", $output);
             if($output == $test_case_output) {

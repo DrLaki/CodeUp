@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 22, 2018 at 12:11 AM
+-- Generation Time: Jun 22, 2018 at 02:57 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.4
 
@@ -377,7 +377,12 @@ INSERT INTO `problem_statements` (`problem_statement_id`, `problem_statement_nam
 (3, 'Array Sum', 'Given an array of integers, find the sum of its elements.', 'Easy', 15, '6\r\n1 2 3 4 10 11', '31', 1, 0.2),
 (4, 'Fibonacci', 'Given a number n, print n-th Fibonacci Number.', 'Easy', 15, '7', '13', 1, 0.1),
 (5, 'Simple Maximum', 'Print out greater of two given values.', 'Easy', 5, '1 2', '2', 1, 0.1),
-(6, 'Array Minimum', 'Find the minimum of the given array.', 'Easy', 15, '0 1 2 3 4 5 6 7 -1', '-1', 1, 0.1);
+(6, 'Array Minimum', 'Find the minimum of the given array.', 'Easy', 15, '0 1 2 3 4 5 6 7 -1', '-1', 1, 0.1),
+(7, 'Intro to Arrays', 'Given an array,A , of N integers, print each element in reverse order as a single line of space-separated integers.', 'Easy', 15, '1 2 3 4', '4 3 2 1', 8, 0.1),
+(8, 'CamelCase', 'Alice wrote a sequence of words in CamelCase as a string of letters, s, having the following properties:\r\n\r\n    It is a concatenation of one or more words consisting of English letters.\r\n    All letters in the first word are lowercase.\r\n    For each of the subsequent words, the first letter is uppercase and rest of the letters are lowercase.\r\n\r\nGiven , print the number of words in on a new line.', 'Easy', 20, 'camelCase', '2', 2, 0.1),
+(9, 'Median', 'The median of a list of numbers is essentially it\'s middle element after sorting. The same number of elements occur after it as before. Given a list of numbers with an odd number of elements, can you find the median?', 'Easy', 20, '0 1 2 4 6 5 3', '3', 3, 0.1),
+(10, 'Combo String', 'Given 2 strings, a and b, return a string of the form short+long+short, with the shorter string on the outside and the longer string on the inside. The strings will not be the same length.', 'Easy', 15, 'hello hi', 'hihellohi', 2, 0.1),
+(11, 'Simple Search', 'Given a list of distinct N numbers a1, a2, ... , an, find the position of the number K in the list.\r\nIndexing starts from zero.\r\nFirst input number is K, and the other ones represent the list.', 'Easy', 15, '3\r\n1 2 3 4 5 6 7 8', '2', 4, 0.1);
 
 -- --------------------------------------------------------
 
@@ -396,10 +401,15 @@ CREATE TABLE `solved_problem_statements` (
 
 INSERT INTO `solved_problem_statements` (`username`, `problem_statement_id`) VALUES
 ('dexa', 1),
+('dexa', 3),
 ('dexa', 4),
 ('dexa', 5),
 ('dexa', 6),
-('dexa96', 3);
+('dexa', 7),
+('dexa', 8),
+('dexa', 9),
+('dexa', 10),
+('dexa', 11);
 
 -- --------------------------------------------------------
 
@@ -431,7 +441,18 @@ INSERT INTO `test_cases` (`test_case_id`, `input`, `output`, `problem_statement_
 (9, '9 9', '9', 5, 0.1),
 (10, '123987 2144349', '2144349', 5, 0.1),
 (11, '0 1 2 3 4 5 6 7 -1', '-1', 6, 0.1),
-(12, '12 21 32 0 9 -1 -14 8 123455', '-14', 6, 0.1);
+(12, '12 21 32 0 9 -1 -14 8 123455', '-14', 6, 0.1),
+(13, '1 2 3 4', '4 3 2 1', 7, 0.1),
+(14, '1 5 8 3 23 93 5 4 1', '1 4 5 93 23 3 8 5 1', 7, 0.1),
+(15, 'camelCase', '2', 8, 0.1),
+(16, 'saveChangesInTheEditor', '5', 8, 0.2),
+(17, 'stringStringString', '3', 8, 0.1),
+(18, '0 1 2 4 6 5 3', '3', 9, 0.1),
+(19, '4 5 23 8 58 72 1 3 2', '5', 9, 0.1),
+(20, 'hello hi', 'hihellohi', 10, 0.1),
+(21, 'tac tick', 'tacticktac', 10, 0.1),
+(22, '3\r\n1 2 3 4 5 6 7 8', '2', 11, 0.1),
+(23, '14\r\n0 5 2 7 2 14 76', '5', 11, 0.1);
 
 -- --------------------------------------------------------
 
@@ -477,7 +498,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `country_id`, `account_type`, `points`, `active`, `registration_token`) VALUES
-(12, 'dexa', '$2y$10$PVMeYDFlIra/dEUg1jIe0eol7MBVb3uj8iAj9OfHT5gPWaTcm8FP.', 'dexa96@gmail.com', 230, 'admin', 60, 1, '58e524779ea0d1a31b734010b8e6cad2a91ae8abdf341963aadcd28e6b36b815');
+(12, 'dexa', '$2y$10$PVMeYDFlIra/dEUg1jIe0eol7MBVb3uj8iAj9OfHT5gPWaTcm8FP.', 'dexa96@gmail.com', 230, 'admin', 145, 1, '58e524779ea0d1a31b734010b8e6cad2a91ae8abdf341963aadcd28e6b36b815');
 
 -- --------------------------------------------------------
 
@@ -496,7 +517,8 @@ CREATE TABLE `users_track_points` (
 --
 
 INSERT INTO `users_track_points` (`username`, `track_name`, `points`) VALUES
-('dexa', 'Algorithms', 60);
+('dexa', 'Algorithms', 130),
+('dexa', 'Data Structures', 15);
 
 --
 -- Indexes for dumped tables
@@ -598,13 +620,13 @@ ALTER TABLE `feature_requests`
 -- AUTO_INCREMENT for table `problem_statements`
 --
 ALTER TABLE `problem_statements`
-  MODIFY `problem_statement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `problem_statement_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `test_cases`
 --
 ALTER TABLE `test_cases`
-  MODIFY `test_case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `test_case_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `tracks`

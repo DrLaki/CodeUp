@@ -3,8 +3,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
     editor = CodeMirror(document.getElementById("codeeditor"), {
         value : "# Mode:Python\n# Type your code bellow.",
         mode: {name: "python", version: 3},
-        theme: "neo",
-        lineNumbers: true
+        theme: "dracula",
+        lineNumbers: true,
+        tabSize:4,
+        indentUnit:4
     });
 })
 
