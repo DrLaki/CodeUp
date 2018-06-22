@@ -13,7 +13,7 @@
         </div>
         <div id="problem-statements">
           <ul>
-            <?php $this->render_problem_statements($category_id) ?>
+            <?php $this->render_problem_statements($category_id, $solved_problem_statements) ?>
           </ul>
           <div class="page-nav">
             <?php $this->render_navigation($category_id, $track_url, $category_url) ?>

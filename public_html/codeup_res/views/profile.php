@@ -28,6 +28,16 @@
                            <?php echo $country ?>
                        </span>
                    </p>
+                   <?php
+                        if($_SESSION['username'] == $username) {
+                            echo '
+                            <p style="text-align:left">
+                                <a href="change_password">Change Password</a>
+                            </p>
+                                 ';
+                        }
+                   ?>
+
                    <!-- <p>
                        <span class="field-name">Profession:</span>
                        <span class="field-value">Teaching Assistant</span>

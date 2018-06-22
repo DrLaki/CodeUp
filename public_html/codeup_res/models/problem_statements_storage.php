@@ -465,6 +465,19 @@ class ProblemStatementsStorage {
         $statement->execute(['input' => $input, 'output' => $output, 'id' => $problem_statement_id, 'exec_time' => $exec_time]);
     }
 
+    public static function solved_problem_statements($username) {
+        $connection = DatabaseConnection::connection();
+        $sql = "SELECT problem_statement_id FROM solved_problem_statements WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username]);
+        $solved = array();
+        $results = $statement->fetchAll();
+        foreach ($results as $result) {
+            $solved[] = $result['problem_statement_id'];
+        }
+        return $solved;
+    }
+
 }
 
 ?>

@@ -233,6 +233,13 @@ class AccountManager {
         $statement->execute(['username' => $username]);
     }
 
+    public static function update_password($username, $password) {
+        $connection = DatabaseConnection::connection();
+        $sql = "UPDATE users SET password=:password WHERE username=:username";
+        $statement = $connection->prepare($sql);
+        $statement->execute(['username' => $username, 'password' => $password]);
+    }
+
 }
 
 ?>
